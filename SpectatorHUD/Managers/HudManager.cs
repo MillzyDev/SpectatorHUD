@@ -10,29 +10,27 @@ namespace SpectatorHUD.Managers;
 [RegisterTypeInIl2Cpp]
 public class HudManager : MonoBehaviour
 {
-    private bool _finishedInject;
     private BonelabGameControl? _bonelabGameControl;
 
     private RigManager? _playerRigManager;
     private Health? _health;
+    
+    public HudManager(IntPtr ptr) : base(ptr) {}
 
     [Inject]
     public void Inject(BonelabGameControl bonelabGameControl)
     {
         _bonelabGameControl = bonelabGameControl;
-        _finishedInject = true;
-        Init();
     }
 
-    private void Init()
+    private void Start()
     {
         _playerRigManager = _bonelabGameControl!.PlayerRigManager;
         _health = _playerRigManager.health;
-        MelonLogger.Msg(_health);
     }
 
     private void Update()
     {
-        if (!_finishedInject) return;
+        MelonLogger.Msg($"{_health!.curr_Health}/{_health.max_Health}");
     }
 }
