@@ -365,6 +365,7 @@
             <Link>README.md</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
+        <EmbeddedResource Include="Resources\spectatorhud.bundle" />
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
