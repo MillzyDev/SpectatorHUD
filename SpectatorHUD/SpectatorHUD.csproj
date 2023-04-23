@@ -336,6 +336,7 @@
     </ItemGroup>
     
     <ItemGroup>
+        <Compile Include="Managers\AssetManager.cs" />
         <Compile Include="Managers\HudManager.cs" />
         <Compile Include="Mod.cs" />
         <Compile Include="Modules\SHGameModule.cs" />
