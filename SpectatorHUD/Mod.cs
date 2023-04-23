@@ -1,5 +1,7 @@
-﻿using Boneject;
+﻿using System;
+using Boneject;
 using MelonLoader;
+using SpectatorHUD.Managers;
 using SpectatorHUD.Modules;
 using UnityEngine;
 
@@ -10,14 +12,22 @@ public class Mod : MelonMod
     public override void OnInitializeMelon()
     {
         if (Application.platform != RuntimePlatform.WindowsPlayer)
-        {
-            MelonLogger.Msg("You are trying to use this on an unsupported version. Will not function.");
-            return;
-        }
-        
+            throw new PlatformNotSupportedException("SpectatorHUD only works on PC.");
+
         MelonLogger.Msg("Registering modules...");
+        
         var bonejector = Bonejector.Instance;
         bonejector.InstallModule<SHGameModule>(InstallLocation.Game);
+        
         MelonLogger.Msg("Finished melon initialization.");
+    }
+
+    public override void OnLateInitializeMelon()
+    {
+        GlobalDependencies.AddDependency(
+            new AssetManager<GameObject>(
+                "SpectatorHUD.Resources.spectatorhud.bundle",
+                "SpectatorHUD"
+            ));
     }
 }
