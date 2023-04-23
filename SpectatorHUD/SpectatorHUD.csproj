@@ -123,6 +123,9 @@
         <Reference Include="UnhollowerRuntimeLib">
           <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerRuntimeLib.dll</HintPath>
         </Reference>
+        <Reference Include="Unity.TextMeshPro">
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\Unity.TextMeshPro.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine">
           <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.dll</HintPath>
         </Reference>
