@@ -9,6 +9,6 @@ public class SHGameModule : NinjectModule
 {
     public override void Load()
     {
-        Bind<HudManager>().AsComponentOnNewGameObject().InSingletonScope();
+        this.BindComponentOnNewGameObject<HudManager>().InSingletonScope();
     }
 }
