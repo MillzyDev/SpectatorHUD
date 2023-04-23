@@ -1,0 +1,10 @@
+{
+  "name": "SpectatorHUD",
+  "version_number": "0.1.0",
+  "website_url": "https://github.com/MillzyDev/SpectatorHUD",
+  "description": "Adds a Half-Life: Alyx inspired HUD to the spectator view.",
+  "dependencies": [
+    "LavaGang-MelonLoader-0.5.7",
+    "Millzy-Boneject-0.2.0"
+  ]
+}
