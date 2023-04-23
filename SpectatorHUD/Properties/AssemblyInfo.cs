@@ -6,14 +6,14 @@ using SpectatorHUD;
 [assembly: AssemblyDescription("Adds a Half-Life: Alyx inspired HUD to the spectator view.")]
 [assembly: AssemblyProduct("SpectatorHUD")]
 
+[assembly: AssemblyVersion("0.1.0")]
+[assembly: AssemblyFileVersion("0.1.0")]
+
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany(null!)]
 [assembly: AssemblyTrademark(null!)]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
-
 [assembly: MelonInfo(typeof(Mod), "SpectatorHUD", "0.1.0", "Millzy")]
 [assembly: MelonGame("Stress Level Zero", "BONELAB")]
-[assembly: MelonAdditionalDependencies("Boneject")]
+[assembly: HarmonyDontPatchAll]
