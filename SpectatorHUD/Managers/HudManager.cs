@@ -3,6 +3,7 @@ using MelonLoader;
 using Ninject;
 using SLZ.Bonelab;
 using SLZ.Rig;
+using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
 namespace SpectatorHUD.Managers;
@@ -11,6 +12,9 @@ namespace SpectatorHUD.Managers;
 public class HudManager : MonoBehaviour
 {
     private BonelabGameControl? _bonelabGameControl;
+    private AssetManager<GameObject>? _uiAssetManager;
+
+    private GameObject? _uiAsset;
 
     private RigManager? _playerRigManager;
     private Health? _health;
@@ -18,13 +22,18 @@ public class HudManager : MonoBehaviour
     public HudManager(IntPtr ptr) : base(ptr) {}
 
     [Inject]
-    public void Inject(BonelabGameControl bonelabGameControl)
+    [HideFromIl2Cpp]
+    public void Inject(BonelabGameControl bonelabGameControl, AssetManager<GameObject> uiAssetManager)
     {
         _bonelabGameControl = bonelabGameControl;
+        _uiAssetManager = uiAssetManager;
+        MelonLogger.Msg($"UIAssetManager is null? {_uiAssetManager == null}");
     }
 
     private void Start()
     {
+        _uiAsset = Instantiate(_uiAssetManager!.Asset);
+        
         _playerRigManager = _bonelabGameControl!.PlayerRigManager;
         _health = _playerRigManager.health;
     }
