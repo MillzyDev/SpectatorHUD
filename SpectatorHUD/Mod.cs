@@ -12,7 +12,9 @@ public class Mod : MelonMod
     public override void OnInitializeMelon()
     {
         if (Application.platform != RuntimePlatform.WindowsPlayer)
-            throw new PlatformNotSupportedException("SpectatorHUD only works on PC.");
+            throw new PlatformNotSupportedException(
+                "SpectatorHUD only supports PC; there is no Spectator view on Quest, silly!"
+                );
 
         MelonLogger.Msg("Registering modules...");
         
