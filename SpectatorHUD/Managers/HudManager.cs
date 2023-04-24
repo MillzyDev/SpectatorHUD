@@ -27,7 +27,6 @@ public class HudManager : MonoBehaviour
     {
         _bonelabGameControl = bonelabGameControl;
         _uiAssetManager = uiAssetManager;
-        MelonLogger.Msg($"UIAssetManager is null? {_uiAssetManager == null}");
     }
 
     private void Start()
@@ -40,6 +39,6 @@ public class HudManager : MonoBehaviour
 
     private void Update()
     {
-        MelonLogger.Msg($"{_health!.curr_Health}/{_health.max_Health}");
+    
     }
 }
