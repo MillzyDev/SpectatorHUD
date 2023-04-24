@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using System.IO;
-using MelonLoader;
-using UnhollowerRuntimeLib;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -29,8 +27,8 @@ public class AssetManager<T> : IDisposable where T : Object
         using var memStream = new MemoryStream((int)stream!.Length);
         stream.CopyTo(memStream);
 
-        var assetBundle = AssetBundle.LoadFromMemory_Internal(memStream.ToArray(), 0);
-        assetBundle.hideFlags |= HideFlags.DontUnloadUnusedAsset;
+        var assetBundle = AssetBundle.LoadFromMemory(memStream.ToArray(), 0);
+        assetBundle!.hideFlags |= HideFlags.DontUnloadUnusedAsset;
         return assetBundle;
     }
 
