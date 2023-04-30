@@ -5,6 +5,6 @@
   "description": "Adds a Half-Life: Alyx inspired HUD to the spectator view.",
   "dependencies": [
     "LavaGang-MelonLoader-0.5.7",
-    "Millzy-Boneject-0.3.0"
+    "Millzy-Boneject-1.0.0"
   ]
 }
