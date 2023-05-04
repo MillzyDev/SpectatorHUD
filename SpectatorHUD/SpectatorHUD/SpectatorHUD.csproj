@@ -2,6 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    
     <PropertyGroup>
         
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -83,6 +84,7 @@
     </ItemGroup>
     
     <ItemGroup>
+        <Compile Include="Managers\AssetManager.cs" />
         <Compile Include="Managers\HUDManager.cs" />
         <Compile Include="Mod.cs" />
         <Compile Include="Modules\SHPlayerModule.cs" />
@@ -94,9 +96,19 @@
     </ItemGroup>
     
     <ItemGroup>
-      <EmbeddedResource Include="Resources\spectatorhud.hud" />
+      <EmbeddedResource Include="Resources\alyxhud.hud" />
     </ItemGroup>
     
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Message Text="===== SPECTATORHUD POST BUILD =====" Importance="high" />
+
+        <Message Text="Copying files to BONELAB installation..." Importance="high" />
+        <Copy SourceFiles="$(OutputPath)\SpectatorHUD.dll;$(OutputPath)\SpectatorHUD.pdb" DestinationFolder="$(BonelabDir)\Mods\" />
+        <Message Text="Finished copying files." Importance="high" />
+
+        <Message Text="Done!" Importance="high" />
+    </Target>
+    
 </Project>
