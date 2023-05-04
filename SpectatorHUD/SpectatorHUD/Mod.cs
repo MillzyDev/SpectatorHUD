@@ -1,6 +1,8 @@
 ﻿using Boneject.MelonLoader;
 using Boneject.MelonLoader.Attributes;
 using Boneject.Ninject;
+using SpectatorHUD.Managers;
+using SpectatorHUD.Modules;
 
 namespace SpectatorHUD;
 
@@ -21,6 +23,7 @@ public class Mod : InjectableMelonMod
     // ReSharper disable once UnusedMember.Global
     public void OnInitializeMod(Bonejector bonejector)
     {
-        
+        bonejector.Load(Context.App, kernel => kernel.Bind<AssetManager>().ToSelf().InSingletonScope());
+        bonejector.Load<SHPlayerModule>(Context.Player);
     }
 }
