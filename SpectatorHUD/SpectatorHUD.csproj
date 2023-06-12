@@ -121,16 +121,16 @@
           <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerRuntimeLib.dll</HintPath>
         </Reference>
         <Reference Include="Unity.TextMeshPro">
-          <HintPath>..\..\..\Oculus\Software\Software\stress-level-zero-inc-bonelab\MelonLoader\Managed\Unity.TextMeshPro.dll</HintPath>
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\Unity.TextMeshPro.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine">
           <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-          <HintPath>..\..\..\Oculus\Software\Software\stress-level-zero-inc-bonelab\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
-          <HintPath>..\..\..\Oculus\Software\Software\stress-level-zero-inc-bonelab\MelonLoader\Managed\UnityEngine.UI.dll</HintPath>
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UI.dll</HintPath>
         </Reference>
     </ItemGroup>
     
