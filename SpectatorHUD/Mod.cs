@@ -7,11 +7,19 @@ namespace SpectatorHUD;
 
 public class Mod : InjectableMelonMod
 {
+    private Config _config = null!;
+    
     [OnInitialize]
     // ReSharper disable once UnusedMember.Global
     public void OnInitialize(Bonejector bonejector)
     {
-        bonejector.Load<SHAppModule>(Context.App, Config.Load());
+        _config = Config.Load();
+        bonejector.Load<SHAppModule>(Context.App, _config);
         bonejector.Load<SHPlayerModule>(Context.Player);
+    }
+
+    public override void OnApplicationQuit()
+    {
+        _config.Save();
     }
 }
