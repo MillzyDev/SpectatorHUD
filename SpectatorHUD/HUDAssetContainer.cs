@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using MelonLoader;
 using Newtonsoft.Json;
+using Ninject;
 using UnhollowerRuntimeLib;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class HUDAssetContainer
     private string? _loadedBundle;
     private HUDAsset? _hudAsset;
 
+    [Inject]
     public HUDAssetContainer(Config config)
     {
         _config = config;
