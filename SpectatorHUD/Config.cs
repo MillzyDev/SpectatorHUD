@@ -6,6 +6,10 @@ namespace SpectatorHUD;
 
 public class Config
 {
+    // ReSharper disable once InconsistentNaming
+    public static readonly string HUDsDirectoryPath =
+        Path.Combine(MelonUtils.UserDataDirectory, "SpectatorHUD", "HUDs");
+
     private static readonly string ConfigPath = Path.Combine(MelonUtils.UserDataDirectory, "SpectatorHUD", "config.json");
 
     [JsonProperty("selected_hud")] 
