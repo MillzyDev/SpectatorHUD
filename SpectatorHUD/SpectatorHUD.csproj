@@ -145,6 +145,7 @@
         <Compile Include="Counters\HalfLifeHealthCounter.cs" />
         <Compile Include="Counters\HealthCounter.cs" />
         <Compile Include="Counters\HealthCounterBase.cs" />
+        <Compile Include="HUDAsset.cs" />
         <Compile Include="HUDAssetContainer.cs" />
         <Compile Include="HUDManifest.cs" />
         <Compile Include="HUDRoot.cs" />
