@@ -1,4 +1,5 @@
-﻿using Ninject.Modules;
+﻿using Boneject.Ninject.Extensions;
+using Ninject.Modules;
 using SpectatorHUD.Managers;
 
 namespace SpectatorHUD.Modules;
@@ -9,6 +10,6 @@ public class SHPlayerModule : NinjectModule
     public override void Load()
     {
         Bind<HUDValueManager>().ToSelf().InSingletonScope();
-        Bind<HUDManager>().ToSelf().InSingletonScope();
+        this.BindMonoBehaviourOnNewGameObject<HUDManager>().InSingletonScope();
     }
 }
