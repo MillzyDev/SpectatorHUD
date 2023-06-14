@@ -17,8 +17,9 @@ using SpectatorHUD;
 [assembly: AssemblyFileVersion("0.1.0")]
 [assembly: NeutralResourcesLanguage("en")]
 
-[assembly: MelonInfo(typeof(Mod), "SpectatorHUD", "0.1.0", "Millzy",
-    "https://github.com/MillzyDev/SpectatorHUD/releases/latest/download/SpectatorHUD.zip")]
+[assembly:
+    MelonInfo(typeof(Mod), "SpectatorHUD", "0.1.0", "Millzy",
+              "https://github.com/MillzyDev/SpectatorHUD/releases/latest/download/SpectatorHUD.zip")]
 
 [assembly: MelonPriority(-1000000)]
 [assembly: MelonGame("Stress Level Zero", "BONELAB")]
