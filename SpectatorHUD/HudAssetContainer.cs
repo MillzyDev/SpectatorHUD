@@ -11,30 +11,30 @@ using UnityEngine;
 namespace SpectatorHUD
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    public class HUDAssetContainer
+    public class HudAssetContainer
     {
         private readonly Config _config;
-        private HUDAsset? _hudAsset;
+        private HudAsset? _hudAsset;
         private string? _loadedBundle;
 
         [Inject]
-        public HUDAssetContainer(Config config)
+        public HudAssetContainer(Config config)
         {
             _config = config;
 
-            IEnumerable<string> bundlesEnum = GetHUDBundles();
+            IEnumerable<string> bundlesEnum = GetHudBundles();
             string[] bundles = bundlesEnum as string[] ?? bundlesEnum.ToArray();
             if (!bundles.Contains(config.SelectedHud))
                 config.SelectedHud = bundles.FirstOrDefault() ?? string.Empty;
             config.Save();
         }
 
-        public static IEnumerable<string> GetHUDBundles()
+        private static IEnumerable<string> GetHudBundles()
         {
             return Directory.GetFiles(Config.HUDsDirectoryPath, "*.hud").Select(Path.GetFileName);
         }
 
-        public AssetBundle LoadHUDBundle(string filename)
+        private AssetBundle LoadHudBundle(string filename)
         {
             MelonLogger.Msg($"Loading {filename}...");
 
@@ -53,14 +53,14 @@ namespace SpectatorHUD
             return assetBundle;
         }
 
-        public bool LoadHUDAsset(out HUDAsset? hudAsset)
+        public bool LoadHudAsset(out HudAsset? hudAsset)
         {
             hudAsset = null;
 
             if (_hudAsset == null ||
                 _loadedBundle != _config.SelectedHud)
             {
-                AssetBundle bundle = LoadHUDBundle(_config.SelectedHud);
+                AssetBundle bundle = LoadHudBundle(_config.SelectedHud);
 
                 MelonLogger.Msg("Loading assets...");
 
@@ -68,12 +68,13 @@ namespace SpectatorHUD
                 string? manifestName = assetNames.First(name => name.EndsWith("manifest.json"));
 
                 var manifestAsset = (TextAsset)bundle.LoadAsset(manifestName, Il2CppType.Of<TextAsset>());
-                var manifest = JsonConvert.DeserializeObject<HUDManifest>(manifestAsset.ToString());
+                var manifest = JsonConvert.DeserializeObject<HudManifest>(manifestAsset.ToString());
 
                 if (manifest == null)
                 {
                     MelonLogger
-                        .Error($"Unable to load {_config.SelectedHud}: there was a problem when trying to parse the manifest.");
+                        .Error(
+                            $"Unable to load {_config.SelectedHud}: there was a problem when trying to parse the manifest.");
                     return false;
                 }
 
@@ -83,7 +84,7 @@ namespace SpectatorHUD
                 string? hudName = assetNames.First(name => name.EndsWith(manifest.PrefabAsset));
                 var hudObject = (GameObject)bundle.LoadAsset(hudName, Il2CppType.Of<GameObject>());
 
-                _hudAsset = new HUDAsset(manifest, hudObject);
+                _hudAsset = new HudAsset(manifest, hudObject);
 
                 MelonLogger.Msg("Done.");
             }

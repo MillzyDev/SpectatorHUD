@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using MelonLoader;
 using SpectatorHUD.Counters;
+using SpectatorHUD.Managers;
 using UnityEngine;
 
 namespace SpectatorHUD
 {
     [RegisterTypeInIl2Cpp]
-    public class HUDRoot : MonoBehaviour
+    public class HudRoot : MonoBehaviour
     {
         private readonly List<HealthCounterBase> _healthCounters = new();
+        internal HudValueManager HudValueManager = null!;
 
-        public HUDRoot(IntPtr ptr) : base(ptr)
-        {
-        }
+        public HudRoot(IntPtr ptr) : base(ptr) { }
 
         private void Start()
         {
@@ -23,8 +23,7 @@ namespace SpectatorHUD
         private void FixedUpdate()
         {
             foreach (HealthCounterBase? healthCounter in _healthCounters)
-            {
-            }
+                healthCounter.Value = HudValueManager.Health;
         }
     }
 }

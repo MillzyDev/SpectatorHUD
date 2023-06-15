@@ -2,7 +2,7 @@
 
 namespace SpectatorHUD
 {
-    public class HUDManifest
+    public class HudManifest
     {
 #pragma warning disable CS8618
         [JsonProperty("name")]
