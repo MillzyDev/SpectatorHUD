@@ -11,9 +11,7 @@ namespace SpectatorHUD.Counters
         // ReSharper disable once InconsistentNaming
         protected TextMeshProUGUI? text;
 
-        protected FloatCounter(IntPtr ptr) : base(ptr)
-        {
-        }
+        protected FloatCounter(IntPtr ptr) : base(ptr) { }
 
         public float Value { get; set; }
 

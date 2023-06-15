@@ -9,8 +9,8 @@ namespace SpectatorHUD.Modules
     {
         public override void Load()
         {
-            Bind<HUDValueManager>().ToSelf().InSingletonScope();
-            this.BindMonoBehaviourOnNewGameObject<HUDManager>().InSingletonScope();
+            Bind<HudValueManager>().ToSelf().InSingletonScope();
+            this.BindMonoBehaviourOnNewGameObject<HudManager>().InSingletonScope();
         }
     }
 }
