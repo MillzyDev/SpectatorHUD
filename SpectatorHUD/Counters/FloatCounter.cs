@@ -1,6 +1,7 @@
 ﻿using System;
 using MelonLoader;
 using TMPro;
+using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
 namespace SpectatorHUD.Counters
@@ -11,7 +12,7 @@ namespace SpectatorHUD.Counters
         // ReSharper disable once InconsistentNaming
         protected TextMeshProUGUI? text;
 
-        protected FloatCounter(IntPtr ptr) : base(ptr)
+        public FloatCounter(IntPtr ptr) : base(ptr)
         {
         }
 
@@ -27,6 +28,7 @@ namespace SpectatorHUD.Counters
             UpdateCounter();
         }
 
+        [HideFromIl2Cpp]
         protected abstract void UpdateCounter();
     }
 }

@@ -1,15 +1,23 @@
-﻿using MelonLoader;
+﻿using System;
+using MelonLoader;
 using Ninject;
+using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
 namespace SpectatorHUD.Managers
 {
+    [RegisterTypeInIl2Cpp]
     public class HudManager : MonoBehaviour
     {
         private HudAssetContainer _hudAssetContainer = null!;
         private HudValueManager _hudValueManager = null!;
 
+        public HudManager(IntPtr ptr) : base(ptr)
+        {
+        }
+
         [Inject]
+        [HideFromIl2Cpp]
         public void Inject(HudAssetContainer hudAssetContainer, HudValueManager hudValueManager)
         {
             _hudAssetContainer = hudAssetContainer;
