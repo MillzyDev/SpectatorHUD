@@ -7,6 +7,8 @@ namespace SpectatorHUD.Counters
     public abstract class HealthCounterBase : FloatCounter
     {
         // ReSharper disable once PublicConstructorInAbstractClass
-        public HealthCounterBase(IntPtr ptr) : base(ptr) { }
+        public HealthCounterBase(IntPtr ptr) : base(ptr)
+        {
+        }
     }
 }

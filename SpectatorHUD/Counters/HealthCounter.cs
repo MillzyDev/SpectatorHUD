@@ -7,7 +7,9 @@ namespace SpectatorHUD.Counters
     [RegisterTypeInIl2Cpp]
     public class HealthCounter : HealthCounterBase
     {
-        public HealthCounter(IntPtr ptr) : base(ptr) { }
+        public HealthCounter(IntPtr ptr) : base(ptr)
+        {
+        }
 
         protected override void UpdateCounter()
         {

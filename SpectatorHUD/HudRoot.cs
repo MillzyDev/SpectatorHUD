@@ -13,7 +13,9 @@ namespace SpectatorHUD
         private readonly List<HealthCounterBase> _healthCounters = new();
         internal HudValueManager HudValueManager = null!;
 
-        public HudRoot(IntPtr ptr) : base(ptr) { }
+        public HudRoot(IntPtr ptr) : base(ptr)
+        {
+        }
 
         private void Start()
         {

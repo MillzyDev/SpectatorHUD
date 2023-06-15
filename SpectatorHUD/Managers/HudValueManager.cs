@@ -13,6 +13,9 @@ namespace SpectatorHUD.Managers
             _rigManager = rigManager;
         }
 
-        public float Health => _rigManager.health.curr_Health;
+        public float Health
+        {
+            get => _rigManager.health.curr_Health;
+        }
     }
 }
