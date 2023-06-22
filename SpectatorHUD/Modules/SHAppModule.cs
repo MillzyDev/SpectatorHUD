@@ -16,7 +16,6 @@ namespace SpectatorHUD.Modules
         public override void Load()
         {
             this.BindConstant(_config).InSingletonScope();
-            Bind<HudAssetContainer>().ToSelf().InSingletonScope();
         }
     }
 }
