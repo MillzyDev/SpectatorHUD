@@ -11,9 +11,9 @@ namespace SpectatorHUD.Counters
         {
         }
 
-        protected override void UpdateCounter()
+        public override void UpdateCounter(float value)
         {
-            text!.SetText(Value.ToString(CultureInfo.CurrentCulture));
+            text!.SetText($"{value}");
         }
     }
 }

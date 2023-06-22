@@ -1,19 +1,35 @@
 ﻿using System;
 using MelonLoader;
+using TMPro;
+using UnityEngine;
 
 namespace SpectatorHUD.Counters
 {
     [RegisterTypeInIl2Cpp]
-    public class HalfLifeHealthCounter : HealthCounterBase
+    public class HalfLifeHealthCounter : MonoBehaviour
     {
+        private TextMeshProUGUI _text = null!;
+
         public HalfLifeHealthCounter(IntPtr ptr) : base(ptr)
         {
         }
 
-        protected override void UpdateCounter()
+        public TextMeshProUGUI Text
         {
-            var value = (int)Math.Round((decimal)Value * 10, 0);
-            text!.SetText(value.ToString());
+            get
+            {
+                if (!_text)
+                    _text = GetComponent<TextMeshProUGUI>();
+                return _text;
+            }
+        }
+
+        public void UpdateCounter(float value)
+        {
+            float modifiedValue = value * 10;
+            MelonLogger.Msg($"Modified value {value} to {modifiedValue:0.0f}");
+            Text!.SetText($"{modifiedValue:0.}");
+            Text.ForceMeshUpdate(true, true);
         }
     }
 }
