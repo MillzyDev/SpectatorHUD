@@ -14,7 +14,7 @@ namespace SpectatorHUD.Counters
         {
         }
 
-        public TextMeshProUGUI Text
+        private TextMeshProUGUI Text
         {
             get
             {
@@ -24,11 +24,11 @@ namespace SpectatorHUD.Counters
             }
         }
 
-        public void UpdateCounter(float value)
+        public void HealthUpdated(float value)
         {
             float modifiedValue = value * 10;
-            MelonLogger.Msg($"Modified value {value} to {modifiedValue:0.0f}");
-            Text!.SetText($"{modifiedValue:0.}");
+            Text.SetText($"{modifiedValue:0.}");
+            
             Text.ForceMeshUpdate(true, true);
         }
     }
