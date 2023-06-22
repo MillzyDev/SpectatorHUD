@@ -14,6 +14,7 @@ namespace SpectatorHUD
         public void OnInitialize(Bonejector bonejector)
         {
             _config = Config.Load();
+            
             bonejector.Load<SHAppModule>(Context.App, _config);
             bonejector.Load<SHPlayerModule>(Context.Player);
         }
