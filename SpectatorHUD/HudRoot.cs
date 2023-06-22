@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MelonLoader;
 using Ninject;
 using SpectatorHUD.Counters;
@@ -29,9 +31,13 @@ namespace SpectatorHUD
         {
             Il2CppArrayBase<HalfLifeHealthCounter>? halfLifeHealthCounters =
                 GetComponentsInChildren<HalfLifeHealthCounter>();
+            Il2CppArrayBase<HealthCounter>? healthCounters = 
+                GetComponentsInChildren<HealthCounter>();
 
-            foreach (HalfLifeHealthCounter? halfLifeHealthCounter in halfLifeHealthCounters)
-                _hudValueManager.HealthChanged += halfLifeHealthCounter.UpdateCounter;
+            foreach (HalfLifeHealthCounter? healthCounter in halfLifeHealthCounters)
+                _hudValueManager.HealthChanged += healthCounter.HealthUpdated;
+            foreach (HealthCounter? healthCounter in healthCounters)
+                _hudValueManager.HealthChanged += healthCounter.HealthUpdated;
         }
     }
 }
