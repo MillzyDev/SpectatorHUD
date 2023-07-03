@@ -10,7 +10,7 @@ namespace SpectatorHUD
         public static readonly string HUDsDirectoryPath =
             Path.Combine(MelonUtils.UserDataDirectory, "SpectatorHUD", "HUDs");
 
-        private static readonly string _sConfigPath =
+        private static readonly string s_configPath =
             Path.Combine(MelonUtils.UserDataDirectory, "SpectatorHUD", "config.json");
 
         [JsonProperty("selected_hud")]
@@ -18,15 +18,15 @@ namespace SpectatorHUD
 
         public static Config Load()
         {
-            if (!File.Exists(_sConfigPath))
+            if (!File.Exists(s_configPath))
             {
                 var defaultConfig = new Config();
                 string json = JsonConvert.SerializeObject(defaultConfig, Formatting.Indented);
-                File.WriteAllText(_sConfigPath, json);
+                File.WriteAllText(s_configPath, json);
                 return defaultConfig;
             }
 
-            string file = File.ReadAllText(_sConfigPath);
+            string file = File.ReadAllText(s_configPath);
             var config = JsonConvert.DeserializeObject<Config>(file);
             return config!;
         }
@@ -34,7 +34,7 @@ namespace SpectatorHUD
         public void Save()
         {
             string json = JsonConvert.SerializeObject(this, Formatting.Indented);
-            File.WriteAllText(_sConfigPath, json);
+            File.WriteAllText(s_configPath, json);
         }
     }
 }
