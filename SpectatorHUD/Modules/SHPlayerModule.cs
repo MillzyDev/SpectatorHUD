@@ -12,6 +12,7 @@ namespace SpectatorHUD.Modules
         {
             this.BindMonoBehaviourOnNewGameObject<HudValueManager>().InSingletonScope();
             Bind<HudManager>().ToSelf().InSingletonScope();
+            
             _ = Kernel!.Get<HudManager>(); // force resolve
         }
     }
