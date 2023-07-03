@@ -12,17 +12,15 @@ namespace SpectatorHUD.Managers
     {
         private static Tuple<string, HudManifest, AssetBundle>? s_currentAssetBundle;
         private readonly Config _config;
-        private readonly HudValueManager _hudValueManager;
 
         private readonly IKernel _kernel;
 
         private GameObject? _hud;
 
         [Inject]
-        public HudManager(Config config, HudValueManager hudValueManager, IKernel kernel)
+        public HudManager(Config config, IKernel kernel)
         {
             _config = config;
-            _hudValueManager = hudValueManager;
             _kernel = kernel;
         }
 
