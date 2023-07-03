@@ -77,6 +77,9 @@
         <Reference Include="Ninject">
             <HintPath>$(BonelabDir)\UserLibs\Ninject.dll</HintPath>
         </Reference>
+        <Reference Include="SLZ.Marrow">
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\SLZ.Marrow.dll</HintPath>
+        </Reference>
         <Reference Include="UnhollowerBaseLib">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
         </Reference>
@@ -109,6 +112,7 @@
 
     <ItemGroup>
         <Compile Include="Config.cs" />
+        <Compile Include="Counters\AmmoCounter.cs" />
         <Compile Include="Counters\HalfLifeHealthCounter.cs" />
         <Compile Include="Counters\HealthCounter.cs" />
         <Compile Include="HudManifest.cs" />
