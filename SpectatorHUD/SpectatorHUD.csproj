@@ -62,20 +62,11 @@
         <Reference Include="Assembly-CSharp-firstpass">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
-        <Reference Include="Boneject">
-            <HintPath>$(BonelabDir)\Mods\Boneject.dll</HintPath>
-        </Reference>
         <Reference Include="Il2Cppmscorlib">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
         </Reference>
-        <Reference Include="MelonLoader">
-            <HintPath>$(BonelabDir)\MelonLoader\MelonLoader.dll</HintPath>
-        </Reference>
         <Reference Include="Newtonsoft.Json">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\Newtonsoft.Json.dll</HintPath>
-        </Reference>
-        <Reference Include="Ninject">
-            <HintPath>$(BonelabDir)\UserLibs\Ninject.dll</HintPath>
         </Reference>
         <Reference Include="SLZ.Marrow">
           <HintPath>$(BonelabDir)\MelonLoader\Managed\SLZ.Marrow.dll</HintPath>
@@ -101,7 +92,21 @@
         <Reference Include="UnityEngine.UI">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UI.dll</HintPath>
         </Reference>
-
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Reference Include="MelonLoader">
+            <HintPath>$(BonelabDir)\MelonLoader\MelonLoader.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Reference Include="FieldInjector">
+            <HintPath>$(BonelabDir)\Mods\FieldInjector.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    
+    <ItemGroup>
         <Reference Include="mscorlib" />
         <Reference Include="System" />
         <Reference Include="System.Core" />
@@ -111,24 +116,21 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Include="Config.cs" />
         <Compile Include="Counters\AmmoCounter.cs" />
-        <Compile Include="Counters\HalfLifeHealthCounter.cs" />
+        <Compile Include="Counters\AmmoReserveCounter.cs" />
+        <Compile Include="Counters\CurrentAmmoReserveCounter.cs" />
         <Compile Include="Counters\HealthCounter.cs" />
-        <Compile Include="HudManifest.cs" />
-        <Compile Include="HudRoot.cs" />
-        <Compile Include="Managers\HudManager.cs" />
-        <Compile Include="Managers\HudValueManager.cs" />
+        <Compile Include="Hud.cs" />
+        <Compile Include="HudConfigSO.cs" />
+        <Compile Include="HudManifestSO.cs" />
         <Compile Include="Mod.cs" />
-        <Compile Include="Modules\SHAppModule.cs" />
-        <Compile Include="Modules\SHPlayerModule.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="UserData\SpectatorHUD\HUDs\alyxhud.hud">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </AdditionalFiles>
+      <Content Include="UserData\SpectatorHUD\HUDs\Half-Life HUD.hud">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -138,7 +140,7 @@
 
         <Message Text="Copying files to BONELAB installation..." Importance="high" />
         <Copy SourceFiles="$(OutputPath)\SpectatorHUD.dll;$(OutputPath)\SpectatorHUD.pdb" DestinationFolder="$(BonelabDir)\Mods\" />
-        <Copy SourceFiles="$(OutputPath)\UserData\SpectatorHUD\HUDs\alyxhud.hud" DestinationFolder="$(BonelabDir)\UserData\SpectatorHUD\HUDs\" />
+        <Copy SourceFiles="$(OutputPath)\UserData\SpectatorHUD\HUDs\Half-Life HUD.hud" DestinationFolder="$(BonelabDir)\UserData\SpectatorHUD\HUDs\" />
         <Message Text="Finished copying files." Importance="high" />
 
         <Message Text="Done!" Importance="high" />
