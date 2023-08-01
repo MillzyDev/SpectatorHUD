@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpectatorHUD", "SpectatorHUD\SpectatorHUD.csproj", "{9482FFC1-EE24-412E-AB18-8A6E3B771ACF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CounterFormatting", "CounterFormatting\CounterFormatting.vcxproj", "{1FC52467-BBA8-4D52-88DA-71719B2D89D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{9482FFC1-EE24-412E-AB18-8A6E3B771ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9482FFC1-EE24-412E-AB18-8A6E3B771ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9482FFC1-EE24-412E-AB18-8A6E3B771ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FC52467-BBA8-4D52-88DA-71719B2D89D6}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{1FC52467-BBA8-4D52-88DA-71719B2D89D6}.Debug|Any CPU.Build.0 = Debug|Win32
+		{1FC52467-BBA8-4D52-88DA-71719B2D89D6}.Release|Any CPU.ActiveCfg = Release|Win32
+		{1FC52467-BBA8-4D52-88DA-71719B2D89D6}.Release|Any CPU.Build.0 = Release|Win32
 	EndGlobalSection
 EndGlobal
