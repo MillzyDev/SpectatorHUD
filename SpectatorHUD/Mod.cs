@@ -1,27 +1,28 @@
-﻿using Boneject.MelonLoader;
-using Boneject.MelonLoader.Attributes;
-using Boneject.Ninject;
-using SpectatorHUD.Modules;
+﻿using FieldInjector;
+using MelonLoader;
+using SpectatorHUD.Counters;
 
 namespace SpectatorHUD
 {
-    public class Mod : InjectableMelonMod
+    public class Mod : MelonMod
     {
-        private Config _config = null!;
-
-        [OnInitialize]
-        // ReSharper disable once UnusedMember.Global
-        public void OnInitialize(Bonejector bonejector)
+        public override void OnInitializeMelon()
         {
-            _config = Config.Load();
-            
-            bonejector.Load<SHAppModule>(Context.App, _config);
-            bonejector.Load<SHPlayerModule>(Context.Player);
+        }
+
+        public override void OnLateInitializeMelon()
+        {
+            SerialisationHandler.Inject(typeof(HudManifestSO));
+            SerialisationHandler.Inject(typeof(HudConfigSO));
+            SerialisationHandler.Inject<Hud>();
+            SerialisationHandler.Inject<AmmoCounter>();
+            SerialisationHandler.Inject<AmmoReserveCounter>();
+            SerialisationHandler.Inject<CurrentAmmoReserveCounter>();
+            SerialisationHandler.Inject<HealthCounter>();
         }
 
         public override void OnApplicationQuit()
         {
-            _config.Save();
         }
     }
 }
