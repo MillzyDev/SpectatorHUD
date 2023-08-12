@@ -5,7 +5,7 @@ using MelonLoader;
 using SLZ.Interaction;
 using SLZ.Props.Weapons;
 using SLZ.Rig;
-using UnhollowerBaseLib.Attributes;
+using UnhollowerRuntimeLib;
 using UnityEngine;
 
 namespace SpectatorHUD
@@ -18,7 +18,12 @@ namespace SpectatorHUD
         private RigManager _rigManager = null!;
         private Hand _leftHand = null!;
         private Hand _rightHand = null!;
-        
+
+        private readonly Il2CppSystem.Action<HandReciever> _onLeftHandRecieverAttached;
+        private readonly Il2CppSystem.Action<HandReciever> _onLeftHandRecieverDetached;
+        private readonly Il2CppSystem.Action<HandReciever> _onRightHandRecieverAttached;
+        private readonly Il2CppSystem.Action<HandReciever> _onRightHandRecieverDetached;
+
         private Action? _onValueCheck;
         public Action<float, float>? OnHealth;
         public Action<int, int, bool>? OnAmmo;
@@ -36,14 +41,21 @@ namespace SpectatorHUD
 
         public HudValueWatcher(IntPtr ptr) : base(ptr)
         {
+            _onLeftHandRecieverAttached =
+                DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(LeftHandAttach);
+            _onLeftHandRecieverDetached =
+                DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(LeftHandDetach);
+            _onRightHandRecieverAttached =
+                DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(RightHandAttach);
+            _onRightHandRecieverDetached =
+                DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(RightHandDetach);
         }
 
         public static HudValueWatcher Instance
         {
             get => s_lazy.Value;
         }
-
-        [HideFromIl2Cpp]
+        
         private static HudValueWatcher Construct()
         {
             HudValueWatcher? any = Resources.FindObjectsOfTypeAll<HudValueWatcher>().FirstOrDefault();
@@ -61,12 +73,12 @@ namespace SpectatorHUD
             _rigManager = rigManager;
             
             _leftHand = rigManager.physicsRig.leftHand;
-            _leftHand.onRecieverAttached += (Action<HandReciever>)LeftHandAttach;
-            _leftHand.onRecieverDetached += (Action<HandReciever>)LeftHandDetach;
+            _leftHand.onRecieverAttached += _onLeftHandRecieverAttached;
+            _leftHand.onRecieverDetached += _onLeftHandRecieverDetached;
             
             _rightHand = rigManager.physicsRig.rightHand;
-            _rightHand.onRecieverAttached += (Action<HandReciever>)RightHandAttach;
-            _rightHand.onRecieverDetached += (Action<HandReciever>)RightHandDetach;
+            _rightHand.onRecieverAttached += _onRightHandRecieverAttached;
+            _rightHand.onRecieverDetached += _onRightHandRecieverDetached;
             
             _health = rigManager.health;
             
