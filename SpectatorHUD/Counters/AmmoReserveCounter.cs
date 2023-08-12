@@ -14,7 +14,7 @@ namespace SpectatorHUD.Counters
         public AmmoReserveCounter(IntPtr ptr) : base(ptr)
         {
         }
-        
+
         public enum Reserve
         {
             Small,

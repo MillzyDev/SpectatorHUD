@@ -10,7 +10,7 @@ namespace SpectatorHUD
         public string author = "Me";
         public ushort version = 1;
         public string description = "A cool hud.";
-        
+
         public HudManifestSO(IntPtr ptr) : base(ptr)
         {
         }

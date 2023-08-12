@@ -8,17 +8,17 @@ namespace SpectatorHUD
     {
         public CombinedAmmoCounterConfig combinedAmmoCounterConfiguration;
         public HealthCounterConfig healthCounterDisplayMode;
-        
+
         public HudConfigSO(IntPtr ptr)
         {
         }
-        
+
         public enum CombinedAmmoCounterConfig : ushort
         {
             CombineAlways = 1,
             CombineIfOfSameType = 2,
         }
-        
+
         public enum HealthCounterConfig
         {
             Value,

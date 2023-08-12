@@ -14,7 +14,7 @@ namespace SpectatorHUD.Counters
         public AmmoCounter(IntPtr ptr) : base(ptr)
         {
         }
-        
+
         public enum DisplayMode
         {
             Combined,
