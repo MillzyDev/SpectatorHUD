@@ -120,8 +120,12 @@ namespace SpectatorHUD
 
         private void CheckAmmo()
         {
-            int leftAmmo = _leftGun ? _leftGun!.AmmoCount() : 0;
-            int rightAmmo = _rightGun ? _rightGun!.AmmoCount() : 0;
+            int leftAmmo = _leftGun 
+                ? _leftGun!.AmmoCount() + (_leftGun.isCharged ? 1 : 0) 
+                : 0;
+            int rightAmmo = _rightGun 
+                ? _rightGun!.AmmoCount() + (_rightGun.isCharged ? 1 : 0) 
+                : 0;
             bool sameGun = _leftGun == _rightGun;
 
             if (leftAmmo != _lastLeftAmmo || rightAmmo != _lastRightAmmo || sameGun != _lastSameGun)
