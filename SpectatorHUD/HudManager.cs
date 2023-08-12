@@ -1,25 +1,26 @@
 ﻿using System;
 using System.IO;
 using MelonLoader;
+using SLZ.Rig;
 using UnityEngine;
 
 namespace SpectatorHUD
 {
-    internal class HudLoader
+    internal class HudManager
     {
-        private static readonly Lazy<HudLoader> s_lazy = new(
-            () => new HudLoader()
+        private static readonly Lazy<HudManager> s_lazy = new(
+            () => new HudManager()
             );
 
         private static string? s_hudsDirectory;
         
         private GameObject _hudRoot = null!;
 
-        private HudLoader()
+        private HudManager()
         {
         }
 
-        public static HudLoader Instance
+        public static HudManager Instance
         {
             get => s_lazy.Value;
         }
@@ -27,6 +28,11 @@ namespace SpectatorHUD
         public static string HudsDirectory
         {
             get => s_hudsDirectory ??= Path.Combine(MelonUtils.UserDataDirectory, "SpectatorHUD", "HUDs");
+        }
+
+        public void LoadHud(RigManager rigManager)
+        {
+            
         }
     }
 }
