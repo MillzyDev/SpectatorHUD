@@ -125,6 +125,7 @@
         <Compile Include="Counters\HealthCounter.cs" />
         <Compile Include="Hud.cs" />
         <Compile Include="HudConfigSO.cs" />
+        <Compile Include="HudLoader.cs" />
         <Compile Include="HudManifestSO.cs" />
         <Compile Include="Mod.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
