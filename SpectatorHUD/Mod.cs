@@ -6,10 +6,6 @@ namespace SpectatorHUD
 {
     public class Mod : MelonMod
     {
-        public override void OnInitializeMelon()
-        {
-        }
-
         public override void OnLateInitializeMelon()
         {
             SerialisationHandler.Inject(typeof(HudManifestSO));
@@ -20,9 +16,7 @@ namespace SpectatorHUD
             SerialisationHandler.Inject<CurrentAmmoReserveCounter>();
             SerialisationHandler.Inject<HealthCounter>();
         }
-
-        public override void OnApplicationQuit()
-        {
-        }
+        
+        
     }
 }
