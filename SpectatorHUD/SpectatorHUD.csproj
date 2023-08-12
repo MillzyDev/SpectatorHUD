@@ -101,6 +101,9 @@
     </ItemGroup>
     
     <ItemGroup>
+        <Reference Include="BoneLib">
+            <HintPath>$(BonelabDir)\Mods\BoneLib.dll</HintPath>
+        </Reference>
         <Reference Include="FieldInjector">
             <HintPath>$(BonelabDir)\Mods\FieldInjector.dll</HintPath>
         </Reference>
