@@ -25,8 +25,8 @@ namespace SpectatorHUD
         private readonly Il2CppSystem.Action<HandReciever> _onRightHandRecieverDetached;
 
         private Action? _onValueCheck;
-        public Action<float, float>? OnHealth;
-        public Action<int, int, bool>? OnAmmo;
+        public Action<float, float>? OnHealth; // current, max
+        public Action<int, int, bool>? OnAmmo; // left, right, twoHands
 
         private Health _health = null!;
 
