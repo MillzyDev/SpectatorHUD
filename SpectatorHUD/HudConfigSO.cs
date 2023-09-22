@@ -15,8 +15,8 @@ namespace SpectatorHUD
 
         public enum CombinedAmmoCounterConfig : ushort
         {
-            CombineAlways = 1,
-            CombineIfOfSameType = 2,
+            CombineAlways = 0,
+            CombineIfOfSameType = 1,
         }
 
         public enum HealthCounterConfig : ushort
