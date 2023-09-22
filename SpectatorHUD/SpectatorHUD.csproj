@@ -69,13 +69,16 @@
             <HintPath>$(BonelabDir)\MelonLoader\Managed\Newtonsoft.Json.dll</HintPath>
         </Reference>
         <Reference Include="SLZ.Marrow">
-          <HintPath>$(BonelabDir)\MelonLoader\Managed\SLZ.Marrow.dll</HintPath>
+            <HintPath>$(BonelabDir)\MelonLoader\Managed\SLZ.Marrow.dll</HintPath>
         </Reference>
         <Reference Include="UnhollowerBaseLib">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
         </Reference>
         <Reference Include="UnhollowerRuntimeLib">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerRuntimeLib.dll</HintPath>
+        </Reference>
+        <Reference Include="UniTask">
+          <HintPath>$(BonelabDir)\MelonLoader\Managed\UniTask.dll</HintPath>
         </Reference>
         <Reference Include="Unity.TextMeshPro">
             <HintPath>$(BonelabDir)\MelonLoader\Managed\Unity.TextMeshPro.dll</HintPath>
@@ -93,13 +96,13 @@
             <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UI.dll</HintPath>
         </Reference>
     </ItemGroup>
-    
+
     <ItemGroup>
         <Reference Include="MelonLoader">
             <HintPath>$(BonelabDir)\MelonLoader\MelonLoader.dll</HintPath>
         </Reference>
     </ItemGroup>
-    
+
     <ItemGroup>
         <Reference Include="BoneLib">
             <HintPath>$(BonelabDir)\Mods\BoneLib.dll</HintPath>
@@ -108,7 +111,7 @@
             <HintPath>$(BonelabDir)\Mods\FieldInjector.dll</HintPath>
         </Reference>
     </ItemGroup>
-    
+
     <ItemGroup>
         <Reference Include="mscorlib" />
         <Reference Include="System" />
@@ -119,22 +122,25 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Compile Include="Configuration\Config.cs" />
+        <Compile Include="Configuration\Override.cs" />
         <Compile Include="Counters\AmmoCounter.cs" />
         <Compile Include="Counters\AmmoReserveCounter.cs" />
         <Compile Include="Counters\CurrentAmmoReserveCounter.cs" />
         <Compile Include="Counters\HealthCounter.cs" />
         <Compile Include="Hud.cs" />
         <Compile Include="HudConfigSO.cs" />
-        <Compile Include="HudLoader.cs" />
+        <Compile Include="HudManager.cs" />
         <Compile Include="HudManifestSO.cs" />
+        <Compile Include="HudValueWatcher.cs" />
         <Compile Include="Mod.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="UserData\SpectatorHUD\HUDs\Half-Life HUD.hud">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
+        <Content Include="UserData\SpectatorHUD\huds\Half-Life HUD.hud">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
