@@ -47,7 +47,5 @@ namespace SpectatorHUD
             
             HudValueWatcher.Instance.BeginWatch(rigManager);
         }
-        
-        public void 
     }
 }
