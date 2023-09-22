@@ -123,7 +123,6 @@
 
     <ItemGroup>
         <Compile Include="Configuration\Config.cs" />
-        <Compile Include="Configuration\Override.cs" />
         <Compile Include="Counters\AmmoCounter.cs" />
         <Compile Include="Counters\AmmoReserveCounter.cs" />
         <Compile Include="Counters\CurrentAmmoReserveCounter.cs" />
