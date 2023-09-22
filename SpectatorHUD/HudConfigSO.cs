@@ -19,7 +19,7 @@ namespace SpectatorHUD
             CombineIfOfSameType = 2,
         }
 
-        public enum HealthCounterConfig
+        public enum HealthCounterConfig : ushort
         {
             Value,
             RawValue,
