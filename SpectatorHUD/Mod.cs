@@ -19,6 +19,7 @@
 using System.Reflection;
 using HarmonyLib;
 using MelonLoader;
+using MelonLoader.Utils;
 using SpectatorHUD;
 using SpectatorHUD.HarmonyPatches;
 using BuildInfo = SpectatorHUD.BuildInfo;
@@ -37,10 +38,11 @@ namespace SpectatorHUD
             this.InitLogger();
             Logger.Msg("Logger initialised");
             
+            Logger.Msg("Creating HUDs directory");
+            this.CreateHudDirectory();
+            
             Logger.Msg("Patching methods");
             this.InstallPatch(typeof(RigManager_Start));
-            
-            
         }
 
         private void InitLogger()
@@ -54,17 +56,38 @@ namespace SpectatorHUD
 #endif // DEBUG
         }
 
+        private void CreateHudDirectory()
+        {
+            string path = Path.Join(MelonEnvironment.UserDataDirectory, "SpectatorHUD", "HUDs");
+            try
+            {
+                Directory.CreateDirectory(path);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Failed to create HUDs directory.", ex);
+            }
+        }
+
         private void InstallPatch(Type patchType)
         {
             PatchClassProcessor processor = this.HarmonyInstance.CreateClassProcessor(patchType, true);
-            List<MethodInfo> patchedMethods = processor.Patch();
-            patchedMethods.ForEach(method => 
-                Logger.Debug(
-                    "Patched {0}::{1}",
-                    method.DeclaringType?.FullName ?? "", 
-                    method.Name
-                )
-            );
+            try
+            {
+                List<MethodInfo> patchedMethods = processor.Patch();
+
+                patchedMethods.ForEach(method =>
+                    Logger.Debug(
+                        "Patched {0}::{1}",
+                        method.DeclaringType?.FullName ?? "",
+                        method.Name
+                    )
+                );
+            }
+            catch (HarmonyException ex)
+            {
+                Logger.Error("Failed to patch method.", ex);
+            }
         }
     }
 }
