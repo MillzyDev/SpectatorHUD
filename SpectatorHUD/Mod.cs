@@ -1,33 +1,26 @@
-﻿using BoneLib;
-using FieldInjector;
-using MelonLoader;
-using SLZ.Rig;
-using SpectatorHUD.Counters;
+﻿using MelonLoader;
+using SpectatorHUD;
+using SpectatorHUD.HarmonyPatches;
+using BuildInfo = SpectatorHUD.BuildInfo;
+
+[assembly: MelonInfo(typeof(Mod), BuildInfo.Name, BuildInfo.Version, BuildInfo.Author)]
+[assembly: MelonGame("Stress Level Zero", "BONELAB")]
+[assembly: MelonID(BuildInfo.Id)]
+[assembly: HarmonyDontPatchAll]
 
 namespace SpectatorHUD
 {
-    public class Mod : MelonMod
+    public sealed class Mod : MelonMod
     {
-        public override void OnLateInitializeMelon()
+        public override void OnInitializeMelon()
         {
-            SerialisationHandler.Inject(typeof(HudManifestSO));
-            SerialisationHandler.Inject(typeof(HudConfigSO));
-            SerialisationHandler.Inject<Hud>();
-            SerialisationHandler.Inject<AmmoCounter>();
-            SerialisationHandler.Inject<AmmoReserveCounter>();
-            SerialisationHandler.Inject<CurrentAmmoReserveCounter>();
-            SerialisationHandler.Inject<HealthCounter>();
+            Logger.SetInstance(this.LoggerInstance);
+            this.InstallPatch(typeof(RigManager_Start));
         }
 
-        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
+        private void InstallPatch(Type patchType)
         {
-            RigManager rigManager = Player.rigManager;
-
-            if (!rigManager)
-                return;
-
-            // Player exists and hud should load
-            HudManager.Instance.LoadHud(rigManager);
+            this.HarmonyInstance.PatchAll(patchType);
         }
     }
 }

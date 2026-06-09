@@ -1,158 +1,51 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-
-    <PropertyGroup>
-        <RootNamespace>SpectatorHUD</RootNamespace>
-
-        <MelonLoaderVersion>0.5.7</MelonLoaderVersion>
-
-        <ModId>dev.millzy.SpectatorHUD</ModId>
-        <ModName>SpectatorHUD</ModName>
-        <ModAuthor>Millzy</ModAuthor>
-        <ModVersion>0.1.0.0</ModVersion>
-        <ModSemanticVersion>0.1.0</ModSemanticVersion>
-        <ModDownloadLink>https://github.com/MillzyDev/SpectatorHUD/releases/latest/download/SpectatorHUD.zip</ModDownloadLink>
-        <LangVersion>11</LangVersion>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{9482FFC1-EE24-412E-AB18-8A6E3B771ACF}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>SpectatorHUD</RootNamespace>
-        <AssemblyName>SpectatorHUD</AssemblyName>
-        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-        <FileAlignment>512</FileAlignment>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
         <None Include="SpectatorHUD.csproj.user" />
     </ItemGroup>
 
+    <Import Project="$(SolutionDir)\Mod.props" />
+    <Import Project="$(SolutionDir)\Mod.targets" />
+    
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+        <LangVersion>11</LangVersion>
+    </PropertyGroup>
+    
     <ItemGroup>
-        <Reference Include="Assembly-CSharp">
-            <HintPath>$(BonelabDir)\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
+        <Reference Include="0Harmony">
+            <HintPath>$(BonelabDir)\MelonLoader\net6\0Harmony.dll</HintPath>
         </Reference>
-        <Reference Include="Assembly-CSharp-firstpass">
-            <HintPath>$(BonelabDir)\MelonLoader\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppInterop.Common">
+            <HintPath>$(BonelabDir)\MelonLoader\net6\Il2CppInterop.Common.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppInterop.Runtime">
+            <HintPath>$(BonelabDir)\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
         </Reference>
         <Reference Include="Il2Cppmscorlib">
-            <HintPath>$(BonelabDir)\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
         </Reference>
-        <Reference Include="Newtonsoft.Json">
-            <HintPath>$(BonelabDir)\MelonLoader\Managed\Newtonsoft.Json.dll</HintPath>
+        <Reference Include="Il2CppSLZ.Marrow">
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Il2CppSLZ.Marrow.dll</HintPath>
         </Reference>
-        <Reference Include="SLZ.Marrow">
-            <HintPath>$(BonelabDir)\MelonLoader\Managed\SLZ.Marrow.dll</HintPath>
+        <Reference Include="Il2CppSystem">
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Il2CppSystem.dll</HintPath>
         </Reference>
-        <Reference Include="UnhollowerBaseLib">
-            <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
+        <Reference Include="Il2CppSystem.Core">
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Il2CppSystem.Core.dll</HintPath>
         </Reference>
-        <Reference Include="UnhollowerRuntimeLib">
-            <HintPath>$(BonelabDir)\MelonLoader\Managed\UnhollowerRuntimeLib.dll</HintPath>
-        </Reference>
-        <Reference Include="UniTask">
-          <HintPath>$(BonelabDir)\MelonLoader\Managed\UniTask.dll</HintPath>
-        </Reference>
-        <Reference Include="Unity.TextMeshPro">
-            <HintPath>$(BonelabDir)\MelonLoader\Managed\Unity.TextMeshPro.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine">
-            <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.AssetBundleModule">
-            <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+        <Reference Include="MelonLoader">
+            <HintPath>$(BonelabDir)\MelonLoader\net6\MelonLoader.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.UI">
-            <HintPath>$(BonelabDir)\MelonLoader\Managed\UnityEngine.UI.dll</HintPath>
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
     </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="MelonLoader">
-            <HintPath>$(BonelabDir)\MelonLoader\MelonLoader.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="BoneLib">
-            <HintPath>$(BonelabDir)\Mods\BoneLib.dll</HintPath>
-        </Reference>
-        <Reference Include="FieldInjector">
-            <HintPath>$(BonelabDir)\Mods\FieldInjector.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="mscorlib" />
-        <Reference Include="System" />
-        <Reference Include="System.Core" />
-        <Reference Include="System.Data" />
-        <Reference Include="System.Numerics" />
-        <Reference Include="System.Xml" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Compile Include="Configuration\Config.cs" />
-        <Compile Include="Counters\AmmoCounter.cs" />
-        <Compile Include="Counters\AmmoReserveCounter.cs" />
-        <Compile Include="Counters\CurrentAmmoReserveCounter.cs" />
-        <Compile Include="Counters\HealthCounter.cs" />
-        <Compile Include="Hud.cs" />
-        <Compile Include="HudConfigSO.cs" />
-        <Compile Include="HudManager.cs" />
-        <Compile Include="HudManifestSO.cs" />
-        <Compile Include="HudValueWatcher.cs" />
-        <Compile Include="Mod.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="UserData\SpectatorHUD\huds\Half-Life HUD.hud">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
-
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Message Text="===== SPECTATORHUD POST BUILD =====" Importance="high" />
-
-        <Message Text="Copying files to BONELAB installation..." Importance="high" />
-        <Copy SourceFiles="$(OutputPath)\SpectatorHUD.dll;$(OutputPath)\SpectatorHUD.pdb" DestinationFolder="$(BonelabDir)\Mods\" />
-        <Copy SourceFiles="$(OutputPath)\UserData\SpectatorHUD\HUDs\Half-Life HUD.hud" DestinationFolder="$(BonelabDir)\UserData\SpectatorHUD\HUDs\" />
-        <Message Text="Finished copying files." Importance="high" />
-
-        <Message Text="Done!" Importance="high" />
-    </Target>
 
 </Project>
