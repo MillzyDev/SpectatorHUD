@@ -32,7 +32,7 @@ namespace SpectatorHUD
     {
         public override void OnInitializeMelon()
         {
-            Logger.SetInstance(this.LoggerInstance);
+            Logger.Instance = this.LoggerInstance;
             Logger.Msg("Logger initialised");
             
             Logger.Msg("Patching methods");
