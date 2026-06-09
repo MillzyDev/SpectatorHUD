@@ -32,13 +32,24 @@ namespace SpectatorHUD
     {
         public override void OnInitializeMelon()
         {
-            Logger.Instance = this.LoggerInstance;
+            this.InitLogger();
             Logger.Msg("Logger initialised");
             
             Logger.Msg("Patching methods");
             this.InstallPatch(typeof(RigManager_Start));
             
             
+        }
+
+        private void InitLogger()
+        {
+            Logger.Instance = this.LoggerInstance;
+            
+#if DEBUG
+            Logger.EnableDebug(true);
+#else // DEBUG
+            Logger.EnableDebug(MelonDebug.IsEnabled())
+#endif // DEBUG
         }
 
         private void InstallPatch(Type patchType)
