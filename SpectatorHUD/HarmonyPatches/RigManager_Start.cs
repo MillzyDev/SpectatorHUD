@@ -17,19 +17,20 @@
  */
 
 using HarmonyLib;
-using MelonLoader;
+using Il2CppSLZ.Marrow;
 
 namespace SpectatorHUD.HarmonyPatches
 {
-    [HarmonyPatch(typeof(Il2CppSLZ.Marrow.RigManager))]
-    [HarmonyPatch(nameof(Il2CppSLZ.Marrow.RigManager.Start))]
+    [HarmonyPatch(typeof(RigManager))]
+    [HarmonyPatch(nameof(RigManager.Start))]
     public static class RigManager_Start
     {
         [HarmonyPostfix]
         // ReSharper disable once UnusedMember.Local
-        private static void Postfix()
+        private static void Postfix(RigManager __instance)
         {
-            MelonLogger.Msg("My shit works");
+            Logger.Msg("Attaching to RigManager");
+            __instance.gameObject.AddComponent<HudManager>();
         }
     }
 }

@@ -42,6 +42,7 @@ namespace SpectatorHUD
             Logger.Msg("Injecting types");
             this.InjectType<HudVersion>();
             this.InjectType<HudV1>();
+            this.InjectType<HudManager>();
             
             Logger.Msg("Patching methods");
             this.InstallPatch(typeof(RigManager_Start));
