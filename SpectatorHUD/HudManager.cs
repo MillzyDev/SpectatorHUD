@@ -16,6 +16,10 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
+using Il2CppInterop.Runtime;
+using Il2CppInterop.Runtime.Attributes;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using Il2CppSLZ.Marrow;
 using Il2CppTMPro;
 using Il2CppUltEvents;
 using UnityEngine;
@@ -40,8 +44,34 @@ namespace SpectatorHUD
         public UltEvent<float> healthCounterChanged;
         public UltEvent<float> maxHealthCounterChanged;
 
+        public GameObject? hud = null;
+        public RigManager? rigManager = null;
+
         public HudManager(IntPtr ptr) : base(ptr)
         {
+        }
+
+        public void Start()
+        {
+            
+        }
+
+        [HideFromIl2Cpp]
+        private Gun? GetGun(Hand hand)
+        {
+            if (hand == null)
+            {
+                return null;
+            }
+
+            GameObject heldObject = hand.m_CurrentAttachedGO;
+            if (heldObject == null)
+            {
+                return null;
+            }
+
+            var gun = this.GetComponentInParent<Gun>();
+            return gun == null ? this.GetComponentInChildren<Gun>() : gun;
         }
     }
 }
