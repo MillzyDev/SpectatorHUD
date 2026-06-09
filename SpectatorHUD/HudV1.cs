@@ -26,6 +26,7 @@ namespace SpectatorHUD
         public int hudVersion;
         public string hudAuthor;
         
+        public HudVersion manifestVersion;
         public GameObject hudAsset;
 
         public HudV1(IntPtr ptr) : base(ptr)
