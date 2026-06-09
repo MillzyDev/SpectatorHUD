@@ -16,6 +16,8 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
+using System.Reflection;
+using HarmonyLib;
 using MelonLoader;
 using SpectatorHUD;
 using SpectatorHUD.HarmonyPatches;
@@ -54,7 +56,15 @@ namespace SpectatorHUD
 
         private void InstallPatch(Type patchType)
         {
-            this.HarmonyInstance.PatchAll(patchType);
+            PatchClassProcessor processor = this.HarmonyInstance.CreateClassProcessor(patchType, true);
+            List<MethodInfo> patchedMethods = processor.Patch();
+            patchedMethods.ForEach(method => 
+                Logger.Debug(
+                    "Patched {0}::{1}",
+                    method.DeclaringType?.FullName ?? "", 
+                    method.Name
+                )
+            );
         }
     }
 }
