@@ -30,7 +30,7 @@ namespace SpectatorHUD.HarmonyPatches
         private static void Postfix(RigManager __instance)
         {
             Logger.Msg("Attaching to RigManager");
-            __instance.gameObject.AddComponent<HudManager>();
+            __instance.gameObject.AddComponent<HudBootstrap>();
         }
     }
 }
