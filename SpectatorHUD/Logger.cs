@@ -24,6 +24,8 @@ namespace SpectatorHUD
 
         public static void SetInstance(MelonLogger.Instance? instance)
         {
+            _instance = instance;
+            
             if (instance != null)
             {
                 _messageEvent = LogMessage;
@@ -52,8 +54,6 @@ namespace SpectatorHUD
                 _errorEventFormat = QueueError;
                 _errorEventException = QueueError;
             }
-            
-            _instance = instance;
         }
 
         public static void Msg(object obj) => _messageEvent(obj);
