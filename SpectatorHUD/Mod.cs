@@ -50,6 +50,15 @@ namespace SpectatorHUD
             this.CreateHudDirectory();
         }
 
+        public override void OnDeinitializeMelon()
+        {
+            Logger.Msg("Unpatching methods");
+            this.HarmonyInstance.UnpatchSelf();
+            
+            Logger.Msg("Saving config");
+            Config.Instance.Save();
+        }
+
         private void InitLogger()
         {
             Logger.Instance = this.LoggerInstance;
