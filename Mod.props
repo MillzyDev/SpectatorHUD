@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ModDependencies Include="LavaGang-MelonLoader-0.5.7" />
+        <ModDependencies Include="LavaGang-MelonLoader-0.6.6" />
+        <ModDependencies Include="WNP78-FieldInjector-2.1.1" />
     </ItemGroup>
 </Project> 

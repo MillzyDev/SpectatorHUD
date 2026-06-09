@@ -16,9 +16,6 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <Reference Include="0Harmony">
-            <HintPath>$(BonelabDir)\MelonLoader\net6\0Harmony.dll</HintPath>
-        </Reference>
         <Reference Include="Assembly-CSharp">
             <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
         </Reference>
@@ -40,11 +37,23 @@
         <Reference Include="Il2CppSystem.Core">
             <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Il2CppSystem.Core.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Reference Include="0Harmony">
+            <HintPath>$(BonelabDir)\MelonLoader\net6\0Harmony.dll</HintPath>
+        </Reference>
         <Reference Include="MelonLoader">
             <HintPath>$(BonelabDir)\MelonLoader\net6\MelonLoader.dll</HintPath>
         </Reference>
-        <Reference Include="UnityEngine.CoreModule">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Reference Include="FieldInjector">
+            <HintPath>$(BonelabDir)\Mods\FieldInjector.dll</HintPath>
         </Reference>
     </ItemGroup>
 

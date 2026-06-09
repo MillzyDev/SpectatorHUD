@@ -17,6 +17,7 @@
  */
 
 using System.Reflection;
+using FieldInjector;
 using HarmonyLib;
 using MelonLoader;
 using MelonLoader.Utils;
@@ -38,11 +39,15 @@ namespace SpectatorHUD
             this.InitLogger();
             Logger.Msg("Logger initialised");
             
-            Logger.Msg("Creating HUDs directory");
-            this.CreateHudDirectory();
+            Logger.Msg("Injecting types");
+            this.InjectType<HudVersion>();
+            this.InjectType<HudV1>();
             
             Logger.Msg("Patching methods");
             this.InstallPatch(typeof(RigManager_Start));
+            
+            Logger.Msg("Creating HUDs directory");
+            this.CreateHudDirectory();
         }
 
         private void InitLogger()
@@ -88,6 +93,16 @@ namespace SpectatorHUD
             {
                 Logger.Error("Failed to patch method.", ex);
             }
+        }
+
+        private void InjectType<T>()
+        {
+#if DEBUG
+            const int logLevel = 4;
+#else // DEBUG
+            const int logLevel = MelonDebug.IsEnabled() ? 4 : 0
+#endif // DEBUG
+            SerialisationHandler.Inject<T>(logLevel);
         }
     }
 }
