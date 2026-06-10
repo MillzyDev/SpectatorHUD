@@ -22,6 +22,7 @@ using HarmonyLib;
 using MelonLoader;
 using MelonLoader.Utils;
 using SpectatorHUD;
+using SpectatorHUD.Counters;
 using SpectatorHUD.HarmonyPatches;
 using BuildInfo = SpectatorHUD.BuildInfo;
 
@@ -40,9 +41,10 @@ namespace SpectatorHUD
             Logger.Msg("Logger initialised");
             
             Logger.Msg("Injecting types");
+            this.InjectType<HealthCounter>();
             this.InjectType<HudVersion>();
             this.InjectType<HudV1>();
-            this.InjectType<HudManager>();
+            this.InjectType<HudManagerV1>();
             this.InjectType<HudBootstrap>();
             
             Logger.Msg("Patching methods");

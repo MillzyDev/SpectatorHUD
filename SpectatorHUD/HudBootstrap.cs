@@ -96,7 +96,7 @@ namespace SpectatorHUD
             this.hud = GameObject.Instantiate(hudInfo.hudAsset);
             this.hud.name = "SpectatorHUD UI";
             
-            var hudManager = this.hud.GetComponent<HudManager>();
+            var hudManager = this.hud.GetComponentInChildren<HudManagerV1>();
             hudManager.rigManager = this._rigManager;
             hudManager.hud = this.hud;
         }

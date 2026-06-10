@@ -20,13 +20,14 @@ using Il2CppInterop.Runtime.Attributes;
 using Il2CppSLZ.Marrow;
 using Il2CppTMPro;
 using Il2CppUltEvents;
+using SpectatorHUD.Counters;
 using UnityEngine;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
 namespace SpectatorHUD
 {
-    public class HudManager : MonoBehaviour
+    public class HudManagerV1 : MonoBehaviour
     {
         public TMP_Text leftHandReserveCounter;
         public TMP_Text leftHandAmmoCounter;
@@ -45,13 +46,18 @@ namespace SpectatorHUD
         public GameObject? hud = null;
         public RigManager? rigManager = null;
 
-        public HudManager(IntPtr ptr) : base(ptr)
+        public HudManagerV1(IntPtr ptr) : base(ptr)
         {
         }
 
         public void Start()
         {
-            
+            if (this.healthCounter != null)
+            {
+                var healthComponent = this.healthCounter.gameObject.AddComponent<HealthCounter>();
+                healthComponent.rigManager = this.rigManager;
+                healthComponent.onChange = this.healthCounterChanged;
+            }
         }
 
         [HideFromIl2Cpp]
