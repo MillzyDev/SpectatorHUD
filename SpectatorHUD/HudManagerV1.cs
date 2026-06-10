@@ -16,6 +16,7 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
+using Il2CppInterop.Runtime;
 using Il2CppInterop.Runtime.Attributes;
 using Il2CppSLZ.Marrow;
 using Il2CppTMPro;
@@ -46,22 +47,66 @@ namespace SpectatorHUD
         public GameObject? hud = null;
         public RigManager? rigManager = null;
 
+        private PhysicsRig? _physicsRig;
+        private Hand? _leftHand;
+        private Hand? _rightHand;
+
+        private HealthCounter? _healthCounter;
+        private AmmoCounter? _leftAmmoCounter;
+        private AmmoCounter? _rightAmmoCounter;
+
+        private Il2CppSystem.Action<HandReciever>? _onLeftHandAttached;
+        private Il2CppSystem.Action<HandReciever>? _onRightHandAttached;
+        private Il2CppSystem.Action<HandReciever>? _onLeftHandDetached;
+        private Il2CppSystem.Action<HandReciever>? _onRightHandDetached;
+        
         public HudManagerV1(IntPtr ptr) : base(ptr)
         {
+            this._onLeftHandAttached =
+                DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(this.LeftHandAttached);
+            this._onRightHandAttached =
+                DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(this.RightHandAttached);
+            this._onLeftHandDetached = 
+                DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(this.LeftHandDetached);
+            this._onRightHandDetached =
+                DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(this.RightHandDetached);
         }
 
         public void Start()
         {
+            this._physicsRig = this.rigManager?.physicsRig;
+            this._leftHand = this._physicsRig?.leftHand;
+            this._rightHand = this._physicsRig?.rightHand;
+            
             if (this.healthCounter != null)
             {
-                var healthComponent = this.healthCounter.gameObject.AddComponent<HealthCounter>();
-                healthComponent.rigManager = this.rigManager;
-                healthComponent.onChange = this.healthCounterChanged;
+                this._healthCounter = this.healthCounter.gameObject.AddComponent<HealthCounter>();
+                this._healthCounter.rigManager = this.rigManager;
+                this._healthCounter.onChange = this.healthCounterChanged;
+            }
+
+            if (this.leftHandAmmoCounter != null)
+            {
+                this._leftAmmoCounter = this.leftHandAmmoCounter.gameObject.AddComponent<AmmoCounter>();
+                this._leftAmmoCounter.rigManager = this.rigManager;
+                this._leftAmmoCounter.heldGun = this.GetGun(this._physicsRig?.leftHand);
+
+                this._leftHand?.onRecieverAttached += this._onLeftHandAttached;
+                this._leftHand?.onRecieverDetached += this._onLeftHandDetached;
+            }
+
+            if (this.rightHandAmmoCounter != null)
+            {
+                this._rightAmmoCounter = this.rightHandAmmoCounter.gameObject.AddComponent<AmmoCounter>();
+                this._rightAmmoCounter.rigManager = this.rigManager;
+                this._rightAmmoCounter.heldGun = this.GetGun(this._physicsRig?.leftHand);
+                
+                this._rightHand?.onRecieverAttached += this._onRightHandAttached;
+                this._rightHand?.onRecieverDetached += this._onRightHandDetached;
             }
         }
-
-        [HideFromIl2Cpp]
-        private Gun? GetGun(Hand hand)
+        
+        private Gun? GetGun(Hand? hand)
         {
             if (hand == null)
             {
@@ -76,6 +121,35 @@ namespace SpectatorHUD
 
             var gun = this.GetComponentInParent<Gun>();
             return gun == null ? this.GetComponentInChildren<Gun>() : gun;
+        }
+
+        private void LeftHandAttached(HandReciever _)
+        {
+            this._leftAmmoCounter?.enabled = true;
+            this._leftAmmoCounter?.heldGun = this.GetGun(this._leftHand);
+            Logger.Debug("Gun {0} attached", this._leftAmmoCounter?.heldGun?.name ?? "");
+        }
+
+        private void RightHandAttached(HandReciever _)
+        {
+            this._rightAmmoCounter?.enabled = true;
+            this._rightAmmoCounter?.heldGun = this.GetGun(this._rightHand);
+            Logger.Debug("Gun {0} attached", this._rightAmmoCounter?.heldGun?.name ?? "");
+            
+        }
+
+        private void LeftHandDetached(HandReciever _)
+        {
+            Logger.Debug("Gun {0} detached", this._leftAmmoCounter?.heldGun?.name ?? "");
+            this._leftAmmoCounter?.heldGun = null;
+            this._leftAmmoCounter?.enabled = false;
+        }
+
+        private void RightHandDetached(HandReciever _)
+        {
+            Logger.Debug("Gun {0} detached", this._rightAmmoCounter?.heldGun?.name ?? "");
+            this._rightAmmoCounter?.heldGun = null;
+            this._rightAmmoCounter?.enabled = false;
         }
     }
 }

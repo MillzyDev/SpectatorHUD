@@ -42,6 +42,7 @@ namespace SpectatorHUD
             
             Logger.Msg("Injecting types");
             this.InjectType<HealthCounter>();
+            this.InjectType<AmmoCounter>();
             this.InjectType<HudVersion>();
             this.InjectType<HudV1>();
             this.InjectType<HudManagerV1>();
@@ -115,6 +116,7 @@ namespace SpectatorHUD
 #else // DEBUG
             const int logLevel = MelonDebug.IsEnabled() ? 4 : 0
 #endif // DEBUG
+            Logger.Debug("Injecting type {0}", typeof(T).FullName ?? "");
             SerialisationHandler.Inject<T>(logLevel);
         }
     }
