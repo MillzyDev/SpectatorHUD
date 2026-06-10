@@ -32,6 +32,7 @@ namespace SpectatorHUD.Counters
                 return;
             }
 
+            Logger.Debug("Health changed: {0} -> {1}", this._lastObserved, this._health?.curr_Health ?? 0);
             this._lastObserved = this._health?.curr_Health ?? 0.0f;
             this._counterText?.SetText($"{this._lastObserved * 10f:0}");
             this.onChange.Invoke(this._lastObserved);
