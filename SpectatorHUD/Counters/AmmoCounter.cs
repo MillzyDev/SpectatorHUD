@@ -32,7 +32,6 @@ namespace SpectatorHUD.Counters
         private TMP_Text? _counterText;
         private int _lastObserved = 0;
         
-        
         public AmmoCounter(IntPtr ptr) : base(ptr)
         {
         }
