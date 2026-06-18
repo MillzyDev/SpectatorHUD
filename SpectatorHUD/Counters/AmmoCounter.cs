@@ -30,7 +30,7 @@ namespace SpectatorHUD.Counters
         public UltEvent<float> onChange;
         
         private TMP_Text? _counterText;
-        private int _lastObserved = 0;
+        private int _lastObserved = -1;
         
         public AmmoCounter(IntPtr ptr) : base(ptr)
         {
@@ -53,7 +53,7 @@ namespace SpectatorHUD.Counters
             Logger.Debug("Ammo changed: {0} -> {1}", this._lastObserved, ammoCount);
             this._lastObserved = ammoCount;
             this._counterText?.SetText(ammoCount.ToString());
-            //this.onChange.Invoke();
+            //this.onChange.Invoke(); TODO
         }
     }
 }
