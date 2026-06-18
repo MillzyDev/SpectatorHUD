@@ -117,7 +117,7 @@ namespace SpectatorHUD
                 this._leftReserveCounter.heldGun = leftGun;
             }
 
-            if (this._rightReserveCounter != null)
+            if (this.rightHandReserveCounter != null)
             {
                 this._rightReserveCounter = this.rightHandReserveCounter.gameObject.AddComponent<ReserveCounter>();
                 this._rightReserveCounter.rigManager = this.rigManager;
