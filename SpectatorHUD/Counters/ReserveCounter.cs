@@ -28,10 +28,10 @@ namespace SpectatorHUD.Counters
     {
         [NonSerialized] public RigManager? rigManager;
         [NonSerialized] public Gun? heldGun;
-        [NonSerialized] public UltEvent<float> onChange;
+        [NonSerialized] public UltEvent<float>? onChange;
         
         private TMP_Text? _counterText;
-        private int _lastObserved = 0;
+        private int _lastObserved = -1;
         
         public ReserveCounter(IntPtr ptr) : base(ptr)
         {
