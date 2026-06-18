@@ -33,7 +33,7 @@ namespace SpectatorHUD
             this._config = MelonPreferences.CreateCategory("Config");
             
             // Add entries
-            this._hud = this._config.CreateEntry<string?>("hud", "C:\\Program Files (x86)\\Steam\\steamapps\\common\\BONELAB\\UserData\\SpectatorHUD\\HUDs\\TestHUD.hud");
+            this._hud = this._config.CreateEntry<string?>("hud", "");
             
             this._config.SetFilePath(Path.Join(MelonEnvironment.UserDataDirectory, "SpectatorHUD", "config.cfg"));
         }

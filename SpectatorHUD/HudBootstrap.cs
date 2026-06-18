@@ -16,6 +16,7 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
+using System.Reflection;
 using Il2CppSLZ.Marrow;
 using UnityEngine;
 
@@ -23,6 +24,8 @@ namespace SpectatorHUD
 {
     public class HudBootstrap : MonoBehaviour
     {
+        private static readonly string DefaultHud = "SpectatorHUD.Resources.TestHUD.hud";
+        
         private RigManager? _rigManager;
         public GameObject? hud;
 
@@ -38,8 +41,9 @@ namespace SpectatorHUD
 
         private void LoadHudFromConfig()
         {
-            if (Config.Instance.Hud is null)
+            if (string.IsNullOrEmpty(Config.Instance.Hud))
             {
+                this.LoadHudFromEmbeddedResource(DefaultHud);
                 return;
             }
             
@@ -58,6 +62,24 @@ namespace SpectatorHUD
             }
             this.LoadHudFromAssetBundle(assetBundle);
             assetBundle.Unload(false);
+        }
+
+        private void LoadHudFromEmbeddedResource(string resource)
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            using (Stream? stream = assembly.GetManifestResourceStream(resource))
+            {
+                if (stream == null)
+                {
+                    // TODO: Error
+                }
+                
+                var memoryStream = new MemoryStream();
+                stream?.CopyTo(memoryStream);
+
+                AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
+                this.LoadHudFromAssetBundle(assetBundle);
+            }
         }
 
         private void LoadHudFromAssetBundle(AssetBundle assetBundle)

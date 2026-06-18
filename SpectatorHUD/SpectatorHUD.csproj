@@ -76,7 +76,8 @@
     </ItemGroup>
     
     <ItemGroup>
-      <Folder Include="Resources\" />
+      <None Remove="Resources\TestHUD.hud" />
+      <EmbeddedResource Include="Resources\TestHUD.hud" />
     </ItemGroup>
 
 </Project>
