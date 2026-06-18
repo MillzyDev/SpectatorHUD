@@ -27,6 +27,7 @@ namespace SpectatorHUD.HarmonyPatches
     {
         [HarmonyPostfix]
         // ReSharper disable once UnusedMember.Local
+        // ReSharper disable once InconsistentNaming
         private static void Postfix(RigManager __instance)
         {
             Logger.Msg("Attaching to RigManager");
