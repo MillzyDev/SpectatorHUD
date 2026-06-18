@@ -74,5 +74,9 @@
             <HintPath>$(BonelabDir)\Mods\FieldInjector.dll</HintPath>
         </Reference>
     </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Resources\" />
+    </ItemGroup>
 
 </Project>
