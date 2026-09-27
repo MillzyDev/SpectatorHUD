@@ -17,12 +17,14 @@
  */
 
 using System.Reflection;
+using BoneLib;
 using FieldInjector;
 using HarmonyLib;
+using Il2CppSLZ.Marrow;
+using Il2CppSLZ.Marrow.SceneStreaming;
 using MelonLoader;
 using MelonLoader.Utils;
 using SpectatorHUD;
-using SpectatorHUD.Counters;
 using SpectatorHUD.HarmonyPatches;
 using BuildInfo = SpectatorHUD.BuildInfo;
 
@@ -41,16 +43,12 @@ namespace SpectatorHUD
             Logger.Msg("Logger initialised");
             
             Logger.Msg("Injecting types");
-            this.InjectType<HealthCounter>();
-            this.InjectType<AmmoCounter>();
-            this.InjectType<ReserveCounter>();
             this.InjectType<HudVersion>();
             this.InjectType<HudV1>();
             this.InjectType<HudManagerV1>();
-            this.InjectType<HudBootstrap>();
+            this.InjectType<HudDispatcher>();
             
             Logger.Msg("Patching methods");
-            this.InstallPatch(typeof(Gun_AmmoCount));
             this.InstallPatch(typeof(RigManager_Start));
             
             Logger.Msg("Creating HUDs directory");
