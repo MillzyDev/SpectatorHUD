@@ -17,11 +17,8 @@
  */
 
 using System.Reflection;
-using BoneLib;
 using FieldInjector;
 using HarmonyLib;
-using Il2CppSLZ.Marrow;
-using Il2CppSLZ.Marrow.SceneStreaming;
 using MelonLoader;
 using MelonLoader.Utils;
 using SpectatorHUD;
