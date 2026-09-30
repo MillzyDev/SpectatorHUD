@@ -74,6 +74,18 @@ namespace SpectatorHUD
             UpdateRightAmmoCount();
         }
 
+        public static void CloseState()
+        {
+            _leftHand?.onRecieverAttached -= _onReceiverAttachedLeft;
+            _leftHand?.onRecieverDetached -= _onReceiverDetachedLeft;
+            _rightHand?.onRecieverAttached -= _onReceiverAttachedRight;
+            _rightHand?.onRecieverDetached -= _onReceiverDetachedRight;
+            
+            _rigManager = null;
+            _leftHand = null;
+            _rightHand = null;
+        }
+
         private static void ConvertDelegates()
         {
             _onReceiverAttachedLeft =

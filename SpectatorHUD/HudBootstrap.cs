@@ -125,5 +125,10 @@ namespace SpectatorHUD
 
             HudState.OpenState(Player.RigManager);
         }
+
+        private void OnDestroy()
+        {
+            HudState.CloseState();
+        }
     }
 }
