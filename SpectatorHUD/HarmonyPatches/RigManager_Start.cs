@@ -11,8 +11,9 @@ namespace SpectatorHUD.HarmonyPatches
         [HarmonyPostfix]
         private static void Postfix()
         {
+            // FIXME: TEMPORARY SOLUTION FOR BOOTSTRAPPING HUD REMOVE FOR STABLE
             var dispatcherGo = new GameObject("SpectatorHUD Dispatcher");
-            dispatcherGo.AddComponent<HudDispatcher>();
+            dispatcherGo.AddComponent<HudBootstrap>();
         }
     }
 }
