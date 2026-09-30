@@ -69,6 +69,9 @@ namespace SpectatorHUD
             _leftHand.onRecieverDetached += _onReceiverDetachedLeft;
             _rightHand.onRecieverAttached += _onReceiverAttachedRight;
             _rightHand.onRecieverDetached += _onReceiverDetachedRight;
+            
+            UpdateLeftAmmoCount();
+            UpdateRightAmmoCount();
         }
 
         private static void ConvertDelegates()
