@@ -43,10 +43,13 @@ namespace SpectatorHUD
             this.InjectType<HudVersion>();
             this.InjectType<HudV1>();
             this.InjectType<HudManagerV1>();
-            this.InjectType<HudDispatcher>();
+            this.InjectType<HudBootstrap>();
             
             Logger.Msg("Patching methods");
             this.InstallPatch(typeof(RigManager_Start));
+            this.InstallPatch(typeof(Gun_CompleteSlidePull));
+            this.InstallPatch(typeof(Gun_OnMagazineInserted));
+            this.InstallPatch(typeof(AmmoSocket_OnPlugUnlocked));
             
             Logger.Msg("Creating HUDs directory");
             this.CreateHudDirectory();

@@ -123,7 +123,7 @@ namespace SpectatorHUD
             this.hud = GameObject.Instantiate(hudInfo.hudAsset);
             this.hud.name = "SpectatorHUD UI";
 
-            Player.RigManager.gameObject.AddComponent<PlayerObserver>();
+            HudState.OpenState(Player.RigManager);
         }
     }
 }
