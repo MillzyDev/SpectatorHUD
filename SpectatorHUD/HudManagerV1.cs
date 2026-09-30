@@ -41,10 +41,24 @@ namespace SpectatorHUD
 
         private void OnEnable()
         {
+            HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoCounter;
+            HudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
         }
 
         private void OnDisable()
         {
+            HudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoCounter;
+            HudState.OnRightAmmoChanged -= this.UpdateRightAmmoCounter;
+        }
+
+        private void UpdateLeftAmmoCounter(int? ammo)
+        {
+            this.leftHandAmmoCounter.text = ammo.ToString();
+        }
+        
+        private void UpdateRightAmmoCounter(int? ammo)
+        {
+            this.rightHandAmmoCounter.text = ammo.ToString();
         }
     }
 }
