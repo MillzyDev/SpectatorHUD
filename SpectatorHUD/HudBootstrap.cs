@@ -24,29 +24,15 @@ using UnityEngine;
 
 namespace SpectatorHUD
 {
-    public class HudDispatcher : MonoBehaviour
+    public class HudBootstrap : MonoBehaviour
     {
         private static readonly string DefaultHud = "SpectatorHUD.Resources.TestHUD.hud";
         
         private RigManager? _rigManager;
         public GameObject? hud;
 
-        private Il2CppSystem.Action<HandReciever>? _onLeftHandAttached;
-        private Il2CppSystem.Action<HandReciever>? _onRightHandAttached;
-        private Il2CppSystem.Action<HandReciever>? _onLeftHandDetached;
-        private Il2CppSystem.Action<HandReciever>? _onRightHandDetached;
-
-        public HudDispatcher(IntPtr ptr) : base(ptr)
+        public HudBootstrap(IntPtr ptr) : base(ptr)
         {
-            // Create IL2CPP converted delegates for this instance
-            this._onLeftHandAttached =
-                DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(this.LeftHandAttached);
-            this._onRightHandAttached =
-                DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(this.RightHandAttached);
-            this._onLeftHandDetached =
-                DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(this.LeftHandDetached);
-            this._onRightHandDetached =
-                DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(this.RightHandDetached);
         }
 
         public void Start()
@@ -136,90 +122,8 @@ namespace SpectatorHUD
             Logger.Msg("Loaded {0} v{1} by {2}", hudInfo.hudName, hudInfo.hudVersion, hudInfo.hudAuthor);
             this.hud = GameObject.Instantiate(hudInfo.hudAsset);
             this.hud.name = "SpectatorHUD UI";
-            
-            //var hudManager = this.hud.GetComponentInChildren<HudManagerV1>();
-            
-            this.SubscribeToRigEvents();
-        }
 
-        private void OnDestroy()
-        {
-            // Unity can deal with the HUD
-            this.UnsubscribeFromRigEvents(); // must clean up
-        }
-
-        private void SubscribeToRigEvents()
-        {
-            Player.LeftHand.onRecieverAttached += this._onLeftHandAttached;
-            Player.RightHand.onRecieverAttached += this._onRightHandAttached;
-            Player.LeftHand.onRecieverDetached += this._onLeftHandDetached;
-            Player.RightHand.onRecieverDetached += this._onRightHandDetached;
-        }
-
-        private void UnsubscribeFromRigEvents()
-        {
-            Player.LeftHand.onRecieverAttached -= this._onLeftHandAttached;
-            Player.RightHand.onRecieverAttached -= this._onRightHandAttached;
-            Player.LeftHand.onRecieverDetached -= this._onLeftHandDetached;
-            Player.RightHand.onRecieverDetached -= this._onRightHandDetached;
-        }
-        
-        private void LeftHandAttached(HandReciever handReciever)
-        {
-            Grip? grip = handReciever.TryCast<Grip>();
-
-            // confirm the receiver is a grip (I think this is always the case but doesn't hurt to be safe)
-            if (grip == null)
-            {
-                HudEvents.OnLeftHeldItemChanged(true, null, false);
-                return;
-            }
-            
-            // Search for gun component
-            Gun? gun = grip.GetComponentInParent<Gun>();
-            if (gun == null)
-            {
-                HudEvents.OnLeftHeldItemChanged(true, null, false);
-                return;
-            }
-            
-            // Holding a gun, check that we're holding the trigger grip for the event
-            HudEvents.OnLeftHeldItemChanged(true, gun, gun.triggerGrip == grip);
-            Logger.Debug("Holding gun in left hand:" + gun.name);
-        }
-
-        private void RightHandAttached(HandReciever handReciever)
-        {
-            // See LeftHandAttached
-            Grip? grip = handReciever.TryCast<Grip>();
-
-            if (grip == null)
-            {
-                HudEvents.OnRightHeldItemChanged(true, null, false);
-                return;
-            }
-            
-            Gun? gun = grip.GetComponentInParent<Gun>();
-            if (gun == null)
-            {
-                HudEvents.OnRightHeldItemChanged(true, null, false);
-                return;
-            }
-            
-            HudEvents.OnRightHeldItemChanged(true, gun, gun.triggerGrip == grip);
-            Logger.Debug("Holding gun in right hand:" + gun.name);
-        }
-
-        private void LeftHandDetached(HandReciever _)
-        {
-            HudEvents.OnLeftHeldItemChanged(false, null, false);
-            Logger.Debug("Released item in left hand.");
-        }
-
-        private void RightHandDetached(HandReciever _)
-        {
-            HudEvents.OnRightHeldItemChanged(false, null, false);
-            Logger.Debug("Released item in right hand.");
+            Player.RigManager.gameObject.AddComponent<PlayerObserver>();
         }
     }
 }

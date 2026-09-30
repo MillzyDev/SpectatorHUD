@@ -16,6 +16,8 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
+using Il2CppSLZ.Marrow;
+using Il2CppSLZ.Marrow.Data;
 using Il2CppTMPro;
 using UnityEngine;
 
@@ -31,7 +33,18 @@ namespace SpectatorHUD
         public TMP_Text rightHandAmmoCounter;
         public TMP_Text healthCounter;
         public TMP_Text maxHealthCounter;
+        
+        public HudManagerV1(IntPtr ptr) : base(ptr)
+        {
+            
+        }
 
-       
+        private void OnEnable()
+        {
+        }
+
+        private void OnDisable()
+        {
+        }
     }
 }
