@@ -10,16 +10,16 @@ namespace SpectatorHUD.HarmonyPatches
         [HarmonyPostfix]
         private static void Postfix(Gun __instance)
         {
-            if (__instance == HudState.LeftGun)
-            {
-                HudState.OnSlidePullLeft(__instance);
-                Logger.Debug("Left slide pulled");
-                
-            }
-            else if (__instance == HudState.RightGun)
+            if (__instance == HudState.RightGun)
             {
                 HudState.OnSlidePullRight(__instance);
                 Logger.Debug("Right slide pulled");
+                
+            }
+            else if (__instance == HudState.LeftGun)
+            {
+                HudState.OnSlidePullLeft(__instance);
+                Logger.Debug("Left slide pulled");
             }
         }
     }

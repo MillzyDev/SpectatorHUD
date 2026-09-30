@@ -10,15 +10,15 @@ namespace SpectatorHUD.HarmonyPatches
         [HarmonyPostfix]
         private static void Postfix(AmmoSocket __instance)
         {
-            if (__instance.gun == HudState.LeftGun)
-            {
-                HudState.OnMagazineRemovedLeft();
-                Logger.Debug("Left magazine removed");
-            }
-            else if (__instance.gun == HudState.RightGun)
+            if (__instance.gun == HudState.RightGun)
             {
                 HudState.OnMagazineRemovedRight();
                 Logger.Debug("Right magazine removed");
+            }
+            else if (__instance.gun == HudState.LeftGun)
+            {
+                HudState.OnMagazineRemovedLeft();
+                Logger.Debug("Left magazine removed");
             }
         }
     }

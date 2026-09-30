@@ -10,16 +10,16 @@ namespace SpectatorHUD.HarmonyPatches
         [HarmonyPostfix]
         private static void Postfix(Gun __instance)
         {
-            if (__instance == HudState.LeftGun)
-            {
-                HudState.OnMagazineInsertedLeft();
-                Logger.Debug("Left magazine inserted");
-                
-            }
-            else if (__instance == HudState.RightGun)
+            if (__instance == HudState.RightGun)
             {
                 HudState.OnMagazineInsertedRight();
-                Logger.Debug("Right magazine removed");
+                Logger.Debug("Right magazine inserted");
+                
+            }
+            else if (__instance == HudState.LeftGun)
+            {
+                HudState.OnMagazineInsertedLeft();
+                Logger.Debug("Left magazine removed");
             }
         }
     }
