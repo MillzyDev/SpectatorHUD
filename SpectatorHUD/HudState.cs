@@ -19,6 +19,7 @@
 
 using Il2CppInterop.Runtime;
 using Il2CppSLZ.Marrow;
+using Il2CppSLZ.Marrow.Data;
 
 namespace SpectatorHUD
 {
@@ -26,11 +27,15 @@ namespace SpectatorHUD
     {
         public static Gun? LeftGun { get; private set; } = null;
         public static Gun? RightGun { get; private set; } = null;
+        public static CartridgeData? LeftDefaultCartridge { get; private set; }
+        public static CartridgeData? RightDefaultCartridge { get; private set; }
 
         public static event Action<Gun?>? OnLeftGunChanged = null;
         public static event Action<Gun?>? OnRightGunChanged = null;
         public static event Action<int?>? OnLeftAmmoChanged = null;
         public static event Action<int?>? OnRightAmmoChanged = null;
+        public static event Action<int?>? OnLeftReserveChanged = null;
+        public static event Action<int?>? OnRightReserveChanged = null;
         
         private static RigManager? _rigManager = null;
         private static Hand? _leftHand = null;
@@ -72,6 +77,8 @@ namespace SpectatorHUD
             
             UpdateLeftAmmoCount();
             UpdateRightAmmoCount();
+            UpdateLeftReserveCount();
+            UpdateRightReserveCount();
         }
 
         public static void CloseState()
@@ -109,8 +116,11 @@ namespace SpectatorHUD
 
             gun?.onFireDelegate += _onGunFireLeft;
             LeftGun = gun;
+            LeftDefaultCartridge = gun?.defaultCartridge;
             OnLeftGunChanged?.Invoke(gun);
+            
             UpdateLeftAmmoCount();
+            UpdateLeftReserveCount();
         }
 
         private static void OnReceiverDetachedLeft(HandReciever handReciever)
@@ -122,8 +132,11 @@ namespace SpectatorHUD
 
             gun?.onFireDelegate -= _onGunFireLeft;
             LeftGun = null;
+            LeftDefaultCartridge = null;
             OnLeftGunChanged?.Invoke(null);
+            
             UpdateLeftAmmoCount();
+            UpdateLeftReserveCount();
         }
         
         private static void OnReceiverAttachedRight(HandReciever handReciever)
@@ -135,8 +148,11 @@ namespace SpectatorHUD
 
             gun?.onFireDelegate += _onGunFireRight;
             RightGun = gun;
+            RightDefaultCartridge = gun?.defaultCartridge;
             OnRightGunChanged?.Invoke(gun);
+            
             UpdateRightAmmoCount();
+            UpdateRightReserveCount();
         }
 
         private static void OnReceiverDetachedRight(HandReciever handReciever)
@@ -148,8 +164,11 @@ namespace SpectatorHUD
 
             gun?.onFireDelegate -= _onGunFireRight;
             RightGun = null;
+            RightDefaultCartridge = null;
             OnRightGunChanged?.Invoke(null);
+            
             UpdateRightAmmoCount();
+            UpdateRightReserveCount();
         }
 
         private static bool TryFindGunFromReceiver(HandReciever handReciever, out Gun? gun)
@@ -166,21 +185,31 @@ namespace SpectatorHUD
         public static void OnMagazineInsertedLeft()
         {
             UpdateLeftAmmoCount();
+            UpdateLeftReserveCount();
         }
 
         public static void OnMagazineInsertedRight()
         {
             UpdateRightAmmoCount();
+            UpdateRightReserveCount();
         }
         
         public static void OnMagazineRemovedLeft()
         {
             UpdateLeftAmmoCount();
+            UpdateLeftReserveCount();
         }
 
         public static void OnMagazineRemovedRight()
         {
             UpdateRightAmmoCount();
+            UpdateRightReserveCount();
+        }
+
+        public static void OnGachaMagazineInserted()
+        {
+            UpdateLeftReserveCount();
+            UpdateRightReserveCount();
         }
 
         private static void UpdateLeftAmmoCount()
@@ -191,6 +220,27 @@ namespace SpectatorHUD
         private static void UpdateRightAmmoCount()
         {
             OnRightAmmoChanged?.Invoke(GetRightAmmoCount());
+        }
+
+        private static void UpdateLeftReserveCount()
+        {
+            if (LeftDefaultCartridge == null)
+            {
+                OnLeftReserveChanged?.Invoke(null);
+                return;
+            }
+            OnLeftReserveChanged?.Invoke(AmmoInventory.Instance.GetCartridgeCount(LeftDefaultCartridge) - GetLeftAmmoCount());
+        }
+
+        private static void UpdateRightReserveCount()
+        {
+            // TODO: Test and handle gacha/monomat stuff
+            if (RightDefaultCartridge == null)
+            {
+                OnRightReserveChanged?.Invoke(null);
+                return;
+            }
+            OnRightReserveChanged?.Invoke(AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge) - GetRightAmmoCount());
         }
 
         public static int? GetLeftAmmoCount()
@@ -226,21 +276,25 @@ namespace SpectatorHUD
         public static void OnGunFireLeft(Gun gun)
         {
             UpdateLeftAmmoCount();
+            UpdateLeftReserveCount();
         }
 
         public static void OnGunFireRight(Gun gun)
         {
             UpdateRightAmmoCount();
+            UpdateLeftReserveCount();
         }
 
         public static void OnSlidePullLeft(Gun gun)
         {
             UpdateLeftAmmoCount();
+            UpdateLeftReserveCount();
         }
         
         public static void OnSlidePullRight(Gun gun)
         {
             UpdateRightAmmoCount();
+            UpdateLeftReserveCount();
         }
     }
 }

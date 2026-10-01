@@ -50,6 +50,9 @@ namespace SpectatorHUD
             this.InstallPatch(typeof(Gun_CompleteSlidePull));
             this.InstallPatch(typeof(Gun_OnMagazineInserted));
             this.InstallPatch(typeof(AmmoSocket_OnPlugUnlocked));
+            this.InstallPatch(typeof(Gashapon_InsertMagazine));
+            this.InstallPatch(typeof(Gashapon_SetupAmmo));
+            this.InstallPatch(typeof(MonoMatNew_InsertMagazine));
             
             Logger.Msg("Creating HUDs directory");
             this.CreateHudDirectory();
