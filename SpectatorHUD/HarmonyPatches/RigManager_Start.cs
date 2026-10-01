@@ -27,11 +27,10 @@ namespace SpectatorHUD.HarmonyPatches
     public static class RigManager_Start
     {
         [HarmonyPostfix]
-        private static void Postfix()
+        private static void Postfix(RigManager __instance)
         {
             // FIXME: TEMPORARY SOLUTION FOR BOOTSTRAPPING HUD REMOVE FOR STABLE
-            var dispatcherGo = new GameObject("SpectatorHUD Dispatcher");
-            dispatcherGo.AddComponent<HudBootstrap>();
+            __instance.gameObject.AddComponent<HudBootstrap>();
         }
     }
 }
