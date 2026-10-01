@@ -16,8 +16,6 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-using Il2CppSLZ.Marrow;
-using Il2CppSLZ.Marrow.Data;
 using Il2CppTMPro;
 using UnityEngine;
 
@@ -32,7 +30,6 @@ namespace SpectatorHUD
         public TMP_Text rightHandReserveCounter;
         public TMP_Text rightHandAmmoCounter;
         public TMP_Text healthCounter;
-        public TMP_Text maxHealthCounter;
         
         public HudManagerV1(IntPtr ptr) : base(ptr)
         {
@@ -45,6 +42,7 @@ namespace SpectatorHUD
             HudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
             HudState.OnLeftReserveChanged += this.UpdateLeftReserveCounter;
             HudState.OnRightReserveChanged += this.UpdateRightReserveCounter;
+            HudState.OnHealthChanged += this.UpdateHealth;
         }
 
         private void OnDisable()
@@ -53,6 +51,7 @@ namespace SpectatorHUD
             HudState.OnRightAmmoChanged -= this.UpdateRightAmmoCounter;
             HudState.OnLeftReserveChanged -= this.UpdateLeftReserveCounter;
             HudState.OnRightReserveChanged -= this.UpdateRightReserveCounter;
+            HudState.OnHealthChanged -= this.UpdateHealth;
         }
 
         private void UpdateLeftAmmoCounter(int? ammo)
@@ -73,6 +72,11 @@ namespace SpectatorHUD
         private void UpdateRightReserveCounter(int? ammo)
         {
             this.rightHandReserveCounter.text = ammo.ToString();
+        }
+
+        private void UpdateHealth(float? health)
+        {
+            this.healthCounter.text = $"{health * 10:0.}";
         }
     }
 }
