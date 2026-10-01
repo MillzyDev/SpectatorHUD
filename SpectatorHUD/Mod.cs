@@ -23,6 +23,7 @@ using MelonLoader;
 using MelonLoader.Utils;
 using SpectatorHUD;
 using SpectatorHUD.HarmonyPatches;
+using SpectatorHUD.Watchers;
 using BuildInfo = SpectatorHUD.BuildInfo;
 
 [assembly: MelonInfo(typeof(Mod), BuildInfo.Name, BuildInfo.Version, BuildInfo.Author)]
@@ -44,6 +45,7 @@ namespace SpectatorHUD
             this.InjectType<HudV1>();
             this.InjectType<HudManagerV1>();
             this.InjectType<HudBootstrap>();
+            this.InjectType<PlayerHealthWatcher>();
             
             Logger.Msg("Patching methods");
             this.InstallPatch(typeof(RigManager_Start));
