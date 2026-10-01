@@ -20,6 +20,7 @@
 using Il2CppInterop.Runtime;
 using Il2CppSLZ.Marrow;
 using Il2CppSLZ.Marrow.Data;
+using SpectatorHUD.Watchers;
 
 namespace SpectatorHUD
 {
@@ -36,6 +37,7 @@ namespace SpectatorHUD
         public static event Action<int?>? OnRightAmmoChanged = null;
         public static event Action<int?>? OnLeftReserveChanged = null;
         public static event Action<int?>? OnRightReserveChanged = null;
+        public static event Action<float?>? OnHealthChanged = null;
         
         private static RigManager? _rigManager = null;
         private static Hand? _leftHand = null;
@@ -74,11 +76,14 @@ namespace SpectatorHUD
             _leftHand.onRecieverDetached += _onReceiverDetachedLeft;
             _rightHand.onRecieverAttached += _onReceiverAttachedRight;
             _rightHand.onRecieverDetached += _onReceiverDetachedRight;
+
+            _rigManager.gameObject.AddComponent<PlayerHealthWatcher>();
             
             UpdateLeftAmmoCount();
             UpdateRightAmmoCount();
             UpdateLeftReserveCount();
             UpdateRightReserveCount();
+            UpdateHealth();
         }
 
         public static void CloseState()
@@ -212,6 +217,11 @@ namespace SpectatorHUD
             UpdateRightReserveCount();
         }
 
+        public static void OnHealthUpdated(float? value)
+        {
+            OnHealthChanged?.Invoke(value);
+        }
+
         private static void UpdateLeftAmmoCount()
         {
             OnLeftAmmoChanged?.Invoke(GetLeftAmmoCount());
@@ -234,13 +244,17 @@ namespace SpectatorHUD
 
         private static void UpdateRightReserveCount()
         {
-            // TODO: Test and handle gacha/monomat stuff
             if (RightDefaultCartridge == null)
             {
                 OnRightReserveChanged?.Invoke(null);
                 return;
             }
             OnRightReserveChanged?.Invoke(AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge) - GetRightAmmoCount());
+        }
+
+        private static void UpdateHealth()
+        {
+            OnHealthUpdated(_rigManager?.health.curr_Health);
         }
 
         public static int? GetLeftAmmoCount()
