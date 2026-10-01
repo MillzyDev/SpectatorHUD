@@ -17,8 +17,6 @@
  */
 
 using System.Reflection;
-using BoneLib;
-using Il2CppInterop.Runtime;
 using Il2CppSLZ.Marrow;
 using UnityEngine;
 
@@ -123,7 +121,18 @@ namespace SpectatorHUD
             this.hud = GameObject.Instantiate(hudInfo.hudAsset);
             this.hud.name = "SpectatorHUD UI";
 
-            HudState.OpenState(Player.RigManager);
+            this.HudRun();
+        }
+
+        private void HudRun()
+        {
+            if (this._rigManager == null)
+            {
+                Logger.Error("FUCKKK WHERES THE RIG MANAGER");
+                return;
+            }
+            
+            HudState.OpenState(this._rigManager);
         }
 
         private void OnDestroy()
