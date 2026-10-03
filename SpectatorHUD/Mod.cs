@@ -41,6 +41,7 @@ namespace SpectatorHUD
             Logger.Msg("Logger initialised");
             
             Logger.Msg("Injecting types");
+            this.InjectType<AnimationBool>();
             this.InjectType<HudVersion>();
             this.InjectType<HudV1>();
             this.InjectType<HudManagerV1>();
