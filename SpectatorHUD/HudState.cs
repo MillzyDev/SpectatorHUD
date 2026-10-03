@@ -84,6 +84,9 @@ namespace SpectatorHUD
             UpdateLeftReserveCount();
             UpdateRightReserveCount();
             UpdateHealth();
+            
+            OnLeftGunChanged?.Invoke(null);
+            OnRightGunChanged?.Invoke(null);
         }
 
         public static void CloseState()
