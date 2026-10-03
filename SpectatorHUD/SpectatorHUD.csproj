@@ -46,6 +46,9 @@
         <Reference Include="UnityEngine">
           <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.AnimationModule">
+          <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.AnimationModule.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine.AssetBundleModule">
             <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.AssetBundleModule.dll</HintPath>
         </Reference>
