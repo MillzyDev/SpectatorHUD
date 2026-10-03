@@ -16,6 +16,7 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
+using Il2CppSLZ.Marrow;
 using Il2CppTMPro;
 using UnityEngine;
 
@@ -31,13 +32,22 @@ namespace SpectatorHUD
         public TMP_Text rightHandAmmoCounter;
         public TMP_Text healthCounter;
         
+        public List<GameObject> activeWithGunHeldInLeftHand;
+        public List<GameObject> activeWithGunHeldInRightHand;
+        
+        public List<AnimationBool> setBoolOnLeftGunHeld;
+        public List<AnimationBool> setBoolOnRightGunHeld;
+        public List<AnimationBool> setBoolOnLeftGunDropped;
+        public List<AnimationBool> setBoolOnRightGunDropped;
+        
         public HudManagerV1(IntPtr ptr) : base(ptr)
         {
-            
         }
 
         private void OnEnable()
         {
+            HudState.OnLeftGunChanged += this.OnLeftGunChanged;
+            HudState.OnRightGunChanged += this.OnRightGunChanged;
             HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoCounter;
             HudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
             HudState.OnLeftReserveChanged += this.UpdateLeftReserveCounter;
@@ -47,6 +57,8 @@ namespace SpectatorHUD
 
         private void OnDisable()
         {
+            HudState.OnLeftGunChanged -= this.OnLeftGunChanged;
+            HudState.OnRightGunChanged -= this.OnRightGunChanged;
             HudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoCounter;
             HudState.OnRightAmmoChanged -= this.UpdateRightAmmoCounter;
             HudState.OnLeftReserveChanged -= this.UpdateLeftReserveCounter;
@@ -77,6 +89,75 @@ namespace SpectatorHUD
         private void UpdateHealth(float? health)
         {
             this.healthCounter.text = $"{health * 10:0.}";
+        }
+
+        private void OnLeftGunChanged(Gun? gun)
+        {
+            Logger.Debug("HudManagerV1: Left gun changed");
+            
+            if (gun == null) // no gun in hand
+            {
+                foreach (GameObject go in this.activeWithGunHeldInLeftHand)
+                {
+                    go.active = false;
+                    Logger.Debug("HudManagerV1: disabled " + go.name);
+                }
+
+                foreach (AnimationBool animBool in this.setBoolOnLeftGunDropped)
+                {
+                    animBool.animator.SetBool(animBool.parameterName, animBool.value);
+                    Logger.Debug("HudManagerV1: AnimationBool " + animBool.parameterName + " set to " + animBool.value);
+                }
+
+                return;
+            }
+            
+            foreach (GameObject go in this.activeWithGunHeldInLeftHand)
+            {
+                go.active = true;
+                Logger.Debug("HudManagerV1: enabled " + go.name);
+            }
+
+            foreach (AnimationBool animBool in this.setBoolOnLeftGunHeld)
+            {
+                animBool.animator.SetBool(animBool.parameterName, animBool.value);
+                Logger.Debug("HudManagerV1: AnimationBool " + animBool.parameterName + " set to " + animBool.value);
+                
+            }
+        }
+        
+        private void OnRightGunChanged(Gun? gun)
+        {
+            Logger.Debug("HudManagerV1: Right gun changed");
+            
+            if (gun == null) // no gun in hand
+            {
+                foreach (GameObject go in this.activeWithGunHeldInRightHand)
+                {
+                    Logger.Debug("HudManagerV1: disabled " + go.name);
+                    go.active = false;
+                }
+
+                foreach (AnimationBool animBool in this.setBoolOnRightGunDropped)
+                {
+                    animBool.animator.SetBool(animBool.parameterName, animBool.value);
+                    Logger.Debug("HudManagerV1: AnimationBool " + animBool.parameterName + " set to " + animBool.value);
+                }
+
+                return;
+            }
+            
+            foreach (GameObject go in this.activeWithGunHeldInRightHand)
+            {
+                Logger.Debug("HudManagerV1: enabled " + go.name);
+                go.active = true;
+            }
+
+            foreach (AnimationBool animBool in this.setBoolOnRightGunHeld)
+            {
+                animBool.animator.SetBool(animBool.parameterName, animBool.value);
+                Logger.Debug("HudManagerV1: AnimationBool " + animBool.parameterName + " set to " + animBool.value);
+            }
         }
     }
 }
