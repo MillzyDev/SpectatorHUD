@@ -55,6 +55,12 @@
         <Reference Include="UnityEngine.CoreModule">
             <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+          <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.IMGUIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.InputLegacyModule">
+          <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.InputLegacyModule.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine.UI">
           <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
         </Reference>
