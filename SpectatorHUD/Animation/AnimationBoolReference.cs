@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 
-namespace SpectatorHUD
+namespace SpectatorHUD.Animation
 {
     [Serializable]
-    public struct AnimationBool
+    public struct AnimationBoolReference
     {
         public Animator animator;
         public string parameterName;
-        public bool value;
     }
 }

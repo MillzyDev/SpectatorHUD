@@ -16,8 +16,11 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
+using System.Collections;
 using Il2CppSLZ.Marrow;
 using Il2CppTMPro;
+using MelonLoader;
+using SpectatorHUD.Animation;
 using UnityEngine;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
@@ -35,10 +38,28 @@ namespace SpectatorHUD
         public List<GameObject> activeWithGunHeldInLeftHand;
         public List<GameObject> activeWithGunHeldInRightHand;
         
-        public List<AnimationBool> setBoolOnLeftGunHeld;
-        public List<AnimationBool> setBoolOnRightGunHeld;
-        public List<AnimationBool> setBoolOnLeftGunDropped;
-        public List<AnimationBool> setBoolOnRightGunDropped;
+        #region Animation Events
+        public List<AnimationBoolReference> animationLeftGunHeld;
+        public List<AnimationBoolReference> animationRightGunHeld;
+        public List<AnimationTriggerReference> animationLeftGunHeldChanged;
+        public List<AnimationTriggerReference> animationRightGunHeldChanged;
+
+        public List<AnimationIntReference> animationLeftAmmo;
+        public List<AnimationIntReference> animationRightAmmo;
+        public List<AnimationTriggerReference> animationLeftAmmoChanged;
+        public List<AnimationTriggerReference> animationRightAmmoChanged;
+        
+        public List<AnimationIntReference> animationLeftReserve;
+        public List<AnimationIntReference> animationRightReserve;
+        public List<AnimationTriggerReference> animationLeftReserveChanged;
+        public List<AnimationTriggerReference> animationRightReserveChanged;
+
+        public List<AnimationFloatReference> animationHealth;
+        public List<AnimationFloatReference> animationMaxHealth;
+        public List<AnimationFloatReference> animationHealthPercentage;
+        public List<AnimationTriggerReference> animationHealthChanged;
+        public List<AnimationTriggerReference> animationMaxHealthChanged;
+        #endregion
         
         public HudManagerV1(IntPtr ptr) : base(ptr)
         {
@@ -68,32 +89,51 @@ namespace SpectatorHUD
 
         private void UpdateLeftAmmoCounter(int? ammo)
         {
+            this.SetAnimationInts(this.animationLeftAmmo, ammo ?? 0);
+            this.FireAnimationTriggers(this.animationLeftAmmoChanged);
+            
             this.leftHandAmmoCounter.text = ammo.ToString();
         }
         
         private void UpdateRightAmmoCounter(int? ammo)
         {
+            this.SetAnimationInts(this.animationRightAmmo, ammo ?? 0);
+            this.FireAnimationTriggers(this.animationRightAmmoChanged);
+            
             this.rightHandAmmoCounter.text = ammo.ToString();
         }
 
         private void UpdateLeftReserveCounter(int? ammo)
         {
+            this.SetAnimationInts(this.animationLeftReserve, ammo ?? 0);
+            this.FireAnimationTriggers(this.animationLeftReserveChanged);
+            
             this.leftHandReserveCounter.text = ammo.ToString();
         }
 
         private void UpdateRightReserveCounter(int? ammo)
         {
+            this.SetAnimationInts(this.animationRightReserve, ammo ?? 0);
+            this.FireAnimationTriggers(this.animationRightReserveChanged);
+            
             this.rightHandReserveCounter.text = ammo.ToString();
         }
 
         private void UpdateHealth(float? health)
         {
+            this.SetAnimationFloats(this.animationHealth, health ?? 0f);
+            this.FireAnimationTriggers(this.animationHealthChanged);
+            
             this.healthCounter.text = $"{health * 10:0.}";
         }
+        
+        // TODO: Max Health
+        // TODO: Percentage Health
 
         private void OnLeftGunChanged(Gun? gun)
         {
             Logger.Debug("HudManagerV1: Left gun changed");
+            this.FireAnimationTriggers(this.animationLeftGunHeldChanged);
             
             if (gun == null) // no gun in hand
             {
@@ -102,13 +142,8 @@ namespace SpectatorHUD
                     go.active = false;
                     Logger.Debug("HudManagerV1: disabled " + go.name);
                 }
-
-                foreach (AnimationBool animBool in this.setBoolOnLeftGunDropped)
-                {
-                    animBool.animator.SetBool(animBool.parameterName, animBool.value);
-                    Logger.Debug("HudManagerV1: AnimationBool " + animBool.parameterName + " set to " + animBool.value);
-                }
-
+                
+                this.SetAnimationBools(this.animationLeftGunHeld, false);
                 return;
             }
             
@@ -117,18 +152,14 @@ namespace SpectatorHUD
                 go.active = true;
                 Logger.Debug("HudManagerV1: enabled " + go.name);
             }
-
-            foreach (AnimationBool animBool in this.setBoolOnLeftGunHeld)
-            {
-                animBool.animator.SetBool(animBool.parameterName, animBool.value);
-                Logger.Debug("HudManagerV1: AnimationBool " + animBool.parameterName + " set to " + animBool.value);
-                
-            }
+            
+            this.SetAnimationBools(this.animationLeftGunHeld, true);
         }
         
         private void OnRightGunChanged(Gun? gun)
         {
             Logger.Debug("HudManagerV1: Right gun changed");
+            this.FireAnimationTriggers(this.animationRightGunHeldChanged);
             
             if (gun == null) // no gun in hand
             {
@@ -138,12 +169,7 @@ namespace SpectatorHUD
                     go.active = false;
                 }
 
-                foreach (AnimationBool animBool in this.setBoolOnRightGunDropped)
-                {
-                    animBool.animator.SetBool(animBool.parameterName, animBool.value);
-                    Logger.Debug("HudManagerV1: AnimationBool " + animBool.parameterName + " set to " + animBool.value);
-                }
-
+                this.SetAnimationBools(this.animationRightGunHeld, false);
                 return;
             }
             
@@ -152,12 +178,48 @@ namespace SpectatorHUD
                 Logger.Debug("HudManagerV1: enabled " + go.name);
                 go.active = true;
             }
+            
+            this.SetAnimationBools(this.animationRightGunHeld, true);
+        }
 
-            foreach (AnimationBool animBool in this.setBoolOnRightGunHeld)
+        private void FireAnimationTriggers(List<AnimationTriggerReference> triggers)
+        {
+            foreach (AnimationTriggerReference trigger in triggers)
             {
-                animBool.animator.SetBool(animBool.parameterName, animBool.value);
-                Logger.Debug("HudManagerV1: AnimationBool " + animBool.parameterName + " set to " + animBool.value);
+                MelonCoroutines.Start(this.SingleFrameAnimationTrigger(trigger));
             }
+        }
+
+        private void SetAnimationBools(List<AnimationBoolReference> bools, bool value)
+        {
+            foreach (AnimationBoolReference @bool in bools)
+            {
+                @bool.animator.SetBool(@bool.parameterName, value);
+            }
+        }
+
+        private void SetAnimationFloats(List<AnimationFloatReference> floats, float value)
+        {
+            foreach (AnimationFloatReference @float in floats)
+            {
+                @float.animator.SetFloat(@float.parameterName, value);
+            }
+        }
+
+        private void SetAnimationInts(List<AnimationIntReference> ints, int value)
+        {
+            foreach (AnimationIntReference @int in ints)
+            {
+                @int.animator.SetInteger(@int.parameterName, value);
+            }
+        }
+
+        private IEnumerator SingleFrameAnimationTrigger(AnimationTriggerReference trigger)
+        {
+            trigger.animator.SetTrigger(trigger.parameterName);
+            yield return null;
+            yield return null;
+            trigger.animator.ResetTrigger(trigger.parameterName);
         }
     }
 }
