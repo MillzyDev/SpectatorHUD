@@ -1,10 +1,21 @@
-﻿using UnityEngine;
+﻿using Il2CppSLZ.Marrow;
+using UnityEngine;
 
 namespace SpectatorHUD
 {
     public class DebugGUI : MonoBehaviour
     {
         private bool _showGui = false;
+
+        private bool _leftGunHeld;
+        private bool _rightGunHeld;
+        private int? _leftAmmo;
+        private int? _rightAmmo;
+        private int? _leftReserve;
+        private int? _rightReserve;
+        private float? _health;
+        private float? _maxHealth;
+        private float? _percentageHealth;
         
         public DebugGUI(IntPtr ptr) : base(ptr)
         {
@@ -16,6 +27,63 @@ namespace SpectatorHUD
             {
                 this._showGui = !this._showGui;
             }
+        }
+
+        private void OnEnable()
+        {
+            HudState.OnLeftGunChanged += this.UpdateLeftGun;
+            HudState.OnRightGunChanged += this.UpdateRightGun;
+            HudState.OnLeftAmmoChanged += this.UpdateLeftAmmo;
+            HudState.OnRightAmmoChanged += this.UpdateRightAmmo;
+            HudState.OnLeftReserveChanged += this.UpdateLeftReserve;
+            HudState.OnRightReserveChanged += this.UpdateRightReserve;
+            HudState.OnHealthChanged += this.UpdateHealth;
+        }
+
+        private void OnDisable()
+        {
+            HudState.OnLeftGunChanged -= this.UpdateLeftGun;
+            HudState.OnRightGunChanged -= this.UpdateRightGun;
+            HudState.OnLeftAmmoChanged -= this.UpdateLeftAmmo;
+            HudState.OnRightAmmoChanged -= this.UpdateRightAmmo;
+            HudState.OnLeftReserveChanged -= this.UpdateLeftReserve;
+            HudState.OnRightReserveChanged -= this.UpdateRightReserve;
+            HudState.OnHealthChanged -= this.UpdateHealth;
+        }
+
+        private void UpdateLeftGun(Gun? gun)
+        {
+            this._leftGunHeld = gun != null;
+        }
+
+        private void UpdateRightGun(Gun? gun)
+        {
+            this._rightGunHeld = gun != null;
+        }
+
+        private void UpdateLeftAmmo(int? ammo)
+        {
+            this._leftAmmo = ammo;
+        }
+
+        private void UpdateRightAmmo(int? ammo)
+        {
+            this._rightAmmo = ammo;
+        }
+
+        private void UpdateLeftReserve(int? reserve)
+        {
+            this._leftReserve = reserve;
+        }
+
+        private void UpdateRightReserve(int? reserve)
+        {
+            this._rightReserve = reserve;
+        }
+
+        private void UpdateHealth(float? health)
+        {
+            this._health = health;
         }
 
         private void OnGUI()
@@ -30,15 +98,15 @@ namespace SpectatorHUD
 
             GUI.Label(new Rect(25, 50, 300, 30), "Tracked Values:");
 
-            GUI.Label(new Rect(35, 65, 300, 30), "Left Gun Held: ");
-            GUI.Label(new Rect(35, 80, 300, 30), "Right Gun Held: ");
-            GUI.Label(new Rect(35, 95, 300, 30), "Left Ammo: ");
-            GUI.Label(new Rect(35, 110, 300, 30), "Right Ammo: ");
-            GUI.Label(new Rect(35, 125, 300, 30), "Left Reserve: ");
-            GUI.Label(new Rect(35, 140, 300, 30), "Right Reserve: ");
-            GUI.Label(new Rect(35, 155, 300, 30), "Health: ");
-            GUI.Label(new Rect(35, 170, 300, 30), "Max Health: ");
-            GUI.Label(new Rect(35, 185, 300, 30), "Health Percentage: ");
+            GUI.Label(new Rect(35, 65, 300, 30), "Left Gun Held: " + this._leftGunHeld);
+            GUI.Label(new Rect(35, 80, 300, 30), "Right Gun Held: " + this._rightGunHeld);
+            GUI.Label(new Rect(35, 95, 300, 30), "Left Ammo: " + this._leftAmmo);
+            GUI.Label(new Rect(35, 110, 300, 30), "Right Ammo: " + this._rightAmmo);
+            GUI.Label(new Rect(35, 125, 300, 30), "Left Reserve: " + this._leftReserve);
+            GUI.Label(new Rect(35, 140, 300, 30), "Right Reserve: " + this._rightReserve);
+            GUI.Label(new Rect(35, 155, 300, 30), "Health: " + this._health);
+            GUI.Label(new Rect(35, 170, 300, 30), "Max Health: "); // TODO
+            GUI.Label(new Rect(35, 185, 300, 30), "Health Percentage: "); // TODO:
 
 
             GUI.Label(new Rect(225, 50, 300, 30), "HUD Metadata:");
