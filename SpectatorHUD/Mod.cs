@@ -50,6 +50,7 @@ namespace SpectatorHUD
             // Watchers
             this.InjectType<PlayerHealthWatcher>();
             // Hud
+            this.InjectType<DebugGUI>();
             this.InjectType<HudVersion>();
             this.InjectType<HudV1>();
             this.InjectType<HudManagerV1>();
