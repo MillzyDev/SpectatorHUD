@@ -22,6 +22,7 @@ using HarmonyLib;
 using MelonLoader;
 using MelonLoader.Utils;
 using SpectatorHUD;
+using SpectatorHUD.Animation;
 using SpectatorHUD.HarmonyPatches;
 using SpectatorHUD.Watchers;
 using BuildInfo = SpectatorHUD.BuildInfo;
@@ -41,12 +42,18 @@ namespace SpectatorHUD
             Logger.Msg("Logger initialised");
             
             Logger.Msg("Injecting types");
-            this.InjectType<AnimationBool>();
+            // Animation
+            this.InjectType<AnimationBoolReference>();
+            this.InjectType<AnimationFloatReference>();
+            this.InjectType<AnimationIntReference>();
+            this.InjectType<AnimationTriggerReference>();
+            // Watchers
+            this.InjectType<PlayerHealthWatcher>();
+            // Hud
             this.InjectType<HudVersion>();
             this.InjectType<HudV1>();
             this.InjectType<HudManagerV1>();
             this.InjectType<HudBootstrap>();
-            this.InjectType<PlayerHealthWatcher>();
             
             Logger.Msg("Patching methods");
             this.InstallPatch(typeof(RigManager_Start));
