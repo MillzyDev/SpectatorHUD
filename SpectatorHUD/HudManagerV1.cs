@@ -34,6 +34,8 @@ namespace SpectatorHUD
         public TMP_Text rightHandReserveCounter;
         public TMP_Text rightHandAmmoCounter;
         public TMP_Text healthCounter;
+        public TMP_Text maxHealthCounter;
+        public TMP_Text percentageHealthCounter;
         
         public List<GameObject> activeWithGunHeldInLeftHand;
         public List<GameObject> activeWithGunHeldInRightHand;
@@ -63,6 +65,41 @@ namespace SpectatorHUD
         
         public HudManagerV1(IntPtr ptr) : base(ptr)
         {
+        }
+
+        private void Start()
+        {
+            MetaInfo.HasLeftReserveCounter = this.leftHandReserveCounter != null;
+            MetaInfo.HasLeftAmmoCounter = this.leftHandAmmoCounter != null;
+            MetaInfo.HasRightReserveCounter = this.rightHandReserveCounter != null;
+            MetaInfo.HasRightAmmoCounter = this.rightHandAmmoCounter != null;
+            MetaInfo.HasHealthCounter = this.healthCounter != null;
+            MetaInfo.HasMaxHealthCounter = this.maxHealthCounter != null;
+            MetaInfo.HasHealthPercentageCounter = this.percentageHealthCounter != null;
+
+            MetaInfo.ActiveWithGunInLeftHand = this.activeWithGunHeldInLeftHand.Count;
+            MetaInfo.ActiveWithGunInRightHand = this.activeWithGunHeldInRightHand.Count;
+
+            MetaInfo.AnimationLeftGunHeld = this.animationLeftGunHeld.Count;
+            MetaInfo.AnimationRightGunHeld = this.animationRightGunHeld.Count;
+            MetaInfo.AnimationLeftGunHeldChanged = this.animationLeftGunHeldChanged.Count;
+            MetaInfo.AnimationRightGunHeldChanged = this.animationRightGunHeldChanged.Count;
+
+            MetaInfo.AnimationLeftAmmo = this.animationLeftAmmo.Count;
+            MetaInfo.AnimationRightAmmo = this.animationRightAmmo.Count;
+            MetaInfo.AnimationLeftAmmoChanged = this.animationLeftAmmoChanged.Count;
+            MetaInfo.AnimationRightAmmoChanged = this.animationRightAmmoChanged.Count;
+
+            MetaInfo.AnimationLeftReserve = this.animationLeftReserve.Count;
+            MetaInfo.AnimationRightReserve = this.animationRightReserve.Count;
+            MetaInfo.AnimationLeftReserveChanged = this.animationLeftReserveChanged.Count;
+            MetaInfo.AnimationRightReserveChanged = this.animationRightReserveChanged.Count;
+
+            MetaInfo.AnimationHealth = this.animationHealth.Count;
+            MetaInfo.AnimationMaxHealth = this.animationMaxHealth.Count;
+            MetaInfo.AnimationHealthPercentage = this.animationHealthPercentage.Count;
+            MetaInfo.AnimationHealthChanged = this.animationHealthChanged.Count;
+            MetaInfo.AnimationMaxHealthChanged = this.animationMaxHealthChanged.Count;
         }
 
         private void OnEnable()

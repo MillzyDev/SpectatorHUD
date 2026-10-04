@@ -105,6 +105,8 @@ namespace SpectatorHUD
                     Destroy(this);
                     break;
             }
+
+            MetaInfo.HUDCompatibility = hudVersion.version;
         }
 
         private void LoadHudV1(AssetBundle assetBundle)
@@ -121,6 +123,10 @@ namespace SpectatorHUD
             this.hud = GameObject.Instantiate(hudInfo.hudAsset);
             this.hud.name = "SpectatorHUD UI";
 
+            MetaInfo.HUDName = hudInfo.hudName;
+            MetaInfo.HUDAuthor = hudInfo.hudAuthor;
+            MetaInfo.HUDVersion = hudInfo.hudVersion;
+
             this.HudRun();
         }
 
@@ -133,6 +139,8 @@ namespace SpectatorHUD
             }
             
             HudState.OpenState(this._rigManager);
+
+            this.gameObject.AddComponent<DebugGUI>();
         }
 
         private void OnDestroy()
