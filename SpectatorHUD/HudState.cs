@@ -38,6 +38,7 @@ namespace SpectatorHUD
         public static event Action<int?>? OnLeftReserveChanged = null;
         public static event Action<int?>? OnRightReserveChanged = null;
         public static event Action<float?>? OnHealthChanged = null;
+        public static event Action<float?>? OnMaxHealthChanged = null;
         
         private static RigManager? _rigManager = null;
         private static Hand? _leftHand = null;
