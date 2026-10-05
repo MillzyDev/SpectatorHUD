@@ -73,7 +73,8 @@ namespace SpectatorHUD
             {
                 if (stream == null)
                 {
-                    // TODO: Error
+                    Logger.Error("Unable to open stream to embedded resource");
+                    return;
                 }
                 
                 var memoryStream = new MemoryStream();
