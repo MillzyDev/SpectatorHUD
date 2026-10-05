@@ -104,13 +104,22 @@ namespace SpectatorHUD
 
         private void OnEnable()
         {
+            // TODO: Enable events based on what counters are non-null; null-checks in the event functions are expensive
             HudState.OnLeftGunChanged += this.OnLeftGunChanged;
             HudState.OnRightGunChanged += this.OnRightGunChanged;
+            
             HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoCounter;
             HudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
             HudState.OnLeftReserveChanged += this.UpdateLeftReserveCounter;
             HudState.OnRightReserveChanged += this.UpdateRightReserveCounter;
             HudState.OnHealthChanged += this.UpdateHealth;
+            
+            // Animation events
+            HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoAnimation;
+            HudState.OnRightAmmoChanged += this.UpdateRightAmmoAnimation;
+            HudState.OnLeftReserveChanged += this.UpdateLeftReserveAnimation;
+            HudState.OnRightReserveChanged += this.UpdateRightReserveAnimation;
+            HudState.OnHealthChanged += this.UpdateHealthAnimation;
         }
 
         private void OnDisable()
@@ -126,44 +135,59 @@ namespace SpectatorHUD
 
         private void UpdateLeftAmmoCounter(int? ammo)
         {
+            this.leftHandAmmoCounter.text = ammo.ToString();
+        }
+
+        private void UpdateLeftAmmoAnimation(int? ammo)
+        {
             this.SetAnimationInts(this.animationLeftAmmo, ammo ?? 0);
             this.FireAnimationTriggers(this.animationLeftAmmoChanged);
-            
-            this.leftHandAmmoCounter.text = ammo.ToString();
         }
         
         private void UpdateRightAmmoCounter(int? ammo)
         {
+            this.rightHandAmmoCounter.text = ammo.ToString();
+        }
+
+        private void UpdateRightAmmoAnimation(int? ammo)
+        {
             this.SetAnimationInts(this.animationRightAmmo, ammo ?? 0);
             this.FireAnimationTriggers(this.animationRightAmmoChanged);
-            
-            this.rightHandAmmoCounter.text = ammo.ToString();
         }
 
         private void UpdateLeftReserveCounter(int? ammo)
         {
+            this.leftHandReserveCounter.text = ammo.ToString();
+        }
+
+        private void UpdateLeftReserveAnimation(int? ammo)
+        {
             this.SetAnimationInts(this.animationLeftReserve, ammo ?? 0);
             this.FireAnimationTriggers(this.animationLeftReserveChanged);
-            
-            this.leftHandReserveCounter.text = ammo.ToString();
         }
 
         private void UpdateRightReserveCounter(int? ammo)
         {
+            this.rightHandReserveCounter.text = ammo.ToString();
+        }
+
+        private void UpdateRightReserveAnimation(int? ammo)
+        {
             this.SetAnimationInts(this.animationRightReserve, ammo ?? 0);
             this.FireAnimationTriggers(this.animationRightReserveChanged);
-            
-            this.rightHandReserveCounter.text = ammo.ToString();
         }
 
         private void UpdateHealth(float? health, float? percentage)
         {
+            this.healthCounter.text = $"{health * 10:0.}";
+            this.percentageHealthCounter.text = $"{percentage * 100:0.}"; // TODO: Split into own method
+        }
+
+        private void UpdateHealthAnimation(float? health, float? percentage)
+        {
             this.SetAnimationFloats(this.animationHealth, health ?? 0f); 
             this.SetAnimationFloats(this.animationHealthPercentage, percentage ?? 0);
             this.FireAnimationTriggers(this.animationHealthChanged);
-            
-            this.healthCounter.text = $"{health * 10:0.}";
-            this.percentageHealthCounter.text = $"{percentage * 100:0.}";
         }
         
         // TODO: Max Health
