@@ -104,16 +104,38 @@ namespace SpectatorHUD
 
         private void OnEnable()
         {
-            // TODO: Enable events based on what counters are non-null; null-checks in the event functions are expensive
             HudState.OnLeftGunChanged += this.OnLeftGunChanged;
             HudState.OnRightGunChanged += this.OnRightGunChanged;
-            
-            HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoCounter;
-            HudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
-            HudState.OnLeftReserveChanged += this.UpdateLeftReserveCounter;
-            HudState.OnRightReserveChanged += this.UpdateRightReserveCounter;
-            HudState.OnHealthChanged += this.UpdateHealthCounter;
-            HudState.OnHealthChanged += this.UpdateHealthPercentageCounter;
+
+            if (this.leftHandAmmoCounter != null)
+            {
+                HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoCounter;
+            }
+
+            if (this.rightHandAmmoCounter != null)
+            {
+                HudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
+            }
+
+            if (this.leftHandReserveCounter != null)
+            {
+                HudState.OnLeftReserveChanged += this.UpdateLeftReserveCounter;
+            }
+
+            if (this.rightHandReserveCounter != null)
+            {
+                HudState.OnRightReserveChanged += this.UpdateRightReserveCounter;
+            }
+
+            if (this.healthCounter != null)
+            {
+                HudState.OnHealthChanged += this.UpdateHealthCounter;
+            }
+
+            if (this.percentageHealthCounter)
+            {
+                HudState.OnHealthChanged += this.UpdateHealthPercentageCounter;
+            }
             
             // Animation events
             HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoAnimation;
@@ -128,6 +150,7 @@ namespace SpectatorHUD
             HudState.OnLeftGunChanged -= this.OnLeftGunChanged;
             HudState.OnRightGunChanged -= this.OnRightGunChanged;
             
+            // Null checks not needed here; no errors if callbacks not present
             HudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoCounter;
             HudState.OnRightAmmoChanged -= this.UpdateRightAmmoCounter;
             HudState.OnLeftReserveChanged -= this.UpdateLeftReserveCounter;
