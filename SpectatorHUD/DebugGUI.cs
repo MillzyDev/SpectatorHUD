@@ -107,7 +107,7 @@ namespace SpectatorHUD
             GUI.Label(new Rect(35, 140, 300, 30), "Right Reserve: " + this._rightReserve);
             GUI.Label(new Rect(35, 155, 300, 30), "Health: " + this._health);
             GUI.Label(new Rect(35, 170, 300, 30), "Max Health: "); // TODO
-            GUI.Label(new Rect(35, 185, 300, 30), "Health Percentage: "); // TODO:
+            GUI.Label(new Rect(35, 185, 300, 30), "Health Percentage: " + this._percentageHealth);
 
 
             GUI.Label(new Rect(225, 50, 300, 30), "HUD Metadata:");
