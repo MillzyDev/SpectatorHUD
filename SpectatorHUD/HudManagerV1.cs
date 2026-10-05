@@ -112,7 +112,8 @@ namespace SpectatorHUD
             HudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
             HudState.OnLeftReserveChanged += this.UpdateLeftReserveCounter;
             HudState.OnRightReserveChanged += this.UpdateRightReserveCounter;
-            HudState.OnHealthChanged += this.UpdateHealth;
+            HudState.OnHealthChanged += this.UpdateHealthCounter;
+            HudState.OnHealthChanged += this.UpdateHealthPercentageCounter;
             
             // Animation events
             HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoAnimation;
@@ -177,10 +178,14 @@ namespace SpectatorHUD
             this.FireAnimationTriggers(this.animationRightReserveChanged);
         }
 
-        private void UpdateHealth(float? health, float? percentage)
+        private void UpdateHealthCounter(float? health, float? percentage)
         {
             this.healthCounter.text = $"{health * 10:0.}";
-            this.percentageHealthCounter.text = $"{percentage * 100:0.}"; // TODO: Split into own method
+        }
+
+        private void UpdateHealthPercentageCounter(float? health, float? percentage)
+        {
+            this.percentageHealthCounter.text = $"{percentage * 100:0.}";
         }
 
         private void UpdateHealthAnimation(float? health, float? percentage)
