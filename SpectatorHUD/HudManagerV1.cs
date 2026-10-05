@@ -136,6 +136,11 @@ namespace SpectatorHUD
             {
                 HudState.OnHealthChanged += this.UpdateHealthPercentageCounter;
             }
+
+            if (this.maxHealthCounter)
+            {
+                HudState.OnMaxHealthChanged += this.UpdateMaxHealthCounter;
+            }
             
             // Animation events
             HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoAnimation;
@@ -143,6 +148,7 @@ namespace SpectatorHUD
             HudState.OnLeftReserveChanged += this.UpdateLeftReserveAnimation;
             HudState.OnRightReserveChanged += this.UpdateRightReserveAnimation;
             HudState.OnHealthChanged += this.UpdateHealthAnimation;
+            HudState.OnMaxHealthChanged += this.UpdateMaxHealthAnimation;
         }
 
         private void OnDisable()
@@ -164,6 +170,7 @@ namespace SpectatorHUD
             HudState.OnLeftReserveChanged -= this.UpdateLeftReserveAnimation;
             HudState.OnRightReserveChanged -= this.UpdateRightReserveAnimation;
             HudState.OnHealthChanged -= this.UpdateHealthAnimation;
+            HudState.OnMaxHealthChanged -= this.UpdateMaxHealthAnimation;
         }
 
         private void UpdateLeftAmmoCounter(int? ammo)
@@ -226,8 +233,17 @@ namespace SpectatorHUD
             this.SetAnimationFloats(this.animationHealthPercentage, percentage ?? 0);
             this.FireAnimationTriggers(this.animationHealthChanged);
         }
-        
-        // TODO: Max Health
+
+        private void UpdateMaxHealthCounter(float? maxHealth)
+        {
+            this.maxHealthCounter.text = $"{maxHealth * 10:0.}";
+        }
+
+        private void UpdateMaxHealthAnimation(float? maxHealth)
+        {
+            this.SetAnimationFloats(this.animationMaxHealth, maxHealth ?? 0f);
+            this.FireAnimationTriggers(this.animationMaxHealthChanged);
+        }
 
         private void OnLeftGunChanged(Gun? gun)
         {
