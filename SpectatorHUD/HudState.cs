@@ -85,6 +85,7 @@ namespace SpectatorHUD
             UpdateLeftReserveCount();
             UpdateRightReserveCount();
             UpdateHealth();
+            UpdateMaxHealth();
             
             OnLeftGunChanged?.Invoke(null);
             OnRightGunChanged?.Invoke(null);
@@ -226,6 +227,11 @@ namespace SpectatorHUD
             OnHealthChanged?.Invoke(current, percentage);
         }
 
+        public static void OnMaxHealthUpdated(float? maxHealth)
+        {
+            OnMaxHealthChanged?.Invoke(maxHealth);
+        }
+
         private static void UpdateLeftAmmoCount()
         {
             OnLeftAmmoChanged?.Invoke(GetLeftAmmoCount());
@@ -260,6 +266,11 @@ namespace SpectatorHUD
         {
             float? current = _rigManager?.health.curr_Health;
             OnHealthUpdated(current, current / _rigManager?.health.max_Health);
+        }
+
+        private static void UpdateMaxHealth()
+        {
+            OnMaxHealthUpdated(_rigManager?.health.max_Health);
         }
 
         public static int? GetLeftAmmoCount()

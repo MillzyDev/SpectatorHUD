@@ -1,0 +1,17 @@
+﻿using HarmonyLib;
+using Il2CppSLZ.Marrow;
+
+namespace SpectatorHUD.HarmonyPatches
+{
+    [HarmonyPatch(typeof(RigManager))]
+    [HarmonyPatch(nameof(RigManager.SwitchAvatar))]
+    public static class RigManager_SwitchAvatar
+    {
+        [HarmonyPostfix]
+        private static void Postfix(RigManager __instance)
+        {
+            // TODO: Check if RigManager belongs to player
+            HudState.OnMaxHealthUpdated(__instance.health.max_Health);
+        }
+    }
+}
