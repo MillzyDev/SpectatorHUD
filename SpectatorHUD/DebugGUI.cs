@@ -38,6 +38,7 @@ namespace SpectatorHUD
             HudState.OnLeftReserveChanged += this.UpdateLeftReserve;
             HudState.OnRightReserveChanged += this.UpdateRightReserve;
             HudState.OnHealthChanged += this.UpdateHealth;
+            HudState.OnMaxHealthChanged += this.UpdateMaxHealth;
         }
 
         private void OnDisable()
@@ -49,6 +50,7 @@ namespace SpectatorHUD
             HudState.OnLeftReserveChanged -= this.UpdateLeftReserve;
             HudState.OnRightReserveChanged -= this.UpdateRightReserve;
             HudState.OnHealthChanged -= this.UpdateHealth;
+            HudState.OnMaxHealthChanged -= this.UpdateMaxHealth;
         }
 
         private void UpdateLeftGun(Gun? gun)
@@ -87,6 +89,11 @@ namespace SpectatorHUD
             this._percentageHealth = percentage;
         }
 
+        private void UpdateMaxHealth(float? maxHealth)
+        {
+            this._maxHealth = maxHealth;
+        }
+
         private void OnGUI()
         {
             if (!this._showGui)
@@ -106,7 +113,7 @@ namespace SpectatorHUD
             GUI.Label(new Rect(35, 125, 300, 30), "Left Reserve: " + this._leftReserve);
             GUI.Label(new Rect(35, 140, 300, 30), "Right Reserve: " + this._rightReserve);
             GUI.Label(new Rect(35, 155, 300, 30), "Health: " + this._health);
-            GUI.Label(new Rect(35, 170, 300, 30), "Max Health: "); // TODO
+            GUI.Label(new Rect(35, 170, 300, 30), "Max Health: " + this._maxHealth);
             GUI.Label(new Rect(35, 185, 300, 30), "Health Percentage: " + this._percentageHealth);
 
 
