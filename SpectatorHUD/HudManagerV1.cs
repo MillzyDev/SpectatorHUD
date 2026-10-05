@@ -127,11 +127,20 @@ namespace SpectatorHUD
         {
             HudState.OnLeftGunChanged -= this.OnLeftGunChanged;
             HudState.OnRightGunChanged -= this.OnRightGunChanged;
+            
             HudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoCounter;
             HudState.OnRightAmmoChanged -= this.UpdateRightAmmoCounter;
             HudState.OnLeftReserveChanged -= this.UpdateLeftReserveCounter;
             HudState.OnRightReserveChanged -= this.UpdateRightReserveCounter;
-            HudState.OnHealthChanged -= this.UpdateHealth;
+            HudState.OnHealthChanged -= this.UpdateHealthCounter;
+            HudState.OnHealthChanged -= this.UpdateHealthPercentageCounter;
+            
+            // Animation events
+            HudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoAnimation;
+            HudState.OnRightAmmoChanged -= this.UpdateRightAmmoAnimation;
+            HudState.OnLeftReserveChanged -= this.UpdateLeftReserveAnimation;
+            HudState.OnRightReserveChanged -= this.UpdateRightReserveAnimation;
+            HudState.OnHealthChanged -= this.UpdateHealthAnimation;
         }
 
         private void UpdateLeftAmmoCounter(int? ammo)
