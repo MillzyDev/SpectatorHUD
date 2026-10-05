@@ -78,7 +78,7 @@ namespace SpectatorHUD
                 }
                 
                 var memoryStream = new MemoryStream();
-                stream?.CopyTo(memoryStream);
+                stream.CopyTo(memoryStream);
 
                 AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
                 this.LoadHudFromAssetBundle(assetBundle);
