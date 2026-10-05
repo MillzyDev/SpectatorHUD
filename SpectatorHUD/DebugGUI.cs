@@ -81,9 +81,10 @@ namespace SpectatorHUD
             this._rightReserve = reserve;
         }
 
-        private void UpdateHealth(float? health)
+        private void UpdateHealth(float? health, float? percentage)
         {
             this._health = health;
+            this._percentageHealth = percentage;
         }
 
         private void OnGUI()

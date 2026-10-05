@@ -37,7 +37,7 @@ namespace SpectatorHUD
         public static event Action<int?>? OnRightAmmoChanged = null;
         public static event Action<int?>? OnLeftReserveChanged = null;
         public static event Action<int?>? OnRightReserveChanged = null;
-        public static event Action<float?>? OnHealthChanged = null;
+        public static event Action<float?, float?>? OnHealthChanged = null;
         public static event Action<float?>? OnMaxHealthChanged = null;
         
         private static RigManager? _rigManager = null;
@@ -221,9 +221,9 @@ namespace SpectatorHUD
             UpdateRightReserveCount();
         }
 
-        public static void OnHealthUpdated(float? value)
+        public static void OnHealthUpdated(float? current, float? percentage)
         {
-            OnHealthChanged?.Invoke(value);
+            OnHealthChanged?.Invoke(current, percentage);
         }
 
         private static void UpdateLeftAmmoCount()
@@ -258,7 +258,8 @@ namespace SpectatorHUD
 
         private static void UpdateHealth()
         {
-            OnHealthUpdated(_rigManager?.health.curr_Health);
+            float? current = _rigManager?.health.curr_Health;
+            OnHealthUpdated(current, current / _rigManager?.health.max_Health);
         }
 
         public static int? GetLeftAmmoCount()

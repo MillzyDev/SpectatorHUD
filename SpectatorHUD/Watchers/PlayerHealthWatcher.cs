@@ -48,7 +48,7 @@ namespace SpectatorHUD.Watchers
             }
 
             this._lastHealth = currentHealth;
-            HudState.OnHealthUpdated(currentHealth);
+            HudState.OnHealthUpdated(currentHealth, currentHealth / this._health?.max_Health);
         }
     }
 }

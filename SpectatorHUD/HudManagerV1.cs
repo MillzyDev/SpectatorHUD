@@ -156,16 +156,17 @@ namespace SpectatorHUD
             this.rightHandReserveCounter.text = ammo.ToString();
         }
 
-        private void UpdateHealth(float? health)
+        private void UpdateHealth(float? health, float? percentage)
         {
-            this.SetAnimationFloats(this.animationHealth, health ?? 0f);
+            this.SetAnimationFloats(this.animationHealth, health ?? 0f); 
+            this.SetAnimationFloats(this.animationHealthPercentage, percentage ?? 0);
             this.FireAnimationTriggers(this.animationHealthChanged);
             
             this.healthCounter.text = $"{health * 10:0.}";
+            this.percentageHealthCounter.text = $"{percentage * 100:0.}";
         }
         
         // TODO: Max Health
-        // TODO: Percentage Health
 
         private void OnLeftGunChanged(Gun? gun)
         {
