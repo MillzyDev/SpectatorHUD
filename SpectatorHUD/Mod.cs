@@ -57,7 +57,6 @@ namespace SpectatorHUD
             this.InjectType<HudBootstrap>();
             
             Logger.Msg("Patching methods");
-            this.InstallPatch(typeof(RigManager_Start));
             this.InstallPatch(typeof(Gun_CompleteSlidePull));
             this.InstallPatch(typeof(Gun_OnMagazineInserted));
             this.InstallPatch(typeof(AmmoSocket_OnPlugUnlocked));
@@ -65,6 +64,7 @@ namespace SpectatorHUD
             this.InstallPatch(typeof(Gashapon_SetupAmmo));
             this.InstallPatch(typeof(MonoMatNew_InsertMagazine));
             this.InstallPatch(typeof(RigManager_SwitchAvatar));
+            this.InstallPatch(typeof(PlayerMarker_OnPlayerSpawned));
             
             Logger.Msg("Creating HUDs directory");
             this.CreateHudDirectory();
