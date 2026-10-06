@@ -42,6 +42,7 @@ namespace SpectatorHUD
             Logger.Msg("Logger initialised");
             
             Logger.Msg("Injecting types");
+            this.InjectType<LoadingSceneActivator>();
             // Animation
             this.InjectType<AnimationBoolReference>();
             this.InjectType<AnimationFloatReference>();
@@ -65,6 +66,7 @@ namespace SpectatorHUD
             this.InstallPatch(typeof(MonoMatNew_InsertMagazine));
             this.InstallPatch(typeof(RigManager_SwitchAvatar));
             this.InstallPatch(typeof(PlayerMarker_OnPlayerSpawned));
+            this.InstallPatch(typeof(LoadingScene_Start));
             
             Logger.Msg("Creating HUDs directory");
             this.CreateHudDirectory();

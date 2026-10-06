@@ -129,6 +129,8 @@ namespace SpectatorHUD
             MetaInfo.HUDVersion = hudInfo.hudVersion;
 
             this.HudRun();
+            
+            this.hud.SetActive(false); // gets set active when the loading scene disappears
         }
 
         private void HudRun()
