@@ -10,7 +10,11 @@ namespace SpectatorHUD.HarmonyPatches
         [HarmonyPostfix]
         private static void Postfix(RigManager __instance)
         {
-            // TODO: Check if RigManager belongs to player
+            if (__instance != HudState.RigManager)
+            {
+                return;
+            }
+            
             HudState.OnMaxHealthUpdated(__instance.health.max_Health);
         }
     }
