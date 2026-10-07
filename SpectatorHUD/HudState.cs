@@ -26,6 +26,7 @@ namespace SpectatorHUD
 {
     public static class HudState
     {
+        public static RigManager? RigManager { get; private set; } = null;
         public static Gun? LeftGun { get; private set; } = null;
         public static Gun? RightGun { get; private set; } = null;
         public static CartridgeData? LeftDefaultCartridge { get; private set; }
@@ -40,7 +41,6 @@ namespace SpectatorHUD
         public static event Action<float?, float?>? OnHealthChanged = null;
         public static event Action<float?>? OnMaxHealthChanged = null;
         
-        private static RigManager? _rigManager = null;
         private static Hand? _leftHand = null;
         private static Hand? _rightHand = null;
 
@@ -60,7 +60,7 @@ namespace SpectatorHUD
         /// <param name="rigManager">Target player's RigManager</param>
         public static void OpenState(RigManager rigManager)
         {
-            _rigManager = rigManager;
+            RigManager = rigManager;
 
             // Hands (no way)
             PhysicsRig physicsRig = rigManager.physicsRig;
@@ -78,7 +78,7 @@ namespace SpectatorHUD
             _rightHand.onRecieverAttached += _onReceiverAttachedRight;
             _rightHand.onRecieverDetached += _onReceiverDetachedRight;
 
-            _rigManager.gameObject.AddComponent<PlayerHealthWatcher>();
+            RigManager.gameObject.AddComponent<PlayerHealthWatcher>();
             
             UpdateLeftAmmoCount();
             UpdateRightAmmoCount();
@@ -98,7 +98,7 @@ namespace SpectatorHUD
             _rightHand?.onRecieverAttached -= _onReceiverAttachedRight;
             _rightHand?.onRecieverDetached -= _onReceiverDetachedRight;
             
-            _rigManager = null;
+            RigManager = null;
             _leftHand = null;
             _rightHand = null;
         }
@@ -264,13 +264,13 @@ namespace SpectatorHUD
 
         private static void UpdateHealth()
         {
-            float? current = _rigManager?.health.curr_Health;
-            OnHealthUpdated(current, current / _rigManager?.health.max_Health);
+            float? current = RigManager?.health.curr_Health;
+            OnHealthUpdated(current, current / RigManager?.health.max_Health);
         }
 
         private static void UpdateMaxHealth()
         {
-            OnMaxHealthUpdated(_rigManager?.health.max_Health);
+            OnMaxHealthUpdated(RigManager?.health.max_Health);
         }
 
         public static int? GetLeftAmmoCount()
