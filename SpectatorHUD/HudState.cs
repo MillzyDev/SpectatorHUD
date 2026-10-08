@@ -18,6 +18,7 @@
 
 
 using Il2CppInterop.Runtime;
+using Il2CppSLZ.Bonelab;
 using Il2CppSLZ.Marrow;
 using Il2CppSLZ.Marrow.Data;
 using SpectatorHUD.Watchers;
@@ -31,6 +32,8 @@ namespace SpectatorHUD
         public static Gun? RightGun { get; private set; } = null;
         public static CartridgeData? LeftDefaultCartridge { get; private set; }
         public static CartridgeData? RightDefaultCartridge { get; private set; }
+        public static int? LeftReserve { get; private set; }
+        public static int? RightReserve { get; private set; }
 
         public static event Action<Gun?>? OnLeftGunChanged = null;
         public static event Action<Gun?>? OnRightGunChanged = null;
@@ -222,6 +225,12 @@ namespace SpectatorHUD
             UpdateRightReserveCount();
         }
 
+        public static void OnCartridgeAdded()
+        {
+            UpdateLeftReserveCount();
+            UpdateRightReserveCount();
+        }
+
         public static void OnHealthUpdated(float? current, float? percentage)
         {
             OnHealthChanged?.Invoke(current, percentage);
@@ -249,7 +258,15 @@ namespace SpectatorHUD
                 OnLeftReserveChanged?.Invoke(null);
                 return;
             }
-            OnLeftReserveChanged?.Invoke(AmmoInventory.Instance.GetCartridgeCount(LeftDefaultCartridge) - GetLeftAmmoCount());
+
+            int? newReserve = AmmoInventory.Instance.GetCartridgeCount(LeftDefaultCartridge) - GetLeftAmmoCount();
+            if (LeftReserve == newReserve)
+            {
+                return;
+            }
+
+            LeftReserve = newReserve;
+            OnLeftReserveChanged?.Invoke(newReserve);
         }
 
         private static void UpdateRightReserveCount()
@@ -259,7 +276,15 @@ namespace SpectatorHUD
                 OnRightReserveChanged?.Invoke(null);
                 return;
             }
-            OnRightReserveChanged?.Invoke(AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge) - GetRightAmmoCount());
+            
+            int? newReserve = AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge) - GetLeftAmmoCount();
+            if (RightReserve == newReserve)
+            {
+                return;
+            }
+
+            RightReserve = newReserve;
+            OnRightReserveChanged?.Invoke(newReserve);
         }
 
         private static void UpdateHealth()
@@ -317,13 +342,11 @@ namespace SpectatorHUD
         {
             // TODO: Find better event to patch; this gets called on gun fired
             UpdateLeftAmmoCount();
-            UpdateLeftReserveCount();
         }
         
         public static void OnSlidePullRight(Gun gun)
         {
             UpdateRightAmmoCount();
-            UpdateLeftReserveCount();
         }
     }
 }

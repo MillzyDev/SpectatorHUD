@@ -68,6 +68,7 @@ namespace SpectatorHUD
             this.InstallPatch(typeof(RigManager_SwitchAvatar));
             this.InstallPatch(typeof(PlayerMarker_OnPlayerSpawned));
             this.InstallPatch(typeof(LoadingScene_Start));
+            this.InstallPatch(typeof(AmmoInventory_AddCartridge));
             
             Logger.Msg("Creating HUDs directory");
             this.CreateHudDirectory();
