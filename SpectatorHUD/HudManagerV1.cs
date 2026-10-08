@@ -43,24 +43,24 @@ namespace SpectatorHUD
         #region Animation Events
         public List<AnimationBoolReference> animationLeftGunHeld;
         public List<AnimationBoolReference> animationRightGunHeld;
-        public List<AnimationTriggerReference> animationLeftGunHeldChanged;
-        public List<AnimationTriggerReference> animationRightGunHeldChanged;
+        public List<AnimationBoolReference> animationLeftGunHeldChanged;
+        public List<AnimationBoolReference> animationRightGunHeldChanged;
 
         public List<AnimationIntReference> animationLeftAmmo;
         public List<AnimationIntReference> animationRightAmmo;
-        public List<AnimationTriggerReference> animationLeftAmmoChanged;
-        public List<AnimationTriggerReference> animationRightAmmoChanged;
+        public List<AnimationBoolReference> animationLeftAmmoChanged;
+        public List<AnimationBoolReference> animationRightAmmoChanged;
         
         public List<AnimationIntReference> animationLeftReserve;
         public List<AnimationIntReference> animationRightReserve;
-        public List<AnimationTriggerReference> animationLeftReserveChanged;
-        public List<AnimationTriggerReference> animationRightReserveChanged;
+        public List<AnimationBoolReference> animationLeftReserveChanged;
+        public List<AnimationBoolReference> animationRightReserveChanged;
 
         public List<AnimationFloatReference> animationHealth;
         public List<AnimationFloatReference> animationMaxHealth;
         public List<AnimationFloatReference> animationHealthPercentage;
-        public List<AnimationTriggerReference> animationHealthChanged;
-        public List<AnimationTriggerReference> animationMaxHealthChanged;
+        public List<AnimationBoolReference> animationHealthChanged;
+        public List<AnimationBoolReference> animationMaxHealthChanged;
         #endregion
         
         public HudManagerV1(IntPtr ptr) : base(ptr)
@@ -297,11 +297,12 @@ namespace SpectatorHUD
             this.SetAnimationBools(this.animationRightGunHeld, true);
         }
 
-        private void FireAnimationTriggers(List<AnimationTriggerReference> triggers)
+        private void FireAnimationTriggers(List<AnimationBoolReference> triggers)
         {
-            foreach (AnimationTriggerReference trigger in triggers)
+            foreach (AnimationBoolReference trigger in triggers)
             {
-                MelonCoroutines.Start(this.SingleFrameAnimationTrigger(trigger));
+                trigger.animator.ResetTrigger(trigger.parameterName);
+                trigger.animator.SetTrigger(trigger.parameterName);
             }
         }
 
@@ -327,14 +328,6 @@ namespace SpectatorHUD
             {
                 @int.animator.SetInteger(@int.parameterName, value);
             }
-        }
-
-        private IEnumerator SingleFrameAnimationTrigger(AnimationTriggerReference trigger)
-        {
-            trigger.animator.SetTrigger(trigger.parameterName);
-            yield return null;
-            yield return null;
-            trigger.animator.ResetTrigger(trigger.parameterName);
         }
     }
 }
