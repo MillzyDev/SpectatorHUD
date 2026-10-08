@@ -359,8 +359,8 @@ namespace SpectatorHUD
         {
             foreach (AnimationTriggerReference trigger in triggers)
             {
-                trigger.animator.ResetTrigger(trigger.parameterName);
-                trigger.animator.SetTrigger(trigger.parameterName);
+                trigger.animator.ResetTrigger(trigger.parameterId);
+                trigger.animator.SetTrigger(trigger.parameterId);
             }
         }
 
@@ -368,7 +368,7 @@ namespace SpectatorHUD
         {
             foreach (AnimationBoolReference @bool in bools)
             {
-                @bool.animator.SetBool(@bool.parameterName, value);
+                @bool.animator.SetBool(@bool.parameterId, value);
             }
         }
 
@@ -376,7 +376,7 @@ namespace SpectatorHUD
         {
             foreach (AnimationFloatReference @float in floats)
             {
-                @float.animator.SetFloat(@float.parameterName, value);
+                @float.animator.SetFloat(@float.parameterId, value);
             }
         }
 
@@ -384,7 +384,7 @@ namespace SpectatorHUD
         {
             foreach (AnimationIntReference @int in ints)
             {
-                @int.animator.SetInteger(@int.parameterName, value);
+                @int.animator.SetInteger(@int.parameterId, value);
             }
         }
     }
