@@ -101,7 +101,63 @@ namespace SpectatorHUD
             MetaInfo.AnimationHealthChanged = this.animationHealthChanged.Count;
             MetaInfo.AnimationMaxHealthChanged = this.animationMaxHealthChanged.Count;
             
-            // TODO: String animator property lookups are expensive; include non-serialized id property in reference structs
+            this.ResolveAnimationParameterIds(this.animationLeftGunHeld);
+            this.ResolveAnimationParameterIds(this.animationRightGunHeld);
+            this.ResolveAnimationParameterIds(this.animationLeftGunHeldChanged);
+            this.ResolveAnimationParameterIds(this.animationRightGunHeldChanged);
+            this.ResolveAnimationParameterIds(this.animationLeftAmmo);
+            this.ResolveAnimationParameterIds(this.animationRightAmmo);
+            this.ResolveAnimationParameterIds(this.animationLeftAmmoChanged);
+            this.ResolveAnimationParameterIds(this.animationRightAmmoChanged);
+            this.ResolveAnimationParameterIds(this.animationLeftReserve);
+            this.ResolveAnimationParameterIds(this.animationRightReserve);
+            this.ResolveAnimationParameterIds(this.animationLeftReserveChanged);
+            this.ResolveAnimationParameterIds(this.animationRightReserveChanged);
+            this.ResolveAnimationParameterIds(this.animationHealth);
+            this.ResolveAnimationParameterIds(this.animationMaxHealth);
+            this.ResolveAnimationParameterIds(this.animationHealthPercentage);
+            this.ResolveAnimationParameterIds(this.animationHealthChanged);
+            this.ResolveAnimationParameterIds(this.animationMaxHealthChanged);
+        }
+
+        private void ResolveAnimationParameterIds(List<AnimationBoolReference> parameters)
+        {
+            for (int i = 0; i < parameters.Count; i++)
+            {
+                AnimationBoolReference param = parameters[i];
+                param.parameterId = Animator.StringToHash(param.parameterName);
+                parameters[i] = param;
+            }
+        }
+        
+        private void ResolveAnimationParameterIds(List<AnimationFloatReference> parameters)
+        {
+            for (int i = 0; i < parameters.Count; i++)
+            {
+                AnimationFloatReference param = parameters[i];
+                param.parameterId = Animator.StringToHash(param.parameterName);
+                parameters[i] = param;
+            }
+        }
+        
+        private void ResolveAnimationParameterIds(List<AnimationIntReference> parameters)
+        {
+            for (int i = 0; i < parameters.Count; i++)
+            {
+                AnimationIntReference param = parameters[i];
+                param.parameterId = Animator.StringToHash(param.parameterName);
+                parameters[i] = param;
+            }
+        }
+        
+        private void ResolveAnimationParameterIds(List<AnimationTriggerReference> parameters)
+        {
+            for (int i = 0; i < parameters.Count; i++)
+            {
+                AnimationTriggerReference param = parameters[i];
+                param.parameterId = Animator.StringToHash(param.parameterName);
+                parameters[i] = param;
+            }
         }
 
         private void OnEnable()
