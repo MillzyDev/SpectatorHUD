@@ -312,7 +312,7 @@ namespace SpectatorHUD
         public static void OnGunFireRight(Gun gun)
         {
             UpdateRightAmmoCount();
-            UpdateLeftReserveCount();
+            UpdateRightReserveCount();
         }
 
         public static void OnSlidePullLeft(Gun gun)
