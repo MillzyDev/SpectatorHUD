@@ -30,7 +30,7 @@ namespace SpectatorHUD.Animation
         private unsafe void Update()
         {
             // The animator can't actually set our value field on the managed side, so we need to get the IL2CPP field ourselves
-            this.value = *(float *)IL2CPP.Il2CppObjectBaseToPtrNotNull(this) + IL2CPP.il2cpp_field_get_offset(this._valueField);;
+            this.value = *(float *)(IL2CPP.Il2CppObjectBaseToPtrNotNull(this) + (int) IL2CPP.il2cpp_field_get_offset(this._valueField));
             this._material.SetFloat(this._propertyId, this.value);
         }
     }
