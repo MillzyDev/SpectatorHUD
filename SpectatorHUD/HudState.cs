@@ -122,6 +122,8 @@ namespace SpectatorHUD
         
         private static void OnReceiverAttachedLeft(HandReciever handReciever) // learn to spell SLZ
         {
+            Logger.Debug("HudState: OnReceiverAttachedLeft called");
+            
             if (!TryFindGunFromReceiver(handReciever, out Gun? gun))
             {
                 return;
@@ -138,6 +140,8 @@ namespace SpectatorHUD
 
         private static void OnReceiverDetachedLeft(HandReciever handReciever)
         {
+            Logger.Debug("HudState: OnReceiverDetachedLeft called");
+            
             if (!TryFindGunFromReceiver(handReciever, out Gun? gun))
             {
                 return;
@@ -154,6 +158,8 @@ namespace SpectatorHUD
         
         private static void OnReceiverAttachedRight(HandReciever handReciever)
         {
+            Logger.Debug("HudState: OnReceiverAttachedRight called");
+            
             if (!TryFindGunFromReceiver(handReciever, out Gun? gun))
             {
                 return;
@@ -170,6 +176,8 @@ namespace SpectatorHUD
 
         private static void OnReceiverDetachedRight(HandReciever handReciever)
         {
+            Logger.Debug("HudState: OnReceiverDetachedRight called");
+            
             if (!TryFindGunFromReceiver(handReciever, out Gun? gun))
             {
                 return;
@@ -197,57 +205,68 @@ namespace SpectatorHUD
 
         public static void OnMagazineInsertedLeft()
         {
+            Logger.Debug("HudState: OnMagazineInsertedLeft called");
             UpdateLeftAmmoCount();
             UpdateLeftReserveCount();
         }
 
         public static void OnMagazineInsertedRight()
         {
+            Logger.Debug("HudState: OnMagazineInsertedRight called");
             UpdateRightAmmoCount();
             UpdateRightReserveCount();
         }
         
         public static void OnMagazineRemovedLeft()
         {
+            Logger.Debug("HudState: OnMagazineRemovedLeft called");
             UpdateLeftAmmoCount();
             UpdateLeftReserveCount();
         }
 
         public static void OnMagazineRemovedRight()
         {
+            Logger.Debug("HudState: OnMagazineRemoveRight called");
             UpdateRightAmmoCount();
             UpdateRightReserveCount();
         }
 
         public static void OnGachaMagazineInserted()
         {
+            Logger.Debug("HudState: OnGachaMagazineInserted called");
             UpdateLeftReserveCount();
             UpdateRightReserveCount();
         }
 
         public static void OnCartridgeAdded()
         {
+            Logger.Debug("HudState: OnCartridgeAdded called");
             UpdateLeftReserveCount();
             UpdateRightReserveCount();
         }
 
+        // TODO: Standardize these so "On" methods are called externally, and internally call "Update" methods
         public static void OnHealthUpdated(float? current, float? percentage)
         {
+            Logger.Debug("HudState: OnHealthUpdated called");
             OnHealthChanged?.Invoke(current, percentage);
         }
 
         public static void OnMaxHealthUpdated(float? maxHealth)
         {
+            Logger.Debug("HudState: OnMaxHealthUpdated called");
             OnMaxHealthChanged?.Invoke(maxHealth);
         }
 
         private static void UpdateLeftAmmoCount()
         {
+            Logger.Debug("HudState: Left ammo updated");
             OnLeftAmmoChanged?.Invoke(GetLeftAmmoCount());
         }
 
         private static void UpdateRightAmmoCount()
         {
+            Logger.Debug("HudState: Right ammo updated");
             OnRightAmmoChanged?.Invoke(GetRightAmmoCount());
         }
 
@@ -262,8 +281,11 @@ namespace SpectatorHUD
             int? newReserve = AmmoInventory.Instance.GetCartridgeCount(LeftDefaultCartridge) - GetLeftAmmoCount();
             if (LeftReserve == newReserve)
             {
+                Logger.Debug("HudState: Left reserve unchanged");
                 return;
             }
+            
+            Logger.Debug("HudState: Left reserve updated");
 
             LeftReserve = newReserve;
             OnLeftReserveChanged?.Invoke(newReserve);
@@ -277,11 +299,14 @@ namespace SpectatorHUD
                 return;
             }
             
-            int? newReserve = AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge) - GetLeftAmmoCount();
+            int? newReserve = AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge) - GetRightAmmoCount();
             if (RightReserve == newReserve)
             {
+                Logger.Debug("HudState: Right reserve unchanged");
                 return;
             }
+            
+            Logger.Debug("HudState: Right reserve updated");
 
             RightReserve = newReserve;
             OnRightReserveChanged?.Invoke(newReserve);
@@ -289,12 +314,14 @@ namespace SpectatorHUD
 
         private static void UpdateHealth()
         {
+            Logger.Debug("HudState: Health updated");
             float? current = RigManager?.health.curr_Health;
             OnHealthUpdated(current, current / RigManager?.health.max_Health);
         }
 
         private static void UpdateMaxHealth()
         {
+            Logger.Debug("HudState: Right reserve updated");
             OnMaxHealthUpdated(RigManager?.health.max_Health);
         }
 
@@ -330,22 +357,26 @@ namespace SpectatorHUD
 
         public static void OnGunFireLeft(Gun gun)
         {
+            Logger.Debug("HudState: OnGunFireLeft called");
             UpdateLeftAmmoCount();
         }
 
         public static void OnGunFireRight(Gun gun)
         {
+            Logger.Debug("HudState: OnGunFireRight called");
             UpdateRightAmmoCount();
         }
 
         public static void OnSlidePullLeft(Gun gun)
         {
             // TODO: Find better event to patch; this gets called on gun fired
+            Logger.Debug("HudState: OnSlidePullLeft called");
             UpdateLeftAmmoCount();
         }
         
         public static void OnSlidePullRight(Gun gun)
         {
+            Logger.Debug("HudState: OnSlidePullRight called");
             UpdateRightAmmoCount();
         }
     }
