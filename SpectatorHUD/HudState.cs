@@ -18,7 +18,6 @@
 
 
 using Il2CppInterop.Runtime;
-using Il2CppSLZ.Bonelab;
 using Il2CppSLZ.Marrow;
 using Il2CppSLZ.Marrow.Data;
 using SpectatorHUD.Watchers;
@@ -52,8 +51,6 @@ namespace SpectatorHUD
         private static Il2CppSystem.Action<HandReciever>? _onReceiverDetachedLeft;
         private static Il2CppSystem.Action<HandReciever>? _onReceiverAttachedRight;
         private static Il2CppSystem.Action<HandReciever>? _onReceiverDetachedRight;
-        private static Il2CppSystem.Action<Gun>? _onGunFireLeft;
-        private static Il2CppSystem.Action<Gun>? _onGunFireRight;
         
         
         /// <summary>
@@ -116,8 +113,6 @@ namespace SpectatorHUD
                 DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(OnReceiverAttachedRight);
             _onReceiverDetachedRight =
                 DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(OnReceiverDetachedRight);
-            _onGunFireLeft = DelegateSupport.ConvertDelegate<Il2CppSystem.Action<Gun>>(OnGunFireLeft);
-            _onGunFireRight = DelegateSupport.ConvertDelegate<Il2CppSystem.Action<Gun>>(OnGunFireRight);
         }
         
         private static void OnReceiverAttachedLeft(HandReciever handReciever) // learn to spell SLZ
@@ -128,8 +123,7 @@ namespace SpectatorHUD
             {
                 return;
             }
-
-            gun?.onFireDelegate += _onGunFireLeft;
+            
             LeftGun = gun;
             LeftDefaultCartridge = gun?.defaultCartridge;
             OnLeftGunChanged?.Invoke(gun);
@@ -146,8 +140,7 @@ namespace SpectatorHUD
             {
                 return;
             }
-
-            gun?.onFireDelegate -= _onGunFireLeft;
+            
             LeftGun = null;
             LeftDefaultCartridge = null;
             OnLeftGunChanged?.Invoke(null);
@@ -164,8 +157,7 @@ namespace SpectatorHUD
             {
                 return;
             }
-
-            gun?.onFireDelegate += _onGunFireRight;
+            
             RightGun = gun;
             RightDefaultCartridge = gun?.defaultCartridge;
             OnRightGunChanged?.Invoke(gun);
@@ -182,8 +174,7 @@ namespace SpectatorHUD
             {
                 return;
             }
-
-            gun?.onFireDelegate -= _onGunFireRight;
+            
             RightGun = null;
             RightDefaultCartridge = null;
             OnRightGunChanged?.Invoke(null);
@@ -355,21 +346,8 @@ namespace SpectatorHUD
             return 0;
         }
 
-        public static void OnGunFireLeft(Gun gun)
-        {
-            Logger.Debug("HudState: OnGunFireLeft called");
-            UpdateLeftAmmoCount();
-        }
-
-        public static void OnGunFireRight(Gun gun)
-        {
-            Logger.Debug("HudState: OnGunFireRight called");
-            UpdateRightAmmoCount();
-        }
-
         public static void OnSlidePullLeft(Gun gun)
         {
-            // TODO: Find better event to patch; this gets called on gun fired
             Logger.Debug("HudState: OnSlidePullLeft called");
             UpdateLeftAmmoCount();
         }
