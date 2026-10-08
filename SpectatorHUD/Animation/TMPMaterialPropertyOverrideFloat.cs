@@ -35,6 +35,3 @@ namespace SpectatorHUD.Animation
         }
     }
 }
-
-// TODO: Update reserve on ammo pickup
-// TODO: Clamp health
