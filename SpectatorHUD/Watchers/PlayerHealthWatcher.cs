@@ -40,7 +40,7 @@ namespace SpectatorHUD.Watchers
 
         public void Update()
         {
-            float? currentHealth = this._health?.curr_Health;
+            float? currentHealth = MathF.Max(this._health?.curr_Health ?? 0f, 0f);
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (this._lastHealth == currentHealth)
             {
