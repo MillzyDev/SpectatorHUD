@@ -100,6 +100,8 @@ namespace SpectatorHUD
             MetaInfo.AnimationHealthPercentage = this.animationHealthPercentage.Count;
             MetaInfo.AnimationHealthChanged = this.animationHealthChanged.Count;
             MetaInfo.AnimationMaxHealthChanged = this.animationMaxHealthChanged.Count;
+            
+            // TODO: String animator property lookups are expensive; include non-serialized id property in reference structs
         }
 
         private void OnEnable()
