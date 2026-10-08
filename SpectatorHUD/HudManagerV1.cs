@@ -43,24 +43,24 @@ namespace SpectatorHUD
         #region Animation Events
         public List<AnimationBoolReference> animationLeftGunHeld;
         public List<AnimationBoolReference> animationRightGunHeld;
-        public List<AnimationBoolReference> animationLeftGunHeldChanged;
-        public List<AnimationBoolReference> animationRightGunHeldChanged;
+        public List<AnimationTriggerReference> animationLeftGunHeldChanged;
+        public List<AnimationTriggerReference> animationRightGunHeldChanged;
 
         public List<AnimationIntReference> animationLeftAmmo;
         public List<AnimationIntReference> animationRightAmmo;
-        public List<AnimationBoolReference> animationLeftAmmoChanged;
-        public List<AnimationBoolReference> animationRightAmmoChanged;
+        public List<AnimationTriggerReference> animationLeftAmmoChanged;
+        public List<AnimationTriggerReference> animationRightAmmoChanged;
         
         public List<AnimationIntReference> animationLeftReserve;
         public List<AnimationIntReference> animationRightReserve;
-        public List<AnimationBoolReference> animationLeftReserveChanged;
-        public List<AnimationBoolReference> animationRightReserveChanged;
+        public List<AnimationTriggerReference> animationLeftReserveChanged;
+        public List<AnimationTriggerReference> animationRightReserveChanged;
 
         public List<AnimationFloatReference> animationHealth;
         public List<AnimationFloatReference> animationMaxHealth;
         public List<AnimationFloatReference> animationHealthPercentage;
-        public List<AnimationBoolReference> animationHealthChanged;
-        public List<AnimationBoolReference> animationMaxHealthChanged;
+        public List<AnimationTriggerReference> animationHealthChanged;
+        public List<AnimationTriggerReference> animationMaxHealthChanged;
         #endregion
         
         public HudManagerV1(IntPtr ptr) : base(ptr)
@@ -297,9 +297,9 @@ namespace SpectatorHUD
             this.SetAnimationBools(this.animationRightGunHeld, true);
         }
 
-        private void FireAnimationTriggers(List<AnimationBoolReference> triggers)
+        private void FireAnimationTriggers(List<AnimationTriggerReference> triggers)
         {
-            foreach (AnimationBoolReference trigger in triggers)
+            foreach (AnimationTriggerReference trigger in triggers)
             {
                 trigger.animator.ResetTrigger(trigger.parameterName);
                 trigger.animator.SetTrigger(trigger.parameterName);

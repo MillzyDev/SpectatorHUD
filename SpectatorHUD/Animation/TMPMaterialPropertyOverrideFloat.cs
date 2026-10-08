@@ -38,6 +38,5 @@ namespace SpectatorHUD.Animation
 }
 
 // TODO: Update reserve on ammo pickup
-// TODO: Make the reserve not update on shoot
 // TODO: Clamp health
 // TODO: Put the trigger stuff back in
