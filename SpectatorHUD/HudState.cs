@@ -80,15 +80,20 @@ namespace SpectatorHUD
 
             RigManager.gameObject.AddComponent<PlayerHealthWatcher>();
             
+            ForceUpdateCounts();
+            
+            OnLeftGunChanged?.Invoke(null);
+            OnRightGunChanged?.Invoke(null);
+        }
+
+        public static void ForceUpdateCounts()
+        {
             UpdateLeftAmmoCount();
             UpdateRightAmmoCount();
             UpdateLeftReserveCount();
             UpdateRightReserveCount();
             UpdateHealth();
             UpdateMaxHealth();
-            
-            OnLeftGunChanged?.Invoke(null);
-            OnRightGunChanged?.Invoke(null);
         }
 
         public static void CloseState()
@@ -159,6 +164,8 @@ namespace SpectatorHUD
             }
             
             RightGun = gun;
+            Logger.Debug("Gun: " + gun);
+            Logger.Debug("Cartridge: " + gun?.defaultCartridge);
             RightDefaultCartridge = gun?.defaultCartridge;
             OnRightGunChanged?.Invoke(gun);
             
@@ -266,6 +273,7 @@ namespace SpectatorHUD
             if (LeftDefaultCartridge == null)
             {
                 OnLeftReserveChanged?.Invoke(null);
+                LeftReserve = null;
                 return;
             }
 
@@ -287,6 +295,7 @@ namespace SpectatorHUD
             if (RightDefaultCartridge == null)
             {
                 OnRightReserveChanged?.Invoke(null);
+                RightReserve = null;
                 return;
             }
             
