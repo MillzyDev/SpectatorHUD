@@ -17,6 +17,7 @@ namespace SpectatorHUD.Animation
         
         public TMPMaterialPropertyOverrideColor(IntPtr ptr) : base(ptr)
         {
+            this._valueField = IL2CPP.GetIl2CppField(this.ObjectClass, "value");
         }
         
         private void Awake()
