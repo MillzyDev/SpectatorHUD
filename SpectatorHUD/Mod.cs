@@ -49,6 +49,7 @@ namespace SpectatorHUD
             this.InjectType<AnimationIntReference>();
             this.InjectType<AnimationTriggerReference>();
             this.InjectType<TMPMaterialPropertyOverrideFloat>();
+            this.InjectType<TMPMaterialPropertyOverrideColor>();
             // Watchers
             this.InjectType<PlayerHealthWatcher>();
             // Hud
