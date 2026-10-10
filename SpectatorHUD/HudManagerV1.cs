@@ -207,6 +207,8 @@ namespace SpectatorHUD
             HudState.OnRightReserveChanged += this.UpdateRightReserveAnimation;
             HudState.OnHealthChanged += this.UpdateHealthAnimation;
             HudState.OnMaxHealthChanged += this.UpdateMaxHealthAnimation;
+            
+            HudState.ForceUpdateCounts();
         }
 
         private void OnDisable()
