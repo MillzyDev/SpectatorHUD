@@ -47,6 +47,7 @@ namespace SpectatorHUD.Watchers
                 return;
             }
 
+            Logger.Debug($"Health change: {this._lastHealth} -> {currentHealth}");
             this._lastHealth = currentHealth;
             HudState.OnHealthUpdated(currentHealth, currentHealth / this._health?.max_Health);
         }
