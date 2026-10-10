@@ -17,7 +17,7 @@ namespace SpectatorHUD.Animation
         
         public TMPMaterialPropertyOverrideFloat(IntPtr ptr) : base(ptr)
         {
-            this._valueField = IL2CPP.GetIl2CppField(this.ObjectClass, "value");
+            this._valueField = IL2CPP.GetIl2CppField(this.ObjectClass, nameof(this.value));
         }
 
         private void Awake()
