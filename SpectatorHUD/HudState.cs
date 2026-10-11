@@ -78,7 +78,7 @@ namespace SpectatorHUD
             _rightHand.onRecieverAttached += _onReceiverAttachedRight;
             _rightHand.onRecieverDetached += _onReceiverDetachedRight;
 
-            RigManager.gameObject.AddComponent<PlayerHealthWatcher>();
+            RigManager.gameObject.AddComponent<PlayerHealthObserver>();
             
             ForceUpdateCounts();
             
