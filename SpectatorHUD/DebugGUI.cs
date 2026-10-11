@@ -171,7 +171,7 @@ namespace SpectatorHUD
             GUI.Label(new Rect(695, 190, 300, 30), "animationRightAmmoChanged: " + MetaInfo.AnimationRightAmmoChanged);
 
             GUI.Label(new Rect(695, 210, 300, 30), "animationLeftReserve: " + MetaInfo.AnimationLeftReserve);
-            GUI.Label(new Rect(695, 225, 300, 30), "animationRightReserve: " + MetaInfo.AnimationRightReserveChanged);
+            GUI.Label(new Rect(695, 225, 300, 30), "animationRightReserve: " + MetaInfo.AnimationRightReserve);
             GUI.Label(new Rect(695, 240, 300, 30), "animationLeftReserveChanged: " + MetaInfo.AnimationLeftReserveChanged);
             GUI.Label(new Rect(695, 255, 300, 30), "animationRightReserveChanged: " + MetaInfo.AnimationRightReserveChanged);
 
