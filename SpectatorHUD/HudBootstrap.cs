@@ -28,6 +28,7 @@ namespace SpectatorHUD
         
         private RigManager? _rigManager;
         public GameObject? hud;
+        public DateTime lastLoad;
 
         public HudBootstrap(IntPtr ptr) : base(ptr)
         {
@@ -55,6 +56,7 @@ namespace SpectatorHUD
         {
             this.UnloadCurrentHud();
             this.LoadHudFromConfig();
+            this.hud?.SetActive(true);
         }
 
         public void LoadHudFromConfig()
@@ -122,13 +124,14 @@ namespace SpectatorHUD
                 default:
                     Logger.Error("Unsupported HUD version. You may need to update the mod.");
                     Destroy(this);
-                    break;
+                    return;
             }
 
             MetaInfo.HUDCompatibility = hudVersion.version;
+            this.lastLoad = DateTime.Now;
         }
 
-        public void LoadHudV1(AssetBundle assetBundle)
+        private void LoadHudV1(AssetBundle assetBundle)
         {
             var hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
             if (hudInfo is null)

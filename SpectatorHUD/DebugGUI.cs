@@ -23,6 +23,8 @@ namespace SpectatorHUD
 {
     public class DebugGUI : MonoBehaviour
     {
+        private HudBootstrap _bootstrap;
+        
         private bool _showGui = false;
 
         private bool _leftGunHeld;
@@ -37,6 +39,11 @@ namespace SpectatorHUD
         
         public DebugGUI(IntPtr ptr) : base(ptr)
         {
+        }
+
+        private void Start()
+        {
+            this._bootstrap = this.GetComponent<HudBootstrap>();
         }
 
         private void Update()
@@ -181,7 +188,13 @@ namespace SpectatorHUD
             GUI.Label(new Rect(695, 320, 300, 30), "animationHealthChanged: " + MetaInfo.AnimationHealthChanged);
             GUI.Label(new Rect(695, 335, 300, 30), "animationMaxHealthChanged: " + MetaInfo.AnimationMaxHealthChanged);
             
-            // TODO: Button to reload current HUD
+            if (GUI.Button(new Rect(25, 235, 200, 20), "Reload HUD"))
+            {
+                this._bootstrap.ReloadHudFromConfig();
+            }
+
+            TimeSpan since = DateTime.Now - this._bootstrap.lastLoad;
+            GUI.Label(new Rect(25, 265, 300, 30), $"Last reloaded {since.TotalSeconds:0.}s ago");
         }
     }
 }
