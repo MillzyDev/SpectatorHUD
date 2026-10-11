@@ -16,10 +16,8 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-using System.Collections;
 using Il2CppSLZ.Marrow;
 using Il2CppTMPro;
-using MelonLoader;
 using SpectatorHUD.Animation;
 using UnityEngine;
 
