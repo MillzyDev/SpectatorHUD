@@ -47,10 +47,17 @@ namespace SpectatorHUD
                 return;
             }
             
+            HudState.CloseState();
             GameObject.Destroy(this.hud);
         }
 
-        private void LoadHudFromConfig()
+        public void ReloadHudFromConfig()
+        {
+            this.UnloadCurrentHud();
+            this.LoadHudFromConfig();
+        }
+
+        public void LoadHudFromConfig()
         {
             if (string.IsNullOrEmpty(Config.Instance.Hud))
             {
@@ -63,7 +70,7 @@ namespace SpectatorHUD
             this.LoadHudFromFile(Config.Instance.Hud);
         }
 
-        private void LoadHudFromFile(string filePath)
+        public void LoadHudFromFile(string filePath)
         {
             Logger.Msg("Loading bundle at: {0}", filePath);
             AssetBundle assetBundle = AssetBundle.LoadFromFile(filePath);
@@ -77,7 +84,7 @@ namespace SpectatorHUD
             assetBundle.Unload(false); // free asset bundle resource
         }
 
-        private void LoadHudFromEmbeddedResource(string resource)
+        public void LoadHudFromEmbeddedResource(string resource)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             using (Stream? stream = assembly.GetManifestResourceStream(resource))
@@ -96,7 +103,7 @@ namespace SpectatorHUD
             }
         }
 
-        private void LoadHudFromAssetBundle(AssetBundle assetBundle)
+        public void LoadHudFromAssetBundle(AssetBundle assetBundle)
         {
             var hudVersion = assetBundle.LoadAsset("Hud.Version.asset").TryCast<HudVersion>();
             if (hudVersion is null)
@@ -121,7 +128,7 @@ namespace SpectatorHUD
             MetaInfo.HUDCompatibility = hudVersion.version;
         }
 
-        private void LoadHudV1(AssetBundle assetBundle)
+        public void LoadHudV1(AssetBundle assetBundle)
         {
             var hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
             if (hudInfo is null)
