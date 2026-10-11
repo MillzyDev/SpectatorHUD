@@ -37,6 +37,7 @@ namespace SpectatorHUD
         {
             this._rigManager = this.GetComponent<RigManager>();
             this.LoadHudFromConfig();
+            this.gameObject.AddComponent<DebugGUI>();
         }
 
         private void LoadHudFromConfig()
@@ -141,10 +142,7 @@ namespace SpectatorHUD
                 return;
             }
             
-            HudState.OpenState(this._rigManager);
-
-            this.gameObject.AddComponent<DebugGUI>();
-        }
+            HudState.OpenState(this._rigManager); }
 
         private void OnDestroy()
         {
