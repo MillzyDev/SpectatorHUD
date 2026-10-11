@@ -162,6 +162,8 @@ namespace SpectatorHUD
             GUI.Label(new Rect(695, 305, 300, 30), "animationHealthPercentage: " + MetaInfo.AnimationHealthPercentage);
             GUI.Label(new Rect(695, 320, 300, 30), "animationHealthChanged: " + MetaInfo.AnimationHealthChanged);
             GUI.Label(new Rect(695, 335, 300, 30), "animationMaxHealthChanged: " + MetaInfo.AnimationMaxHealthChanged);
+            
+            // TODO: Button to reload current HUD
         }
     }
 }
