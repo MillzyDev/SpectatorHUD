@@ -58,7 +58,7 @@ namespace SpectatorHUD
             this.InjectType<DebugGUI>();
             this.InjectType<HudVersion>();
             this.InjectType<HudV1>();
-            this.InjectType<HudManagerV1>();
+            this.InjectType<HudController>();
             this.InjectType<HudBootstrap>();
             
             Logger.Msg("Patching methods");
