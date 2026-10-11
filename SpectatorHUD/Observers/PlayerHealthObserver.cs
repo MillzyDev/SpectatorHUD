@@ -21,14 +21,14 @@ using UnityEngine;
 
 namespace SpectatorHUD.Watchers
 {
-    public sealed class PlayerHealthWatcher : MonoBehaviour
+    public sealed class PlayerHealthObserver : MonoBehaviour
     {
         private RigManager? _rigManager;
         private Health? _health;
 
         private float? _lastHealth;
         
-        public PlayerHealthWatcher(IntPtr ptr) : base(ptr)
+        public PlayerHealthObserver(IntPtr ptr) : base(ptr)
         {
         }
 
