@@ -40,6 +40,16 @@ namespace SpectatorHUD
             this.gameObject.AddComponent<DebugGUI>();
         }
 
+        public void UnloadCurrentHud()
+        {
+            if (this.hud == null)
+            {
+                return;
+            }
+            
+            GameObject.Destroy(this.hud);
+        }
+
         private void LoadHudFromConfig()
         {
             if (string.IsNullOrEmpty(Config.Instance.Hud))
