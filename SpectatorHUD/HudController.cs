@@ -46,6 +46,12 @@ namespace SpectatorHUD
         {
         }
 
+        private void Awake()
+        {
+            this._healthModifierExpression =
+                new LinearExpression<float>(this.healthModifier.multiplier, this.healthModifier.offset);
+        }
+
         private void Start()
         {
             MetaInfo.HasLeftReserveCounter = this.leftHandReserveCounter != null;
@@ -58,9 +64,6 @@ namespace SpectatorHUD
 
             MetaInfo.ActiveWithGunInLeftHand = this.activeWithGunHeldInLeftHand.Count;
             MetaInfo.ActiveWithGunInRightHand = this.activeWithGunHeldInRightHand.Count;
-
-            this._healthModifierExpression =
-                new LinearExpression<float>(this.healthModifier.multiplier, this.healthModifier.offset);
         }
 
         private void OnEnable()
@@ -167,6 +170,8 @@ namespace SpectatorHUD
                     go.active = false;
                     Logger.Debug("HudManagerV1: disabled " + go.name);
                 }
+                
+                return;
             }
             
             foreach (GameObject go in this.activeWithGunHeldInLeftHand)
