@@ -112,7 +112,7 @@ namespace SpectatorHUD
         public void LoadHudFromAssetBundle(AssetBundle assetBundle)
         {
             var hudVersion = assetBundle.LoadAsset("Hud.Version.asset").TryCast<HudVersion>();
-            if (hudVersion is null)
+            if (hudVersion == null)
             {
                 // Version SO is required but not present,
                 Logger.Error("Hud Version asset was not found in asset bundle.");
@@ -138,7 +138,7 @@ namespace SpectatorHUD
         private void LoadHudV1(AssetBundle assetBundle)
         {
             var hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
-            if (hudInfo is null)
+            if (hudInfo == null)
             {
                 Logger.Error("Hud.asset could not be loaded from asset bundle.");
                 //Destroy(this);
