@@ -60,6 +60,7 @@ namespace SpectatorHUD
             this.InjectType<HudV1>();
             this.InjectType<HudController>();
             this.InjectType<HudBootstrap>();
+            this.InjectType<AnimationController>();
             
             Logger.Msg("Patching methods");
             this.InstallPatch(typeof(Gun_CompleteSlidePull));
