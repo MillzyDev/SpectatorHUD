@@ -58,6 +58,7 @@ namespace SpectatorHUD
             this.InjectType<DebugGUI>();
             this.InjectType<HudVersion>();
             this.InjectType<HudV1>();
+            this.InjectType<LinearParameters>();
             this.InjectType<HudController>();
             this.InjectType<HudBootstrap>();
             this.InjectType<AnimationController>();
