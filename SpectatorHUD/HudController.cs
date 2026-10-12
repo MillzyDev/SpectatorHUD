@@ -34,9 +34,13 @@ namespace SpectatorHUD
         public TMP_Text healthCounter;
         public TMP_Text maxHealthCounter;
         public TMP_Text percentageHealthCounter;
+
+        public LinearParameters healthModifier;
         
         public List<GameObject> activeWithGunHeldInLeftHand;
         public List<GameObject> activeWithGunHeldInRightHand;
+
+        private LinearExpression<float> _healthModifierExpression;
         
         public HudController(IntPtr ptr) : base(ptr)
         {
@@ -54,6 +58,9 @@ namespace SpectatorHUD
 
             MetaInfo.ActiveWithGunInLeftHand = this.activeWithGunHeldInLeftHand.Count;
             MetaInfo.ActiveWithGunInRightHand = this.activeWithGunHeldInRightHand.Count;
+
+            this._healthModifierExpression =
+                new LinearExpression<float>(this.healthModifier.multiplier, this.healthModifier.offset);
         }
 
         private void OnEnable()
@@ -136,7 +143,7 @@ namespace SpectatorHUD
 
         private void UpdateHealthCounter(float? health, float? percentage)
         {
-            this.healthCounter.text = $"{health * 10:0.}";
+            this.healthCounter.text = $"{this._healthModifierExpression.Evaluate(health ?? 0f):0.}";
         }
 
         private void UpdateHealthPercentageCounter(float? health, float? percentage)
@@ -146,7 +153,7 @@ namespace SpectatorHUD
 
         private void UpdateMaxHealthCounter(float? maxHealth)
         {
-            this.maxHealthCounter.text = $"{maxHealth * 10:0.}";
+            this.maxHealthCounter.text = $"{this._healthModifierExpression.Evaluate(maxHealth ?? 0f):0.}";
         }
 
         private void OnLeftGunChanged(Gun? gun)
