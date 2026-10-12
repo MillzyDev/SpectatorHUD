@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace SpectatorHUD
+namespace SpectatorHUD.Expressions
 {
     /// <summary>
     /// Represents a mathematical linear expression of form <c>ax+b</c>. In which <c>a</c> and <c>b</c> are constants.
@@ -18,7 +18,7 @@ namespace SpectatorHUD
             ConstantExpression a = Expression.Constant(aValue, typeof(T));
             ConstantExpression b = Expression.Constant(bValue, typeof(T));
             ParameterExpression x = Expression.Parameter(typeof(T), "x");
-            BinaryExpression ax = Expression.Multiply(a, x);
+            BinaryExpression ax = Expression.Multiply(a, x); // sighhh non binary expression when #theythem
             BinaryExpression axPlusB = Expression.Add(ax, b);
             Expression<LinearFunction> lambdaX = Expression.Lambda<LinearFunction>(axPlusB, x);
             this._function = lambdaX.Compile();

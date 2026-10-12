@@ -23,6 +23,7 @@ using MelonLoader;
 using MelonLoader.Utils;
 using SpectatorHUD;
 using SpectatorHUD.Animation;
+using SpectatorHUD.Expressions;
 using SpectatorHUD.HarmonyPatches;
 using SpectatorHUD.Watchers;
 using BuildInfo = SpectatorHUD.BuildInfo;

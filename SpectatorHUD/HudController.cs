@@ -18,7 +18,7 @@
 
 using Il2CppSLZ.Marrow;
 using Il2CppTMPro;
-using SpectatorHUD.Animation;
+using SpectatorHUD.Expressions;
 using UnityEngine;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

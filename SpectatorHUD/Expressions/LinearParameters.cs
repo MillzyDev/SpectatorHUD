@@ -1,4 +1,4 @@
-﻿namespace SpectatorHUD
+﻿namespace SpectatorHUD.Expressions
 {
     [Serializable]
     public struct LinearParameters
