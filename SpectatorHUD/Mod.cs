@@ -37,6 +37,18 @@ namespace SpectatorHUD
 {
     public sealed class Mod : MelonMod
     {
+        public static bool DebugEnabled
+        {
+            get
+            {
+#if DEBUG
+                return true;
+#else // DEBUG
+                return MelonDebug.IsEnabled();
+#endif // DEBUG
+            }
+        }
+        
         public override void OnInitializeMelon()
         {
             this.InitLogger();

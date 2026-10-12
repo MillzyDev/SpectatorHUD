@@ -38,7 +38,11 @@ namespace SpectatorHUD
         {
             this._rigManager = this.GetComponent<RigManager>();
             this.LoadHudFromConfig();
-            this.gameObject.AddComponent<DebugGUI>();
+
+            if (Mod.DebugEnabled)
+            {
+                this.gameObject.AddComponent<DebugGUI>();
+            }
         }
 
         public void UnloadCurrentHud()
