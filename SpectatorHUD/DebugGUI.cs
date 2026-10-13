@@ -188,6 +188,15 @@ namespace SpectatorHUD
             GUI.Label(new Rect(695, 320, 300, 30), "animationHealthChanged: " + MetaInfo.AnimationHealthChanged);
             GUI.Label(new Rect(695, 335, 300, 30), "animationMaxHealthChanged: " + MetaInfo.AnimationMaxHealthChanged);
             
+            GUI.Label(new Rect(935, 65, 300, 30), "Shader Events:");
+            GUI.Label(new Rect(945, 80, 300, 30), "shaderLeftAmmo: " + MetaInfo.ShaderLeftAmmo);
+            GUI.Label(new Rect(945, 95, 300, 30), "shaderRightAmmo: " + MetaInfo.ShaderRightAmmo);
+            GUI.Label(new Rect(945, 110, 300, 30), "shaderLeftReserve: " + MetaInfo.ShaderLeftReserve);
+            GUI.Label(new Rect(945, 125, 300, 30), "shaderRightReserve: " + MetaInfo.ShaderRightReserve);
+            GUI.Label(new Rect(945, 140, 300, 30), "shaderHealth: " + MetaInfo.ShaderHealth);
+            GUI.Label(new Rect(945, 155, 300, 30), "shaderMaxHealth: " + MetaInfo.ShaderMaxHealth);
+            GUI.Label(new Rect(945, 170, 300, 30), "shaderHealthPercentage: " + MetaInfo.ShaderHealthPercentage);
+            
             if (GUI.Button(new Rect(25, 235, 200, 20), "Reload HUD"))
             {
                 this._bootstrap.ReloadHudFromConfig();
