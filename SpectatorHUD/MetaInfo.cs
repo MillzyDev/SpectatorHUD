@@ -56,5 +56,13 @@ namespace SpectatorHUD
         public static int AnimationHealthPercentage;
         public static int AnimationHealthChanged;
         public static int AnimationMaxHealthChanged;
+
+        public static int ShaderLeftAmmo;
+        public static int ShaderRightAmmo;
+        public static int ShaderLeftReserve;
+        public static int ShaderRightReserve;
+        public static int ShaderHealth;
+        public static int ShaderMaxHealth;
+        public static int ShaderHealthPercentage;
     }
 }

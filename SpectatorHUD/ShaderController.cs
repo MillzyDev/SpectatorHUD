@@ -37,8 +37,14 @@ namespace SpectatorHUD
         
         private void Start()
         {
-            // TODO: Shader MetaInfo
-            // TODO: Debug GUI for shader elements
+            MetaInfo.ShaderLeftAmmo = this.shaderLeftAmmo.Count;
+            MetaInfo.ShaderRightAmmo = this.shaderRightAmmo.Count;
+            MetaInfo.ShaderLeftReserve = this.shaderLeftReserve.Count;
+            MetaInfo.ShaderRightReserve = this.shaderRightReserve.Count;
+            MetaInfo.ShaderHealth = this.shaderHealth.Count;
+            MetaInfo.ShaderMaxHealth = this.shaderMaxHealth.Count;
+            MetaInfo.ShaderHealthPercentage = this.shaderHealthPercentage.Count;
+            
             this.ProcessShaderProperties(this.shaderLeftAmmo);
             this.ProcessShaderProperties(this.shaderRightAmmo);
             this.ProcessShaderProperties(this.shaderLeftReserve);
