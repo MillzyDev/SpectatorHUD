@@ -3,7 +3,7 @@ using Il2CppInterop.Runtime.InteropTypes;
 
 namespace SpectatorHUD
 {
-    public class Il2CppFieldAccessor<T> where T : unmanaged
+    public class Il2CppFieldAccessor<T> where T : struct
     {
         private readonly Il2CppObjectBase _objectBase;
         private readonly IntPtr _fieldInfo;
