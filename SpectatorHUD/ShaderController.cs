@@ -29,6 +29,30 @@ namespace SpectatorHUD
             this.ProcessShaderProperties(this.shaderMaxHealth);
             this.ProcessShaderProperties(this.shaderHealthPercentage);
         }
+
+        private void OnEnable()
+        {
+            HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoShader;
+            HudState.OnRightAmmoChanged += this.UpdateRightAmmoShader;
+        }
+
+        private void UpdateLeftAmmoShader(int? ammo)
+        {
+            this.SetShaderInts(this.shaderLeftAmmo, ammo ?? 0);
+        }
+
+        private void UpdateRightAmmoShader(int? ammo)
+        {
+            this.SetShaderInts(this.shaderRightAmmo, ammo ?? 0);
+        }
+
+        private void SetShaderInts(List<ShaderIntReference> properties, int value)
+        {
+            foreach (ShaderIntReference property in properties)
+            {
+                property.material.SetInteger(property.propertyId, value);
+            }
+        }
         
         private void ProcessShaderProperties(List<ShaderIntReference> properties)
         {
