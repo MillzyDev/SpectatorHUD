@@ -1,6 +1,9 @@
 ﻿using Il2CppInterop.Runtime;
 using Il2CppInterop.Runtime.InteropTypes;
 
+// "unmanaged" is unsupported unfortunately
+#pragma warning disable CS8500 // This takes the address of, gets the size of, or declares a pointer to a managed type
+
 namespace SpectatorHUD
 {
     public class Il2CppFieldAccessor<T> where T : struct
