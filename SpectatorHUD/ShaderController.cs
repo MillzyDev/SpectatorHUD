@@ -1,14 +1,10 @@
-﻿using SpectatorHUD.Expressions;
-using SpectatorHUD.Shading;
+﻿using SpectatorHUD.Shading;
 using UnityEngine;
 
 namespace SpectatorHUD
 {
     public class ShaderController : MonoBehaviour
     {
-        public List<ShaderBoolReference> shaderLeftGunHeld;
-        public List<ShaderBoolReference> shaderRightGunHeld;
-        
         public List<ShaderIntReference> shaderLeftAmmo;
         public List<ShaderIntReference> shaderRightAmmo;
         public List<ShaderIntReference> shaderLeftReserve;
@@ -25,8 +21,6 @@ namespace SpectatorHUD
         {
             // TODO: Shader MetaInfo
             // TODO: Debug GUI for shader elements
-            this.ProcessShaderProperties(this.shaderLeftGunHeld);
-            this.ProcessShaderProperties(this.shaderRightGunHeld);
             this.ProcessShaderProperties(this.shaderLeftAmmo);
             this.ProcessShaderProperties(this.shaderRightAmmo);
             this.ProcessShaderProperties(this.shaderLeftReserve);
@@ -34,16 +28,6 @@ namespace SpectatorHUD
             this.ProcessShaderProperties(this.shaderHealth);
             this.ProcessShaderProperties(this.shaderMaxHealth);
             this.ProcessShaderProperties(this.shaderHealthPercentage);
-        }
-
-        private void ProcessShaderProperties(List<ShaderBoolReference> properties)
-        {
-            for (int i = 0; i < properties.Count; i++)
-            {
-                ShaderBoolReference property = properties[i];
-                property.propertyId = Shader.PropertyToID(property.propertyName);
-                properties[i] = property;
-            }
         }
         
         private void ProcessShaderProperties(List<ShaderIntReference> properties)
