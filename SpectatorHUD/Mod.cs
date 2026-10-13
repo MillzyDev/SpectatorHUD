@@ -25,6 +25,7 @@ using SpectatorHUD;
 using SpectatorHUD.Animation;
 using SpectatorHUD.Expressions;
 using SpectatorHUD.HarmonyPatches;
+using SpectatorHUD.Shading;
 using SpectatorHUD.Watchers;
 using BuildInfo = SpectatorHUD.BuildInfo;
 
@@ -65,6 +66,10 @@ namespace SpectatorHUD
             this.InjectType<TMPMaterialPropertyOverrideColor>();
             this.InjectType<TMPMaterialPropertyOverrideInt>();
             this.InjectType<TMPMaterialPropertyOverrideVector>();
+            // Shading
+            this.InjectType<ShaderFloatReference>();
+            this.InjectType<ShaderIntReference>();
+            this.InjectType<ShaderController>();
             // Watchers
             this.InjectType<PlayerHealthObserver>();
             // Hud
