@@ -1,4 +1,5 @@
-﻿using SpectatorHUD.Expressions;
+﻿using Il2CppInterop.Runtime.Attributes;
+using SpectatorHUD.Expressions;
 using UnityEngine;
 
 namespace SpectatorHUD.Shading
@@ -11,5 +12,6 @@ namespace SpectatorHUD.Shading
         public LinearParameters modifier;
 
         [NonSerialized] public int propertyId;
+        [NonSerialized] public LinearExpression<float> modifierExpression;
     }
 }
