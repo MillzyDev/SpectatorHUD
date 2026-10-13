@@ -37,6 +37,7 @@ namespace SpectatorHUD
             HudState.OnLeftReserveChanged += this.UpdateLeftReserveShader;
             HudState.OnRightReserveChanged += this.UpdateRightReserveShader;
             HudState.OnHealthChanged += this.UpdateHealthShader;
+            HudState.OnMaxHealthChanged += this.UpdateMaxHealthShader;
         }
 
         private void OnDisable()
@@ -45,6 +46,8 @@ namespace SpectatorHUD
             HudState.OnRightAmmoChanged -= this.UpdateRightAmmoShader;
             HudState.OnLeftReserveChanged -= this.UpdateLeftReserveShader;
             HudState.OnRightReserveChanged -= this.UpdateRightReserveShader;
+            HudState.OnHealthChanged -= this.UpdateHealthShader;
+            HudState.OnMaxHealthChanged -= this.UpdateMaxHealthShader;
         }
 
         private void UpdateLeftAmmoShader(int? ammo)
@@ -71,6 +74,11 @@ namespace SpectatorHUD
         {
             this.SetShaderFloatsWithModifier(this.shaderHealth, health ?? 0);
             this.SetShaderFloatsWithModifier(this.shaderHealthPercentage, health ?? 0);
+        }
+
+        private void UpdateMaxHealthShader(float? maxHealth)
+        {
+            this.SetShaderFloatsWithModifier(this.shaderMaxHealth, maxHealth ?? 0);
         }
 
         private void SetShaderInts(List<ShaderIntReference> properties, int value)
