@@ -34,6 +34,8 @@ namespace SpectatorHUD
         {
             HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoShader;
             HudState.OnRightAmmoChanged += this.UpdateRightAmmoShader;
+            HudState.OnLeftReserveChanged += this.UpdateLeftReserveShader;
+            HudState.OnRightReserveChanged += this.UpdateRightReserveShader;
         }
 
         private void UpdateLeftAmmoShader(int? ammo)
@@ -44,6 +46,16 @@ namespace SpectatorHUD
         private void UpdateRightAmmoShader(int? ammo)
         {
             this.SetShaderInts(this.shaderRightAmmo, ammo ?? 0);
+        }
+
+        private void UpdateLeftReserveShader(int? reserve)
+        {
+            this.SetShaderInts(this.shaderLeftReserve, reserve ?? 0);
+        }
+
+        private void UpdateRightReserveShader(int? reserve)
+        {
+            this.SetShaderInts(this.shaderRightReserve, reserve ?? 0);
         }
 
         private void SetShaderInts(List<ShaderIntReference> properties, int value)
