@@ -24,6 +24,7 @@ namespace SpectatorHUD
 {
     public class HudBootstrap : MonoBehaviour
     {
+        // TODO: Replace with the really awesome Half-Life 2 HUD I made.
         private static readonly string DefaultHud = "SpectatorHUD.Resources.TestHUD.hud";
         
         private RigManager? _rigManager;
