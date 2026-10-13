@@ -36,6 +36,7 @@ namespace SpectatorHUD
             HudState.OnRightAmmoChanged += this.UpdateRightAmmoShader;
             HudState.OnLeftReserveChanged += this.UpdateLeftReserveShader;
             HudState.OnRightReserveChanged += this.UpdateRightReserveShader;
+            HudState.OnHealthChanged += this.UpdateHealthShader;
         }
 
         private void OnDisable()
@@ -66,11 +67,25 @@ namespace SpectatorHUD
             this.SetShaderInts(this.shaderRightReserve, reserve ?? 0);
         }
 
+        private void UpdateHealthShader(float? health, float? percentage)
+        {
+            this.SetShaderFloatsWithModifier(this.shaderHealth, health ?? 0);
+            this.SetShaderFloatsWithModifier(this.shaderHealthPercentage, health ?? 0);
+        }
+
         private void SetShaderInts(List<ShaderIntReference> properties, int value)
         {
             foreach (ShaderIntReference property in properties)
             {
                 property.material.SetInteger(property.propertyId, value);
+            }
+        }
+
+        private void SetShaderFloatsWithModifier(List<ShaderFloatReference> properties, float value)
+        {
+            foreach (ShaderFloatReference property in properties)
+            {
+                property.material.SetFloat(property.propertyId, property.modifierExpression.Evaluate(value));
             }
         }
         
