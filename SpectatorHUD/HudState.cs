@@ -98,11 +98,18 @@ namespace SpectatorHUD
 
         public static void CloseState()
         {
-            _leftHand?.onRecieverAttached -= _onReceiverAttachedLeft;
-            _leftHand?.onRecieverDetached -= _onReceiverDetachedLeft;
-            _rightHand?.onRecieverAttached -= _onReceiverAttachedRight;
-            _rightHand?.onRecieverDetached -= _onReceiverDetachedRight;
-            
+            if (_leftHand != null)
+            {
+                _leftHand.onRecieverAttached -= _onReceiverAttachedLeft;
+                _leftHand.onRecieverDetached -= _onReceiverDetachedLeft;
+            }
+
+            if (_rightHand != null)
+            {
+                _rightHand.onRecieverAttached -= _onReceiverAttachedRight;
+                _rightHand.onRecieverDetached -= _onReceiverDetachedRight;
+            }
+
             RigManager = null;
             _leftHand = null;
             _rightHand = null;
