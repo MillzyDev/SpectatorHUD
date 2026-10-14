@@ -95,6 +95,9 @@ namespace SpectatorHUD
             
             Logger.Msg("Creating HUDs directory");
             this.CreateHudDirectory();
+            
+            Logger.Msg("Registering BoneMenu");
+            SettingsMenu.Register();
         }
 
         public override void OnDeinitializeMelon()
