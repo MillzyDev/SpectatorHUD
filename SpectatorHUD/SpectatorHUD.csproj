@@ -48,9 +48,6 @@
         <Reference Include="Il2CppUltEvents">
             <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Il2CppUltEvents.dll</HintPath>
         </Reference>
-        <Reference Include="System.Runtime.CompilerServices.Unsafe">
-          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BONELAB\MelonLoader\net6\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-        </Reference>
         <Reference Include="Unity.TextMeshPro">
             <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Unity.TextMeshPro.dll</HintPath>
         </Reference>
