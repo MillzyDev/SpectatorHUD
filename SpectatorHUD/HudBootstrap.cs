@@ -25,7 +25,7 @@ namespace SpectatorHUD
     public class HudBootstrap : MonoBehaviour
     {
         // TODO: Replace with the really awesome Half-Life 2 HUD I made.
-        private static readonly string DefaultHud = "SpectatorHUD.Resources.TestHUD.hud";
+        public static readonly string DefaultHud = "SpectatorHUD.Resources.TestHUD.hud";
         
         private RigManager? _rigManager;
         public GameObject? hud;
@@ -81,7 +81,7 @@ namespace SpectatorHUD
         {
             Logger.Msg("Loading bundle at: {0}", filePath);
             AssetBundle assetBundle = AssetBundle.LoadFromFile(filePath);
-            if (assetBundle is null)
+            if (assetBundle == null)
             {
                 Logger.Error("Failed to load asset bundle.");
                 //Destroy(this);
@@ -94,20 +94,19 @@ namespace SpectatorHUD
         public void LoadHudFromEmbeddedResource(string resource)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            using (Stream? stream = assembly.GetManifestResourceStream(resource))
+            using Stream? stream = assembly.GetManifestResourceStream(resource);
+            
+            if (stream == null)
             {
-                if (stream == null)
-                {
-                    Logger.Error("Unable to open stream to embedded resource");
-                    return;
-                }
-                
-                var memoryStream = new MemoryStream();
-                stream.CopyTo(memoryStream);
-
-                AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
-                this.LoadHudFromAssetBundle(assetBundle);
+                Logger.Error("Unable to open stream to embedded resource");
+                return;
             }
+                
+            var memoryStream = new MemoryStream();
+            stream.CopyTo(memoryStream);
+
+            AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
+            this.LoadHudFromAssetBundle(assetBundle);
         }
 
         public void LoadHudFromAssetBundle(AssetBundle assetBundle)
