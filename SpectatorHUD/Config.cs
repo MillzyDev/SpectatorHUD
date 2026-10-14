@@ -40,7 +40,11 @@ namespace SpectatorHUD
 
         public static Config Instance => Lazy.Value;
 
-        public string? Hud => this._hud.Value;
+        public string? Hud
+        {
+            get => this._hud.Value;
+            set => this._hud.Value = value;
+        }
 
         public void Save()
         {
