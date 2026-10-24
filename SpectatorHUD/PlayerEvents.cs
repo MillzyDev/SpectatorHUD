@@ -58,13 +58,21 @@ public class PlayerEvents : MonoBehaviour
         if (!handReciever.TryFindGunFromReceiver(out Gun? gun)) return;
 
         HudState.LeftGun = gun;
-        if (gun?.defaultCartridge != null)
+        if (gun != null)
         {
             HudState.LeftDefaultCartridge = new CartridgeContainer(gun.defaultCartridge);
         }
+        else
+        {
+            HudState.LeftDefaultCartridge = null;
+            HudState.LeftAmmo = null;
+            HudState.LeftReserve = null;
+            return;
+        }
 
-        //UpdateLeftAmmoCount();
-        //UpdateLeftReserveCount();
+        HudState.LeftAmmo = gun.GetAmmoCount();
+        HudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(HudState.LeftDefaultCartridge.cartridge) -
+                               HudState.LeftAmmo;
     }
 
     private void OnReceiverDetachedLeft(HandReciever handReciever)
@@ -73,9 +81,8 @@ public class PlayerEvents : MonoBehaviour
 
         HudState.LeftGun = null;
         HudState.LeftDefaultCartridge = null;
-
-        //UpdateLeftAmmoCount();
-        //UpdateLeftReserveCount();
+        HudState.LeftAmmo = null;
+        HudState.LeftReserve = null;
     }
 
     private void OnReceiverAttachedRight(HandReciever handReciever)
@@ -85,13 +92,21 @@ public class PlayerEvents : MonoBehaviour
         if (!handReciever.TryFindGunFromReceiver(out Gun? gun)) return;
 
         HudState.RightGun = gun;
-        if (gun?.defaultCartridge != null)
+        if (gun != null)
         {
             HudState.RightDefaultCartridge = new CartridgeContainer(gun.defaultCartridge);
         }
+        else
+        {
+            HudState.RightDefaultCartridge = null;
+            HudState.RightAmmo = null;
+            HudState.RightReserve = null;
+            return;
+        }
 
-        //UpdateRightAmmoCount();
-        //UpdateRightReserveCount();
+        HudState.RightAmmo = gun.GetAmmoCount();
+        HudState.RightReserve = AmmoInventory.Instance.GetCartridgeCount(HudState.RightDefaultCartridge.cartridge) -
+                               HudState.RightAmmo;
     }
 
     private void OnReceiverDetachedRight(HandReciever handReciever)
@@ -99,9 +114,8 @@ public class PlayerEvents : MonoBehaviour
         Logger.Debug("HudState: OnReceiverDetachedRight called");
 
         HudState.RightGun = null;
-        //HudState.RightDefaultCartridge = null;
-
-        //UpdateRightAmmoCount();
-        //UpdateRightReserveCount();
+        HudState.RightDefaultCartridge = null;
+        HudState.RightAmmo = null;
+        HudState.RightReserve = null;
     }
 }

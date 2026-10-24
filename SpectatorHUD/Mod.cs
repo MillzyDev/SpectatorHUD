@@ -66,6 +66,7 @@ public sealed class Mod : MelonMod
         this.InjectType<TMPMaterialPropertyOverrideColor>();
         this.InjectType<TMPMaterialPropertyOverrideInt>();
         this.InjectType<TMPMaterialPropertyOverrideVector>();
+        this.InjectType<AnimationController>();
         // Shading
         this.InjectType<ShaderFloatReference>();
         this.InjectType<ShaderIntReference>();
@@ -79,7 +80,7 @@ public sealed class Mod : MelonMod
         this.InjectType<LinearParameters>();
         this.InjectType<HudController>();
         this.InjectType<HudBootstrap>();
-        this.InjectType<AnimationController>();
+        this.InjectType<PlayerEvents>();
 
         Logger.Msg("Patching methods");
         this.InstallPatch(typeof(AmmoInventory_AddCartridge));
