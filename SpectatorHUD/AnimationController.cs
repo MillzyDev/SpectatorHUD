@@ -99,6 +99,7 @@ namespace SpectatorHUD
             HudState.OnLeftReserveChanged += this.UpdateLeftReserveAnimation;
             HudState.OnRightReserveChanged += this.UpdateRightReserveAnimation;
             HudState.OnHealthChanged += this.UpdateHealthAnimation;
+            HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageAnimation;
             HudState.OnMaxHealthChanged += this.UpdateMaxHealthAnimation;
 
             HudState.OnLeftGunChanged += this.OnLeftGunChanged;
@@ -112,6 +113,7 @@ namespace SpectatorHUD
             HudState.OnLeftReserveChanged -= this.UpdateLeftReserveAnimation;
             HudState.OnRightReserveChanged -= this.UpdateRightReserveAnimation;
             HudState.OnHealthChanged -= this.UpdateHealthAnimation;
+            HudState.OnHealthPercentageChanged -= this.UpdateHealthPercentageAnimation;
             HudState.OnMaxHealthChanged -= this.UpdateMaxHealthAnimation;
             
             HudState.OnLeftGunChanged -= this.OnLeftGunChanged;
@@ -182,11 +184,15 @@ namespace SpectatorHUD
             this.FireAnimationTriggers(this.animationRightReserveChanged);
         }
         
-        private void UpdateHealthAnimation(float? health, float? percentage)
+        private void UpdateHealthAnimation(float? health)
         {
             this.SetAnimationFloats(this.animationHealth, health ?? 0f); 
-            this.SetAnimationFloats(this.animationHealthPercentage, percentage ?? 0);
             this.FireAnimationTriggers(this.animationHealthChanged);
+        }
+
+        private void UpdateHealthPercentageAnimation(float? percentage)
+        {
+            this.SetAnimationFloats(this.animationHealthPercentage, percentage ?? 0);
         }
         
         private void UpdateMaxHealthAnimation(float? maxHealth)

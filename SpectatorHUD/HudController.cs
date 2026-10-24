@@ -31,6 +31,13 @@ namespace SpectatorHUD
         public TMP_Text leftHandAmmoCounter;
         public TMP_Text rightHandReserveCounter;
         public TMP_Text rightHandAmmoCounter;
+        public TMP_Text leftHandTotalAmmoCounter;
+        public TMP_Text rightHandTotalAmmoCounter;
+
+        public TMP_Text totalLightAmmoCounter;
+        public TMP_Text totalMediumAmmoCounter;
+        public TMP_Text totalHeavyAmmoCounter;
+        
         public TMP_Text healthCounter;
         public TMP_Text maxHealthCounter;
         public TMP_Text percentageHealthCounter;
@@ -98,7 +105,7 @@ namespace SpectatorHUD
 
             if (this.percentageHealthCounter)
             {
-                HudState.OnHealthChanged += this.UpdateHealthPercentageCounter;
+                HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageCounter;
             }
 
             if (this.maxHealthCounter)
@@ -121,7 +128,7 @@ namespace SpectatorHUD
             HudState.OnLeftReserveChanged -= this.UpdateLeftReserveCounter;
             HudState.OnRightReserveChanged -= this.UpdateRightReserveCounter;
             HudState.OnHealthChanged -= this.UpdateHealthCounter;
-            HudState.OnHealthChanged -= this.UpdateHealthPercentageCounter;
+            HudState.OnHealthPercentageChanged -= this.UpdateHealthPercentageCounter;
         }
 
         private void UpdateLeftAmmoCounter(int? ammo)
@@ -144,12 +151,12 @@ namespace SpectatorHUD
             this.rightHandReserveCounter.text = ammo.ToString();
         }
 
-        private void UpdateHealthCounter(float? health, float? percentage)
+        private void UpdateHealthCounter(float? health)
         {
             this.healthCounter.text = $"{this._healthModifierExpression.Evaluate(health ?? 0f):0.}";
         }
 
-        private void UpdateHealthPercentageCounter(float? health, float? percentage)
+        private void UpdateHealthPercentageCounter(float? percentage)
         {
             this.percentageHealthCounter.text = $"{percentage * 100:0.}";
         }

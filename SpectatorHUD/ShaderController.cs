@@ -61,6 +61,7 @@ namespace SpectatorHUD
             HudState.OnLeftReserveChanged += this.UpdateLeftReserveShader;
             HudState.OnRightReserveChanged += this.UpdateRightReserveShader;
             HudState.OnHealthChanged += this.UpdateHealthShader;
+            HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageShader;
             HudState.OnMaxHealthChanged += this.UpdateMaxHealthShader;
         }
 
@@ -71,6 +72,7 @@ namespace SpectatorHUD
             HudState.OnLeftReserveChanged -= this.UpdateLeftReserveShader;
             HudState.OnRightReserveChanged -= this.UpdateRightReserveShader;
             HudState.OnHealthChanged -= this.UpdateHealthShader;
+            HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageShader;
             HudState.OnMaxHealthChanged -= this.UpdateMaxHealthShader;
         }
 
@@ -94,10 +96,14 @@ namespace SpectatorHUD
             this.SetShaderInts(this.shaderRightReserve, reserve ?? 0);
         }
 
-        private void UpdateHealthShader(float? health, float? percentage)
+        private void UpdateHealthShader(float? health)
         {
             this.SetShaderFloatsWithModifier(this.shaderHealth, health ?? 0);
-            this.SetShaderFloatsWithModifier(this.shaderHealthPercentage, health ?? 0);
+        }
+
+        private void UpdateHealthPercentageShader(float? percentage)
+        {
+            this.SetShaderFloatsWithModifier(this.shaderHealthPercentage, percentage ?? 0f);
         }
 
         private void UpdateMaxHealthShader(float? maxHealth)
