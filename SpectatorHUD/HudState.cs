@@ -38,7 +38,7 @@ namespace SpectatorHUD
         public static event Action<int?>? OnTotalLightAmmoChanged = null;
         public static event Action<int?>? OnTotalMediumAmmoChanged = null;
         public static event Action<int?>? OnTotalHeavyAmmoChanged = null;
-        public static event Action<float?, float?>? OnHealthChanged = null;
+        public static event Action<float?>? OnHealthChanged = null;
         public static event Action<float?>? OnHealthPercentageChanged;
         public static event Action<float?>? OnMaxHealthChanged = null;
         
@@ -172,6 +172,7 @@ namespace SpectatorHUD
             get;
             set
             {
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (field != value) OnHealthChanged?.Invoke(value);
                 field = value;
             }
@@ -286,7 +287,6 @@ namespace SpectatorHUD
             
             LeftGun = gun;
             LeftDefaultCartridge = gun?.defaultCartridge;
-            OnLeftGunChanged?.Invoke(gun);
             
             UpdateLeftAmmoCount();
             UpdateLeftReserveCount();
@@ -298,7 +298,6 @@ namespace SpectatorHUD
             
             LeftGun = null;
             LeftDefaultCartridge = null;
-            OnLeftGunChanged?.Invoke(null);
             
             UpdateLeftAmmoCount();
             UpdateLeftReserveCount();
@@ -315,7 +314,6 @@ namespace SpectatorHUD
             
             RightGun = gun;
             RightDefaultCartridge = gun?.defaultCartridge;
-            OnRightGunChanged?.Invoke(gun);
             
             UpdateRightAmmoCount();
             UpdateRightReserveCount();
@@ -327,7 +325,6 @@ namespace SpectatorHUD
             
             RightGun = null;
             RightDefaultCartridge = null;
-            OnRightGunChanged?.Invoke(null);
             
             UpdateRightAmmoCount();
             UpdateRightReserveCount();
@@ -375,13 +372,6 @@ namespace SpectatorHUD
             UpdateRightReserveCount();
         }
 
-        // TODO: Standardize these so "On" methods are called externally, and internally call "Update" methods
-        public static void OnHealthUpdated(float? current, float? percentage)
-        {
-            Logger.Debug("HudState: OnHealthUpdated called");
-            OnHealthChanged?.Invoke(current, percentage);
-        }
-
         public static void OnMaxHealthUpdated(float? maxHealth)
         {
             Logger.Debug("HudState: OnMaxHealthUpdated called");
@@ -391,70 +381,49 @@ namespace SpectatorHUD
         private static void UpdateLeftAmmoCount()
         {
             Logger.Debug("HudState: Left ammo updated");
-            OnLeftAmmoChanged?.Invoke(GetLeftAmmoCount());
+            OnLeftAmmoChanged?.Invoke(LeftGun?.GetAmmoCount());
         }
 
         private static void UpdateRightAmmoCount()
         {
             Logger.Debug("HudState: Right ammo updated");
-            OnRightAmmoChanged?.Invoke(GetRightAmmoCount());
+            OnRightAmmoChanged?.Invoke(RightGun?.GetAmmoCount());
         }
 
         private static void UpdateLeftReserveCount()
         {
             if (LeftDefaultCartridge == null)
             {
-                OnLeftReserveChanged?.Invoke(null);
                 LeftReserve = null;
                 return;
             }
 
-            int? newReserve = AmmoInventory.Instance.GetCartridgeCount(LeftDefaultCartridge) - GetLeftAmmoCount();
-            if (LeftReserve == newReserve)
-            {
-                Logger.Debug("HudState: Left reserve unchanged");
-                return;
-            }
-            
-            Logger.Debug("HudState: Left reserve updated");
-
+            int? newReserve = AmmoInventory.Instance.GetCartridgeCount(LeftDefaultCartridge) - LeftAmmo;
             LeftReserve = newReserve;
-            OnLeftReserveChanged?.Invoke(newReserve);
         }
 
         private static void UpdateRightReserveCount()
         {
             if (RightDefaultCartridge == null)
             {
-                OnRightReserveChanged?.Invoke(null);
                 RightReserve = null;
                 return;
             }
             
-            int? newReserve = AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge) - GetRightAmmoCount();
-            if (RightReserve == newReserve)
-            {
-                Logger.Debug("HudState: Right reserve unchanged");
-                return;
-            }
-            
-            Logger.Debug("HudState: Right reserve updated");
-
+            int? newReserve = AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge) - RightAmmo;
             RightReserve = newReserve;
-            OnRightReserveChanged?.Invoke(newReserve);
         }
 
         private static void UpdateHealth()
         {
             Logger.Debug("HudState: Health updated");
-            float? current = RigManager?.health.curr_Health;
-            OnHealthUpdated(current, current / RigManager?.health.max_Health);
+            Health = RigManager?.health.curr_Health;
         }
 
         private static void UpdateMaxHealth()
         {
             Logger.Debug("HudState: Right reserve updated");
-            OnMaxHealthUpdated(RigManager?.health.max_Health);
+            MaxHealth = RigManager?.health.max_Health;
         }
 
         public static void OnSlidePullLeft(Gun gun)
