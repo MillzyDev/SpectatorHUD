@@ -27,36 +27,266 @@ namespace SpectatorHUD;
 
 public static class HudState
 {
-    public static event Action<Gun?>? OnLeftGunChanged = null;
-    public static event Action<Gun?>? OnRightGunChanged = null;
-    public static event Action<int?>? OnLeftAmmoChanged = null;
-    public static event Action<int?>? OnRightAmmoChanged = null;
-    public static event Action<int?>? OnLeftReserveChanged = null;
-    public static event Action<int?>? OnRightReserveChanged = null;
-    public static event Action<int?>? OnLeftTotalAmmoChanged = null;
-    public static event Action<int?>? OnRightTotalAmmoChanged = null;
-    public static event Action<int?>? OnTotalLightAmmoChanged = null;
-    public static event Action<int?>? OnTotalMediumAmmoChanged = null;
-    public static event Action<int?>? OnTotalHeavyAmmoChanged = null;
-    public static event Action<float?>? OnHealthChanged = null;
-    public static event Action<float?>? OnHealthPercentageChanged;
-    public static event Action<float?>? OnMaxHealthChanged = null;
-        
-    public static CartridgeData? LeftDefaultCartridge { get; private set; }
-    public static CartridgeData? RightDefaultCartridge { get; private set; }
-        
-    private static Hand? _leftHand = null;
-    private static Hand? _rightHand = null;
+    private static Hand? _leftHand;
+    private static Hand? _rightHand;
 
-    private static bool _delegatesConverted = false;
+    private static bool _delegatesConverted;
     private static Il2CppSystem.Action<HandReciever>? _onReceiverAttachedLeft;
     private static Il2CppSystem.Action<HandReciever>? _onReceiverDetachedLeft;
     private static Il2CppSystem.Action<HandReciever>? _onReceiverAttachedRight;
     private static Il2CppSystem.Action<HandReciever>? _onReceiverDetachedRight;
-        
-    public static RigManager? RigManager { get; private set; } = null;
-        
+
+    public static CartridgeData? LeftDefaultCartridge { get; private set; }
+    public static CartridgeData? RightDefaultCartridge { get; private set; }
+
+    public static RigManager? RigManager { get; private set; }
+    public static event Action<Gun?>? OnLeftGunChanged;
+    public static event Action<Gun?>? OnRightGunChanged;
+    public static event Action<int?>? OnLeftAmmoChanged;
+    public static event Action<int?>? OnRightAmmoChanged;
+    public static event Action<int?>? OnLeftReserveChanged;
+    public static event Action<int?>? OnRightReserveChanged;
+    public static event Action<int?>? OnLeftTotalAmmoChanged;
+    public static event Action<int?>? OnRightTotalAmmoChanged;
+    public static event Action<int?>? OnTotalLightAmmoChanged;
+    public static event Action<int?>? OnTotalMediumAmmoChanged;
+    public static event Action<int?>? OnTotalHeavyAmmoChanged;
+    public static event Action<float?>? OnHealthChanged;
+    public static event Action<float?>? OnHealthPercentageChanged;
+    public static event Action<float?>? OnMaxHealthChanged;
+
+    /// <summary>
+    ///     Configures members for player load and invokes all callbacks to trigger initial values.
+    ///     Should be called after the HUD has been loaded.
+    /// </summary>
+    /// <param name="rigManager">Target player's RigManager</param>
+    public static void OpenState(RigManager rigManager)
+    {
+        RigManager = rigManager;
+
+        // Hands (no way)
+        PhysicsRig physicsRig = rigManager.physicsRig;
+        _leftHand = physicsRig.leftHand; // <--- so this gets the left hand
+        _rightHand = physicsRig.rightHand; // that's right! this one gets the right hand! aren't you clever!
+
+        if (!_delegatesConverted)
+        {
+            ConvertDelegates();
+            _delegatesConverted = true;
+        }
+
+        _leftHand.onRecieverAttached += _onReceiverAttachedLeft;
+        _leftHand.onRecieverDetached += _onReceiverDetachedLeft;
+        _rightHand.onRecieverAttached += _onReceiverAttachedRight;
+        _rightHand.onRecieverDetached += _onReceiverDetachedRight;
+
+        RigManager.gameObject.AddComponent<PlayerHealthObserver>();
+
+        ForceUpdateCounts();
+
+        OnLeftGunChanged?.Invoke(null);
+        OnRightGunChanged?.Invoke(null);
+    }
+
+    public static void ForceUpdateCounts()
+    {
+        UpdateLeftAmmoCount();
+        UpdateRightAmmoCount();
+        UpdateLeftReserveCount();
+        UpdateRightReserveCount();
+        UpdateHealth();
+        UpdateMaxHealth();
+    }
+
+    public static void CloseState()
+    {
+        if (_leftHand != null)
+        {
+            _leftHand.onRecieverAttached -= _onReceiverAttachedLeft;
+            _leftHand.onRecieverDetached -= _onReceiverDetachedLeft;
+        }
+
+        if (_rightHand != null)
+        {
+            _rightHand.onRecieverAttached -= _onReceiverAttachedRight;
+            _rightHand.onRecieverDetached -= _onReceiverDetachedRight;
+        }
+
+        RigManager = null;
+        _leftHand = null;
+        _rightHand = null;
+    }
+
+    private static void ConvertDelegates()
+    {
+        _onReceiverAttachedLeft =
+            DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(OnReceiverAttachedLeft);
+        _onReceiverDetachedLeft =
+            DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(OnReceiverDetachedLeft);
+        _onReceiverAttachedRight =
+            DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(OnReceiverAttachedRight);
+        _onReceiverDetachedRight =
+            DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(OnReceiverDetachedRight);
+    }
+
+    private static void OnReceiverAttachedLeft(HandReciever handReciever) // learn to spell SLZ
+    {
+        Logger.Debug("HudState: OnReceiverAttachedLeft called");
+
+        if (!handReciever.TryFindGunFromReceiver(out Gun? gun)) return;
+
+        LeftGun = gun;
+        LeftDefaultCartridge = gun?.defaultCartridge;
+
+        UpdateLeftAmmoCount();
+        UpdateLeftReserveCount();
+    }
+
+    private static void OnReceiverDetachedLeft(HandReciever handReciever)
+    {
+        Logger.Debug("HudState: OnReceiverDetachedLeft called");
+
+        LeftGun = null;
+        LeftDefaultCartridge = null;
+
+        UpdateLeftAmmoCount();
+        UpdateLeftReserveCount();
+    }
+
+    private static void OnReceiverAttachedRight(HandReciever handReciever)
+    {
+        Logger.Debug("HudState: OnReceiverAttachedRight called");
+
+        if (!handReciever.TryFindGunFromReceiver(out Gun? gun)) return;
+
+        RightGun = gun;
+        RightDefaultCartridge = gun?.defaultCartridge;
+
+        UpdateRightAmmoCount();
+        UpdateRightReserveCount();
+    }
+
+    private static void OnReceiverDetachedRight(HandReciever handReciever)
+    {
+        Logger.Debug("HudState: OnReceiverDetachedRight called");
+
+        RightGun = null;
+        RightDefaultCartridge = null;
+
+        UpdateRightAmmoCount();
+        UpdateRightReserveCount();
+    }
+
+    public static void OnMagazineInsertedLeft()
+    {
+        Logger.Debug("HudState: OnMagazineInsertedLeft called");
+        UpdateLeftAmmoCount();
+        UpdateLeftReserveCount();
+    }
+
+    public static void OnMagazineInsertedRight()
+    {
+        Logger.Debug("HudState: OnMagazineInsertedRight called");
+        UpdateRightAmmoCount();
+        UpdateRightReserveCount();
+    }
+
+    public static void OnMagazineRemovedLeft()
+    {
+        Logger.Debug("HudState: OnMagazineRemovedLeft called");
+        UpdateLeftAmmoCount();
+        UpdateLeftReserveCount();
+    }
+
+    public static void OnMagazineRemovedRight()
+    {
+        Logger.Debug("HudState: OnMagazineRemoveRight called");
+        UpdateRightAmmoCount();
+        UpdateRightReserveCount();
+    }
+
+    public static void OnGachaMagazineInserted()
+    {
+        Logger.Debug("HudState: OnGachaMagazineInserted called");
+        UpdateLeftReserveCount();
+        UpdateRightReserveCount();
+    }
+
+    public static void OnCartridgeAdded()
+    {
+        Logger.Debug("HudState: OnCartridgeAdded called");
+        UpdateLeftReserveCount();
+        UpdateRightReserveCount();
+    }
+
+    public static void OnMaxHealthUpdated(float? maxHealth)
+    {
+        Logger.Debug("HudState: OnMaxHealthUpdated called");
+        OnMaxHealthChanged?.Invoke(maxHealth);
+    }
+
+    private static void UpdateLeftAmmoCount()
+    {
+        Logger.Debug("HudState: Left ammo updated");
+        OnLeftAmmoChanged?.Invoke(LeftGun?.GetAmmoCount());
+    }
+
+    private static void UpdateRightAmmoCount()
+    {
+        Logger.Debug("HudState: Right ammo updated");
+        OnRightAmmoChanged?.Invoke(RightGun?.GetAmmoCount());
+    }
+
+    private static void UpdateLeftReserveCount()
+    {
+        if (LeftDefaultCartridge == null)
+        {
+            LeftReserve = null;
+            return;
+        }
+
+        int? newReserve = AmmoInventory.Instance.GetCartridgeCount(LeftDefaultCartridge) - LeftAmmo;
+        LeftReserve = newReserve;
+    }
+
+    private static void UpdateRightReserveCount()
+    {
+        if (RightDefaultCartridge == null)
+        {
+            RightReserve = null;
+            return;
+        }
+
+        int? newReserve = AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge) - RightAmmo;
+        RightReserve = newReserve;
+    }
+
+    private static void UpdateHealth()
+    {
+        Logger.Debug("HudState: Health updated");
+        Health = RigManager?.health.curr_Health;
+    }
+
+    private static void UpdateMaxHealth()
+    {
+        Logger.Debug("HudState: Right reserve updated");
+        MaxHealth = RigManager?.health.max_Health;
+    }
+
+    public static void OnSlidePullLeft(Gun gun)
+    {
+        Logger.Debug("HudState: OnSlidePullLeft called");
+        UpdateLeftAmmoCount();
+    }
+
+    public static void OnSlidePullRight(Gun gun)
+    {
+        Logger.Debug("HudState: OnSlidePullRight called");
+        UpdateRightAmmoCount();
+    }
+
     #region Notifier Properties
+
     public static Gun? LeftGun
     {
         get;
@@ -116,7 +346,7 @@ public static class HudState
             field = value;
         }
     }
-        
+
     public static int? LeftTotalAmmo
     {
         get;
@@ -199,242 +429,6 @@ public static class HudState
             field = value;
         }
     }
-        
+
     #endregion // Notifier Properties
-        
-    /// <summary>
-    /// Configures members for player load and invokes all callbacks to trigger initial values.
-    /// Should be called after the HUD has been loaded.
-    /// </summary>
-    /// <param name="rigManager">Target player's RigManager</param>
-    public static void OpenState(RigManager rigManager)
-    {
-        RigManager = rigManager;
-
-        // Hands (no way)
-        PhysicsRig physicsRig = rigManager.physicsRig;
-        _leftHand = physicsRig.leftHand; // <--- so this gets the left hand
-        _rightHand = physicsRig.rightHand; // that's right! this one gets the right hand! aren't you clever!
-
-        if (!_delegatesConverted)
-        {
-            ConvertDelegates();
-            _delegatesConverted = true;
-        }
-
-        _leftHand.onRecieverAttached += _onReceiverAttachedLeft;
-        _leftHand.onRecieverDetached += _onReceiverDetachedLeft;
-        _rightHand.onRecieverAttached += _onReceiverAttachedRight;
-        _rightHand.onRecieverDetached += _onReceiverDetachedRight;
-
-        RigManager.gameObject.AddComponent<PlayerHealthObserver>();
-            
-        ForceUpdateCounts();
-            
-        OnLeftGunChanged?.Invoke(null);
-        OnRightGunChanged?.Invoke(null);
-    }
-
-    public static void ForceUpdateCounts()
-    {
-        UpdateLeftAmmoCount();
-        UpdateRightAmmoCount();
-        UpdateLeftReserveCount();
-        UpdateRightReserveCount();
-        UpdateHealth();
-        UpdateMaxHealth();
-    }
-
-    public static void CloseState()
-    {
-        if (_leftHand != null)
-        {
-            _leftHand.onRecieverAttached -= _onReceiverAttachedLeft;
-            _leftHand.onRecieverDetached -= _onReceiverDetachedLeft;
-        }
-
-        if (_rightHand != null)
-        {
-            _rightHand.onRecieverAttached -= _onReceiverAttachedRight;
-            _rightHand.onRecieverDetached -= _onReceiverDetachedRight;
-        }
-
-        RigManager = null;
-        _leftHand = null;
-        _rightHand = null;
-    }
-
-    private static void ConvertDelegates()
-    {
-        _onReceiverAttachedLeft =
-            DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(OnReceiverAttachedLeft);
-        _onReceiverDetachedLeft =
-            DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(OnReceiverDetachedLeft);
-        _onReceiverAttachedRight =
-            DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(OnReceiverAttachedRight);
-        _onReceiverDetachedRight =
-            DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(OnReceiverDetachedRight);
-    }
-        
-    private static void OnReceiverAttachedLeft(HandReciever handReciever) // learn to spell SLZ
-    {
-        Logger.Debug("HudState: OnReceiverAttachedLeft called");
-            
-        if (!handReciever.TryFindGunFromReceiver(out Gun? gun))
-        {
-            return;
-        }
-            
-        LeftGun = gun;
-        LeftDefaultCartridge = gun?.defaultCartridge;
-            
-        UpdateLeftAmmoCount();
-        UpdateLeftReserveCount();
-    }
-
-    private static void OnReceiverDetachedLeft(HandReciever handReciever)
-    {
-        Logger.Debug("HudState: OnReceiverDetachedLeft called");
-            
-        LeftGun = null;
-        LeftDefaultCartridge = null;
-            
-        UpdateLeftAmmoCount();
-        UpdateLeftReserveCount();
-    }
-        
-    private static void OnReceiverAttachedRight(HandReciever handReciever)
-    {
-        Logger.Debug("HudState: OnReceiverAttachedRight called");
-            
-        if (!handReciever.TryFindGunFromReceiver(out Gun? gun))
-        {
-            return;
-        }
-            
-        RightGun = gun;
-        RightDefaultCartridge = gun?.defaultCartridge;
-            
-        UpdateRightAmmoCount();
-        UpdateRightReserveCount();
-    }
-
-    private static void OnReceiverDetachedRight(HandReciever handReciever)
-    {
-        Logger.Debug("HudState: OnReceiverDetachedRight called");
-            
-        RightGun = null;
-        RightDefaultCartridge = null;
-            
-        UpdateRightAmmoCount();
-        UpdateRightReserveCount();
-    }
-
-    public static void OnMagazineInsertedLeft()
-    {
-        Logger.Debug("HudState: OnMagazineInsertedLeft called");
-        UpdateLeftAmmoCount();
-        UpdateLeftReserveCount();
-    }
-
-    public static void OnMagazineInsertedRight()
-    {
-        Logger.Debug("HudState: OnMagazineInsertedRight called");
-        UpdateRightAmmoCount();
-        UpdateRightReserveCount();
-    }
-        
-    public static void OnMagazineRemovedLeft()
-    {
-        Logger.Debug("HudState: OnMagazineRemovedLeft called");
-        UpdateLeftAmmoCount();
-        UpdateLeftReserveCount();
-    }
-
-    public static void OnMagazineRemovedRight()
-    {
-        Logger.Debug("HudState: OnMagazineRemoveRight called");
-        UpdateRightAmmoCount();
-        UpdateRightReserveCount();
-    }
-
-    public static void OnGachaMagazineInserted()
-    {
-        Logger.Debug("HudState: OnGachaMagazineInserted called");
-        UpdateLeftReserveCount();
-        UpdateRightReserveCount();
-    }
-
-    public static void OnCartridgeAdded()
-    {
-        Logger.Debug("HudState: OnCartridgeAdded called");
-        UpdateLeftReserveCount();
-        UpdateRightReserveCount();
-    }
-
-    public static void OnMaxHealthUpdated(float? maxHealth)
-    {
-        Logger.Debug("HudState: OnMaxHealthUpdated called");
-        OnMaxHealthChanged?.Invoke(maxHealth);
-    }
-
-    private static void UpdateLeftAmmoCount()
-    {
-        Logger.Debug("HudState: Left ammo updated");
-        OnLeftAmmoChanged?.Invoke(LeftGun?.GetAmmoCount());
-    }
-
-    private static void UpdateRightAmmoCount()
-    {
-        Logger.Debug("HudState: Right ammo updated");
-        OnRightAmmoChanged?.Invoke(RightGun?.GetAmmoCount());
-    }
-
-    private static void UpdateLeftReserveCount()
-    {
-        if (LeftDefaultCartridge == null)
-        {
-            LeftReserve = null;
-            return;
-        }
-
-        int? newReserve = AmmoInventory.Instance.GetCartridgeCount(LeftDefaultCartridge) - LeftAmmo;
-        LeftReserve = newReserve;
-    }
-
-    private static void UpdateRightReserveCount()
-    {
-        if (RightDefaultCartridge == null)
-        {
-            RightReserve = null;
-            return;
-        }
-            
-        int? newReserve = AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge) - RightAmmo;
-        RightReserve = newReserve;
-    }
-
-    private static void UpdateHealth()
-    {
-        Logger.Debug("HudState: Health updated");
-        Health = RigManager?.health.curr_Health;
-    }
-
-    private static void UpdateMaxHealth()
-    {
-        Logger.Debug("HudState: Right reserve updated");
-        MaxHealth = RigManager?.health.max_Health;
-    }
-
-    public static void OnSlidePullLeft(Gun gun)
-    {
-        Logger.Debug("HudState: OnSlidePullLeft called");
-        UpdateLeftAmmoCount();
-    }
-        
-    public static void OnSlidePullRight(Gun gun)
-    {
-        Logger.Debug("HudState: OnSlidePullRight called");
-        UpdateRightAmmoCount();
-    }
 }

@@ -16,7 +16,6 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-using Il2CppInterop.Runtime;
 using Il2CppTMPro;
 using UnityEngine;
 
@@ -28,11 +27,11 @@ public class TMPMaterialPropertyOverrideInt : MonoBehaviour
     public string propertyName;
     public int value;
 
+    private readonly Il2CppFieldAccessor<int> _valueAccessor;
+
     private Material _material;
     private int _propertyId;
 
-    private readonly Il2CppFieldAccessor<int> _valueAccessor;
-        
     public TMPMaterialPropertyOverrideInt(IntPtr ptr) : base(ptr)
     {
         this._valueAccessor = new Il2CppFieldAccessor<int>(this, nameof(this.value));

@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
-        <None Include="SpectatorHUD.csproj.user" />
+        <None Include="SpectatorHUD.csproj.user"/>
     </ItemGroup>
 
-    <Import Project="$(SolutionDir)\Mod.props" />
-    <Import Project="$(SolutionDir)\Mod.targets" />
-    
+    <Import Project="$(SolutionDir)\Mod.props"/>
+    <Import Project="$(SolutionDir)\Mod.targets"/>
+
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -14,15 +14,15 @@
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
         <LangVersion>14</LangVersion>
     </PropertyGroup>
-    
+
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
-    
+
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <Reference Include="Assembly-CSharp">
             <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
@@ -52,10 +52,10 @@
             <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Unity.TextMeshPro.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine">
-          <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.dll</HintPath>
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AnimationModule">
-          <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.AnimationModule.dll</HintPath>
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.AnimationModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AssetBundleModule">
             <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.AssetBundleModule.dll</HintPath>
@@ -64,19 +64,19 @@
             <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.IMGUIModule">
-          <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.IMGUIModule.dll</HintPath>
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.IMGUIModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.InputLegacyModule">
-          <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.InputLegacyModule.dll</HintPath>
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.InputLegacyModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
-          <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UIModule">
-          <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
+            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
         </Reference>
     </ItemGroup>
-    
+
     <ItemGroup>
         <Reference Include="0Harmony">
             <HintPath>$(BonelabDir)\MelonLoader\net6\0Harmony.dll</HintPath>
@@ -85,7 +85,7 @@
             <HintPath>$(BonelabDir)\MelonLoader\net6\MelonLoader.dll</HintPath>
         </Reference>
     </ItemGroup>
-    
+
     <ItemGroup>
         <Reference Include="FieldInjector">
             <HintPath>$(BonelabDir)\Mods\FieldInjector.dll</HintPath>
@@ -94,10 +94,10 @@
             <HintPath>$(BonelabDir)\Mods\BoneLib.dll</HintPath>
         </Reference>
     </ItemGroup>
-    
+
     <ItemGroup>
-      <None Remove="Resources\TestHUD.hud" />
-      <EmbeddedResource Include="Resources\TestHUD.hud" />
+        <None Remove="Resources\TestHUD.hud"/>
+        <EmbeddedResource Include="Resources\TestHUD.hud"/>
     </ItemGroup>
 
 </Project>

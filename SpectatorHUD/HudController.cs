@@ -37,18 +37,18 @@ public class HudController : MonoBehaviour
     public TMP_Text totalLightAmmoCounter;
     public TMP_Text totalMediumAmmoCounter;
     public TMP_Text totalHeavyAmmoCounter;
-        
+
     public TMP_Text healthCounter;
     public TMP_Text maxHealthCounter;
     public TMP_Text percentageHealthCounter;
 
     public LinearParameters healthModifier;
-        
+
     public List<GameObject> activeWithGunHeldInLeftHand;
     public List<GameObject> activeWithGunHeldInRightHand;
 
     private LinearExpression<float> _healthModifierExpression;
-        
+
     public HudController(IntPtr ptr) : base(ptr)
     {
     }
@@ -78,41 +78,20 @@ public class HudController : MonoBehaviour
         HudState.OnLeftGunChanged += this.OnLeftGunChanged;
         HudState.OnRightGunChanged += this.OnRightGunChanged;
 
-        if (this.leftHandAmmoCounter != null)
-        {
-            HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoCounter;
-        }
+        if (this.leftHandAmmoCounter != null) HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoCounter;
 
-        if (this.rightHandAmmoCounter != null)
-        {
-            HudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
-        }
+        if (this.rightHandAmmoCounter != null) HudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
 
-        if (this.leftHandReserveCounter != null)
-        {
-            HudState.OnLeftReserveChanged += this.UpdateLeftReserveCounter;
-        }
+        if (this.leftHandReserveCounter != null) HudState.OnLeftReserveChanged += this.UpdateLeftReserveCounter;
 
-        if (this.rightHandReserveCounter != null)
-        {
-            HudState.OnRightReserveChanged += this.UpdateRightReserveCounter;
-        }
+        if (this.rightHandReserveCounter != null) HudState.OnRightReserveChanged += this.UpdateRightReserveCounter;
 
-        if (this.healthCounter != null)
-        {
-            HudState.OnHealthChanged += this.UpdateHealthCounter;
-        }
+        if (this.healthCounter != null) HudState.OnHealthChanged += this.UpdateHealthCounter;
 
-        if (this.percentageHealthCounter)
-        {
-            HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageCounter;
-        }
+        if (this.percentageHealthCounter) HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageCounter;
 
-        if (this.maxHealthCounter)
-        {
-            HudState.OnMaxHealthChanged += this.UpdateMaxHealthCounter;
-        }
-            
+        if (this.maxHealthCounter) HudState.OnMaxHealthChanged += this.UpdateMaxHealthCounter;
+
         // Animation events
         HudState.ForceUpdateCounts();
     }
@@ -121,7 +100,7 @@ public class HudController : MonoBehaviour
     {
         HudState.OnLeftGunChanged -= this.OnLeftGunChanged;
         HudState.OnRightGunChanged -= this.OnRightGunChanged;
-            
+
         // Null checks not needed here; no errors if callbacks not present
         HudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoCounter;
         HudState.OnRightAmmoChanged -= this.UpdateRightAmmoCounter;
@@ -135,7 +114,7 @@ public class HudController : MonoBehaviour
     {
         this.leftHandAmmoCounter.text = ammo.ToString();
     }
-        
+
     private void UpdateRightAmmoCounter(int? ammo)
     {
         this.rightHandAmmoCounter.text = ammo.ToString();
@@ -169,7 +148,7 @@ public class HudController : MonoBehaviour
     private void OnLeftGunChanged(Gun? gun)
     {
         Logger.Debug("HudManagerV1: Left gun changed");
-            
+
         if (gun == null) // no gun in hand
         {
             foreach (GameObject go in this.activeWithGunHeldInLeftHand)
@@ -177,21 +156,21 @@ public class HudController : MonoBehaviour
                 go.active = false;
                 Logger.Debug("HudManagerV1: disabled " + go.name);
             }
-                
+
             return;
         }
-            
+
         foreach (GameObject go in this.activeWithGunHeldInLeftHand)
         {
             go.active = true;
             Logger.Debug("HudManagerV1: enabled " + go.name);
         }
     }
-        
+
     private void OnRightGunChanged(Gun? gun)
     {
         Logger.Debug("HudManagerV1: Right gun changed");
-            
+
         if (gun == null) // no gun in hand
         {
             foreach (GameObject go in this.activeWithGunHeldInRightHand)
@@ -202,7 +181,7 @@ public class HudController : MonoBehaviour
 
             return;
         }
-            
+
         foreach (GameObject go in this.activeWithGunHeldInRightHand)
         {
             Logger.Debug("HudManagerV1: enabled " + go.name);

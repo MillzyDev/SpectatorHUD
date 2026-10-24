@@ -33,7 +33,7 @@ public class AnimationController : MonoBehaviour
     public List<AnimationIntReference> animationRightAmmo;
     public List<AnimationTriggerReference> animationLeftAmmoChanged;
     public List<AnimationTriggerReference> animationRightAmmoChanged;
-        
+
     public List<AnimationIntReference> animationLeftReserve;
     public List<AnimationIntReference> animationRightReserve;
     public List<AnimationTriggerReference> animationLeftReserveChanged;
@@ -47,7 +47,6 @@ public class AnimationController : MonoBehaviour
 
     public AnimationController(IntPtr ptr) : base(ptr)
     {
-            
     }
 
     private void Start()
@@ -72,7 +71,7 @@ public class AnimationController : MonoBehaviour
         MetaInfo.AnimationHealthPercentage = this.animationHealthPercentage.Count;
         MetaInfo.AnimationHealthChanged = this.animationHealthChanged.Count;
         MetaInfo.AnimationMaxHealthChanged = this.animationMaxHealthChanged.Count;
-            
+
         this.ResolveAnimationParameterIds(this.animationLeftGunHeld);
         this.ResolveAnimationParameterIds(this.animationRightGunHeld);
         this.ResolveAnimationParameterIds(this.animationLeftGunHeldChanged);
@@ -115,78 +114,78 @@ public class AnimationController : MonoBehaviour
         HudState.OnHealthChanged -= this.UpdateHealthAnimation;
         HudState.OnHealthPercentageChanged -= this.UpdateHealthPercentageAnimation;
         HudState.OnMaxHealthChanged -= this.UpdateMaxHealthAnimation;
-            
+
         HudState.OnLeftGunChanged -= this.OnLeftGunChanged;
         HudState.OnRightGunChanged -= this.OnRightGunChanged;
     }
 
     private void ResolveAnimationParameterIds(List<AnimationBoolReference> parameters)
     {
-        for (int i = 0; i < parameters.Count; i++)
+        for (var i = 0; i < parameters.Count; i++)
         {
             AnimationBoolReference param = parameters[i];
             param.parameterId = Animator.StringToHash(param.parameterName);
             parameters[i] = param;
         }
     }
-        
+
     private void ResolveAnimationParameterIds(List<AnimationFloatReference> parameters)
     {
-        for (int i = 0; i < parameters.Count; i++)
+        for (var i = 0; i < parameters.Count; i++)
         {
             AnimationFloatReference param = parameters[i];
             param.parameterId = Animator.StringToHash(param.parameterName);
             parameters[i] = param;
         }
     }
-        
+
     private void ResolveAnimationParameterIds(List<AnimationIntReference> parameters)
     {
-        for (int i = 0; i < parameters.Count; i++)
+        for (var i = 0; i < parameters.Count; i++)
         {
             AnimationIntReference param = parameters[i];
             param.parameterId = Animator.StringToHash(param.parameterName);
             parameters[i] = param;
         }
     }
-        
+
     private void ResolveAnimationParameterIds(List<AnimationTriggerReference> parameters)
     {
-        for (int i = 0; i < parameters.Count; i++)
+        for (var i = 0; i < parameters.Count; i++)
         {
             AnimationTriggerReference param = parameters[i];
             param.parameterId = Animator.StringToHash(param.parameterName);
             parameters[i] = param;
         }
     }
-        
+
     private void UpdateLeftAmmoAnimation(int? ammo)
     {
         this.SetAnimationInts(this.animationLeftAmmo, ammo ?? 0);
         this.FireAnimationTriggers(this.animationLeftAmmoChanged);
     }
-        
+
     private void UpdateRightAmmoAnimation(int? ammo)
     {
         this.SetAnimationInts(this.animationRightAmmo, ammo ?? 0);
         this.FireAnimationTriggers(this.animationRightAmmoChanged);
     }
-        
+
     private void UpdateLeftReserveAnimation(int? ammo)
     {
         this.SetAnimationInts(this.animationLeftReserve, ammo ?? 0);
         this.FireAnimationTriggers(this.animationLeftReserveChanged);
     }
-        
+
     private void UpdateRightReserveAnimation(int? ammo)
     {
         this.SetAnimationInts(this.animationRightReserve, ammo ?? 0);
         this.FireAnimationTriggers(this.animationRightReserveChanged);
     }
-        
+
     private void UpdateHealthAnimation(float? health)
     {
-        this.SetAnimationFloats(this.animationHealth, health ?? 0f); 
+        this.SetAnimationFloats(this.animationHealth, health ?? 0f);
         this.FireAnimationTriggers(this.animationHealthChanged);
     }
 
@@ -194,7 +193,7 @@ public class AnimationController : MonoBehaviour
     {
         this.SetAnimationFloats(this.animationHealthPercentage, percentage ?? 0);
     }
-        
+
     private void UpdateMaxHealthAnimation(float? maxHealth)
     {
         this.SetAnimationFloats(this.animationMaxHealth, maxHealth ?? 0f);
@@ -210,7 +209,7 @@ public class AnimationController : MonoBehaviour
             this.SetAnimationBools(this.animationLeftGunHeld, false);
             return;
         }
-            
+
         this.SetAnimationBools(this.animationLeftGunHeld, true);
     }
 
@@ -223,10 +222,10 @@ public class AnimationController : MonoBehaviour
             this.SetAnimationBools(this.animationRightGunHeld, false);
             return;
         }
-            
+
         this.SetAnimationBools(this.animationRightGunHeld, true);
     }
-        
+
     private void FireAnimationTriggers(List<AnimationTriggerReference> triggers)
     {
         foreach (AnimationTriggerReference trigger in triggers)
@@ -238,25 +237,16 @@ public class AnimationController : MonoBehaviour
 
     private void SetAnimationBools(List<AnimationBoolReference> bools, bool value)
     {
-        foreach (AnimationBoolReference @bool in bools)
-        {
-            @bool.animator.SetBool(@bool.parameterId, value);
-        }
+        foreach (AnimationBoolReference @bool in bools) @bool.animator.SetBool(@bool.parameterId, value);
     }
 
     private void SetAnimationFloats(List<AnimationFloatReference> floats, float value)
     {
-        foreach (AnimationFloatReference @float in floats)
-        {
-            @float.animator.SetFloat(@float.parameterId, value);
-        }
+        foreach (AnimationFloatReference @float in floats) @float.animator.SetFloat(@float.parameterId, value);
     }
 
     private void SetAnimationInts(List<AnimationIntReference> ints, int value)
     {
-        foreach (AnimationIntReference @int in ints)
-        {
-            @int.animator.SetInteger(@int.parameterId, value);
-        }
+        foreach (AnimationIntReference @int in ints) @int.animator.SetInteger(@int.parameterId, value);
     }
 }

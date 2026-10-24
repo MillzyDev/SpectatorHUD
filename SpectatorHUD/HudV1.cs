@@ -25,8 +25,8 @@ public class HudV1 : ScriptableObject
     public string hudName;
     public int hudVersion;
     public string hudAuthor;
-        
+
     public HudVersion spectatorHudVersion;
-        
+
     public GameObject hudAsset;
 }

@@ -26,15 +26,9 @@ namespace SpectatorHUD;
 
 public class Il2CppFieldAccessor<T> where T : struct
 {
-    private readonly Il2CppObjectBase _objectBase;
     private readonly IntPtr _fieldInfo;
+    private readonly Il2CppObjectBase _objectBase;
 
-    public T Value
-    {
-        get => this.Get();
-        set => this.Set(value);
-    }
-        
     public Il2CppFieldAccessor(Il2CppObjectBase obj, string fieldName)
     {
         this._objectBase = obj;
@@ -43,10 +37,13 @@ public class Il2CppFieldAccessor<T> where T : struct
         IntPtr klass = IL2CPP.il2cpp_class_from_type(fieldType);
         bool isValueType = IL2CPP.il2cpp_class_is_valuetype(klass);
 
-        if (!isValueType)
-        {
-            throw new ArgumentException("T must be a value type");
-        }
+        if (!isValueType) throw new ArgumentException("T must be a value type");
+    }
+
+    public T Value
+    {
+        get => this.Get();
+        set => this.Set(value);
     }
 
     public unsafe T Get()
@@ -60,5 +57,4 @@ public class Il2CppFieldAccessor<T> where T : struct
         *(T*)(IL2CPP.Il2CppObjectBaseToPtrNotNull(this._objectBase) +
               (int)IL2CPP.il2cpp_field_get_offset(this._fieldInfo)) = value;
     }
-        
 }

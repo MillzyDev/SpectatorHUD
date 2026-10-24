@@ -27,14 +27,14 @@ namespace SpectatorHUD.HarmonyPatches;
 public static class AmmoInventory_AddCartridge
 {
     [HarmonyPostfix]
-    [HarmonyPatch(new[]{typeof(AmmoGroup), typeof(int)})]
+    [HarmonyPatch(new[] { typeof(AmmoGroup), typeof(int) })]
     public static void PostfixAmmoGroup()
     {
         HudState.OnCartridgeAdded();
     }
 
     [HarmonyPostfix]
-    [HarmonyPatch(new[] {typeof(CartridgeData), typeof(int)})]
+    [HarmonyPatch(new[] { typeof(CartridgeData), typeof(int) })]
     private static void PostfixCartridgeData()
     {
         HudState.OnCartridgeAdded();

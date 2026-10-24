@@ -9,9 +9,9 @@ namespace SpectatorHUD;
 
 public static class SettingsMenu
 {
-    private static Color MyColour => new(0.404f, 0.306f, 0.635f);
     private static List<Page> hudSelection;
-        
+    private static Color MyColour => new(0.404f, 0.306f, 0.635f);
+
     public static void Register()
     {
         Page myCategory = Page.Root.CreatePage("Millzy", MyColour);
@@ -25,14 +25,11 @@ public static class SettingsMenu
     private static void FillSelectHudPage(Page parent)
     {
         List<Tuple<HudV1, string?>> hudMetadatas = new();
-            
+
         // Get metadata for the default hud.
         HudV1? defaultHud = GetMetadataFromEmbeddedResource(HudBootstrap.DefaultHud);
-        if (defaultHud != null)
-        {
-            hudMetadatas.Add(new Tuple<HudV1, string?>(defaultHud, null));
-        }
-            
+        if (defaultHud != null) hudMetadatas.Add(new Tuple<HudV1, string?>(defaultHud, null));
+
         // Collect the metadata for all files and add it to the list of all metadata.
         string path = Path.Join(MelonEnvironment.UserDataDirectory, "SpectatorHUD", "HUDs");
         string[] hudFiles = Directory.GetFiles(path, "*.hud", SearchOption.TopDirectoryOnly);
@@ -42,22 +39,21 @@ public static class SettingsMenu
         hudMetadatas.AddRange(fileMetadatas);
 
         foreach ((HudV1 hud, string? hudPath) in hudMetadatas)
-        {
             parent.CreateFunction(
                 $"{hud.hudName} <color=#828282>v{hud.hudVersion}</color>",
                 Color.white,
                 () =>
                 {
                     Config.Instance.Hud = hudPath;
-                    Notifier.Send(new Notification()
+                    Notifier.Send(new Notification
                     {
-                        Message = new NotificationText($"HUD set to {hud.hudName} v{hud.hudVersion} by {hud.hudAuthor}. Reload to Apply."),
+                        Message = new NotificationText(
+                            $"HUD set to {hud.hudName} v{hud.hudVersion} by {hud.hudAuthor}. Reload to Apply."),
                         Title = new NotificationText("Spectator HUD", Color.yellow),
                         Type = NotificationType.Success
                     });
                 }
             );
-        }
     }
 
     private static HudV1? GetMetadataFromFile(string path)
@@ -74,7 +70,7 @@ public static class SettingsMenu
 
     private static HudV1? GetMetadataFromEmbeddedResource(string resource)
     {
-        Assembly assembly = Assembly.GetExecutingAssembly();
+        var assembly = Assembly.GetExecutingAssembly();
         using Stream? stream = assembly.GetManifestResourceStream(resource);
         if (stream == null)
         {
@@ -98,7 +94,7 @@ public static class SettingsMenu
             Logger.Error("Hud.asset could not be loaded from assetBundle: " + assetBundle.name);
             return null;
         }
-            
+
         assetBundle.Unload(false);
 
         switch (hudInfo.spectatorHudVersion.version)

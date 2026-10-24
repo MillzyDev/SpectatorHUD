@@ -16,7 +16,6 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-using Il2CppInterop.Runtime;
 using Il2CppTMPro;
 using UnityEngine;
 
@@ -28,16 +27,16 @@ public class TMPMaterialPropertyOverrideColor : MonoBehaviour
     public string propertyName;
     public Color value;
 
+    private readonly Il2CppFieldAccessor<Color> _valueAccessor;
+
     private Material _material;
     private int _propertyId;
 
-    private readonly Il2CppFieldAccessor<Color> _valueAccessor;
-        
     public TMPMaterialPropertyOverrideColor(IntPtr ptr) : base(ptr)
     {
         this._valueAccessor = new Il2CppFieldAccessor<Color>(this, nameof(this.value));
     }
-        
+
     private void Awake()
     {
         this._material = this.fontAsset.material;

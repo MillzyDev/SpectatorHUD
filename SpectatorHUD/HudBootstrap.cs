@@ -26,9 +26,9 @@ public class HudBootstrap : MonoBehaviour
 {
     // TODO: Replace with the really awesome Half-Life 2 HUD I made.
     public static readonly string DefaultHud = "SpectatorHUD.Resources.TestHUD.hud";
-        
-    private RigManager? _rigManager;
     public GameObject? hud;
+
+    private RigManager? _rigManager;
     public DateTime lastLoad;
 
     public HudBootstrap(IntPtr ptr) : base(ptr)
@@ -40,21 +40,20 @@ public class HudBootstrap : MonoBehaviour
         this._rigManager = this.GetComponent<RigManager>();
         this.LoadHudFromConfig();
 
-        if (Mod.DebugEnabled)
-        {
-            this.gameObject.AddComponent<DebugGUI>();
-        }
+        if (Mod.DebugEnabled) this.gameObject.AddComponent<DebugGUI>();
+    }
+
+    private void OnDestroy()
+    {
+        HudState.CloseState();
     }
 
     public void UnloadCurrentHud()
     {
-        if (this.hud == null)
-        {
-            return;
-        }
-            
+        if (this.hud == null) return;
+
         HudState.CloseState();
-        GameObject.Destroy(this.hud);
+        Destroy(this.hud);
     }
 
     public void ReloadHudFromConfig()
@@ -72,7 +71,7 @@ public class HudBootstrap : MonoBehaviour
             this.LoadHudFromEmbeddedResource(DefaultHud);
             return;
         }
-            
+
         // Hud path set, attempt to load from file
         this.LoadHudFromFile(Config.Instance.Hud);
     }
@@ -87,21 +86,22 @@ public class HudBootstrap : MonoBehaviour
             //Destroy(this);
             return;
         }
+
         this.LoadHudFromAssetBundle(assetBundle);
         assetBundle.Unload(false); // free asset bundle resource
     }
 
     public void LoadHudFromEmbeddedResource(string resource)
     {
-        Assembly assembly = Assembly.GetExecutingAssembly();
+        var assembly = Assembly.GetExecutingAssembly();
         using Stream? stream = assembly.GetManifestResourceStream(resource);
-            
+
         if (stream == null)
         {
             Logger.Error("Unable to open stream to embedded resource");
             return;
         }
-                
+
         var memoryStream = new MemoryStream();
         stream.CopyTo(memoryStream);
 
@@ -144,9 +144,9 @@ public class HudBootstrap : MonoBehaviour
             //Destroy(this);
             return;
         }
-            
+
         Logger.Msg("Loaded {0} v{1} by {2}", hudInfo.hudName, hudInfo.hudVersion, hudInfo.hudAuthor);
-        this.hud = GameObject.Instantiate(hudInfo.hudAsset);
+        this.hud = Instantiate(hudInfo.hudAsset);
         this.hud.name = "SpectatorHUD UI";
 
         MetaInfo.HUDName = hudInfo.hudName;
@@ -154,7 +154,7 @@ public class HudBootstrap : MonoBehaviour
         MetaInfo.HUDVersion = hudInfo.hudVersion;
 
         this.HudRun();
-            
+
         this.hud.SetActive(false); // gets set active when the loading scene disappears
     }
 
@@ -165,11 +165,7 @@ public class HudBootstrap : MonoBehaviour
             Logger.Error("FUCKKK WHERES THE RIG MANAGER");
             return;
         }
-            
-        HudState.OpenState(this._rigManager); }
 
-    private void OnDestroy()
-    {
-        HudState.CloseState();
+        HudState.OpenState(this._rigManager);
     }
 }

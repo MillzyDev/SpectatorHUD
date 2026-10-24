@@ -34,7 +34,7 @@ public class ShaderController : MonoBehaviour
     public ShaderController(IntPtr ptr) : base(ptr)
     {
     }
-        
+
     private void Start()
     {
         MetaInfo.ShaderLeftAmmo = this.shaderLeftAmmo.Count;
@@ -44,7 +44,7 @@ public class ShaderController : MonoBehaviour
         MetaInfo.ShaderHealth = this.shaderHealth.Count;
         MetaInfo.ShaderMaxHealth = this.shaderMaxHealth.Count;
         MetaInfo.ShaderHealthPercentage = this.shaderHealthPercentage.Count;
-            
+
         this.ProcessShaderProperties(this.shaderLeftAmmo);
         this.ProcessShaderProperties(this.shaderRightAmmo);
         this.ProcessShaderProperties(this.shaderLeftReserve);
@@ -113,33 +113,28 @@ public class ShaderController : MonoBehaviour
 
     private void SetShaderInts(List<ShaderIntReference> properties, int value)
     {
-        foreach (ShaderIntReference property in properties)
-        {
-            property.material.SetInteger(property.propertyId, value);
-        }
+        foreach (ShaderIntReference property in properties) property.material.SetInteger(property.propertyId, value);
     }
 
     private void SetShaderFloatsWithModifier(List<ShaderFloatReference> properties, float value)
     {
         foreach (ShaderFloatReference property in properties)
-        {
             property.material.SetFloat(property.propertyId, property.modifierExpression.Evaluate(value));
-        }
     }
-        
+
     private void ProcessShaderProperties(List<ShaderIntReference> properties)
     {
-        for (int i = 0; i < properties.Count; i++)
+        for (var i = 0; i < properties.Count; i++)
         {
             ShaderIntReference property = properties[i];
             property.propertyId = Shader.PropertyToID(property.propertyName);
             properties[i] = property;
         }
     }
-        
+
     private void ProcessShaderProperties(List<ShaderFloatReference> properties)
     {
-        for (int i = 0; i < properties.Count; i++)
+        for (var i = 0; i < properties.Count; i++)
         {
             ShaderFloatReference property = properties[i];
             property.propertyId = Shader.PropertyToID(property.propertyName);

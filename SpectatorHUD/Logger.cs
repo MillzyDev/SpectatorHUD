@@ -22,16 +22,12 @@ namespace SpectatorHUD;
 
 public static class Logger
 {
-    private delegate void DebugLogObject(object obj);
-    private delegate void DebugLogTxt(string txt);
-    private delegate void DebugLogFormat(string txt, params object[] args);
-        
-        
-    public static MelonLogger.Instance? Instance { get; set; }
-
     private static DebugLogObject? _debugLogObject;
     private static DebugLogTxt? _debugLogTxt;
     private static DebugLogFormat? _debugLogFormat;
+
+
+    public static MelonLogger.Instance? Instance { get; set; }
 
     public static void EnableDebug(bool debug)
     {
@@ -49,17 +45,74 @@ public static class Logger
         }
     }
 
-    public static void Debug(object obj) => _debugLogObject?.Invoke(obj);
-    public static void Debug(string txt) => _debugLogTxt?.Invoke(txt);
-    public static void Debug(string txt, params object[] args) => _debugLogFormat?.Invoke(txt, args); 
-    public static void Msg(object obj) => Instance?.Msg(obj);
-    public static void Msg(string txt) => Instance?.Msg(txt);
-    public static void Msg(string txt, params object[] args) => Instance?.Msg(txt, args);
-    public static void Warning(object obj) => Instance?.Warning(obj);
-    public static void Warning(string txt) => Instance?.Warning(txt);
-    public static void Warning(string txt, params object[] args) => Instance?.Warning(txt, args);
-    public static void Error(object obj) => Instance?.Error(obj);
-    public static void Error(string txt) => Instance?.Error(txt);
-    public static void Error(string txt, params object[] args) => Instance?.Error(txt, args);
-    public static void Error(string txt, Exception ex) => Instance?.Error(txt, ex);
+    public static void Debug(object obj)
+    {
+        _debugLogObject?.Invoke(obj);
+    }
+
+    public static void Debug(string txt)
+    {
+        _debugLogTxt?.Invoke(txt);
+    }
+
+    public static void Debug(string txt, params object[] args)
+    {
+        _debugLogFormat?.Invoke(txt, args);
+    }
+
+    public static void Msg(object obj)
+    {
+        Instance?.Msg(obj);
+    }
+
+    public static void Msg(string txt)
+    {
+        Instance?.Msg(txt);
+    }
+
+    public static void Msg(string txt, params object[] args)
+    {
+        Instance?.Msg(txt, args);
+    }
+
+    public static void Warning(object obj)
+    {
+        Instance?.Warning(obj);
+    }
+
+    public static void Warning(string txt)
+    {
+        Instance?.Warning(txt);
+    }
+
+    public static void Warning(string txt, params object[] args)
+    {
+        Instance?.Warning(txt, args);
+    }
+
+    public static void Error(object obj)
+    {
+        Instance?.Error(obj);
+    }
+
+    public static void Error(string txt)
+    {
+        Instance?.Error(txt);
+    }
+
+    public static void Error(string txt, params object[] args)
+    {
+        Instance?.Error(txt, args);
+    }
+
+    public static void Error(string txt, Exception ex)
+    {
+        Instance?.Error(txt, ex);
+    }
+
+    private delegate void DebugLogObject(object obj);
+
+    private delegate void DebugLogTxt(string txt);
+
+    private delegate void DebugLogFormat(string txt, params object[] args);
 }

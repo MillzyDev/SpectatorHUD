@@ -16,7 +16,6 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-using Il2CppSLZ.Marrow;
 using UnityEngine;
 
 namespace SpectatorHUD;
@@ -24,8 +23,8 @@ namespace SpectatorHUD;
 public class DebugGUI : MonoBehaviour
 {
     private HudBootstrap _bootstrap;
-    private bool _showGui = false;
-        
+    private bool _showGui;
+
     public DebugGUI(IntPtr ptr) : base(ptr)
     {
     }
@@ -37,19 +36,13 @@ public class DebugGUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F8))
-        {
-            this._showGui = !this._showGui;
-        }
+        if (Input.GetKeyDown(KeyCode.F8)) this._showGui = !this._showGui;
     }
 
     private void OnGUI()
     {
-        if (!this._showGui)
-        {
-            return;
-        }
-            
+        if (!this._showGui) return;
+
         GUI.Label(new Rect(25, 25, 300, 30), "SpectatorHUD v" + BuildInfo.Version);
 
 
@@ -84,7 +77,7 @@ public class DebugGUI : MonoBehaviour
         GUI.Label(new Rect(445, 140, 300, 30), "healthCounter: " + MetaInfo.HasHealthCounter);
         GUI.Label(new Rect(445, 155, 300, 30), "maxHealthCounter: " + MetaInfo.HasMaxHealthCounter);
         GUI.Label(new Rect(445, 170, 300, 30), "healthPercentageCounter: " + MetaInfo.HasHealthPercentageCounter);
-            
+
 
         GUI.Label(new Rect(435, 190, 300, 30), "Toggleable Elements:");
         GUI.Label(new Rect(445, 205, 300, 30), "activeWithGunInLeftHand: " + MetaInfo.ActiveWithGunInLeftHand);
@@ -94,7 +87,8 @@ public class DebugGUI : MonoBehaviour
         GUI.Label(new Rect(695, 80, 300, 30), "animationLeftGunHeld: " + MetaInfo.AnimationLeftGunHeld);
         GUI.Label(new Rect(695, 95, 300, 30), "animationRightGunHeld: " + MetaInfo.AnimationRightGunHeld);
         GUI.Label(new Rect(695, 110, 300, 30), "animationLeftGunHeldChanged: " + MetaInfo.AnimationLeftGunHeldChanged);
-        GUI.Label(new Rect(695, 125, 300, 30), "animationRightGunHeldChanged: " + MetaInfo.AnimationRightGunHeldChanged);
+        GUI.Label(new Rect(695, 125, 300, 30),
+            "animationRightGunHeldChanged: " + MetaInfo.AnimationRightGunHeldChanged);
 
         GUI.Label(new Rect(695, 145, 300, 30), "animationLeftAmmo: " + MetaInfo.AnimationLeftAmmo);
         GUI.Label(new Rect(695, 160, 300, 30), "animationRightAmmo: " + MetaInfo.AnimationRightAmmo);
@@ -104,14 +98,15 @@ public class DebugGUI : MonoBehaviour
         GUI.Label(new Rect(695, 210, 300, 30), "animationLeftReserve: " + MetaInfo.AnimationLeftReserve);
         GUI.Label(new Rect(695, 225, 300, 30), "animationRightReserve: " + MetaInfo.AnimationRightReserve);
         GUI.Label(new Rect(695, 240, 300, 30), "animationLeftReserveChanged: " + MetaInfo.AnimationLeftReserveChanged);
-        GUI.Label(new Rect(695, 255, 300, 30), "animationRightReserveChanged: " + MetaInfo.AnimationRightReserveChanged);
+        GUI.Label(new Rect(695, 255, 300, 30),
+            "animationRightReserveChanged: " + MetaInfo.AnimationRightReserveChanged);
 
         GUI.Label(new Rect(695, 275, 300, 30), "animationHealth: " + MetaInfo.AnimationHealth);
         GUI.Label(new Rect(695, 290, 300, 30), "animationMaxHealth: " + MetaInfo.AnimationMaxHealth);
         GUI.Label(new Rect(695, 305, 300, 30), "animationHealthPercentage: " + MetaInfo.AnimationHealthPercentage);
         GUI.Label(new Rect(695, 320, 300, 30), "animationHealthChanged: " + MetaInfo.AnimationHealthChanged);
         GUI.Label(new Rect(695, 335, 300, 30), "animationMaxHealthChanged: " + MetaInfo.AnimationMaxHealthChanged);
-            
+
         GUI.Label(new Rect(935, 65, 300, 30), "Shader Events:");
         GUI.Label(new Rect(945, 80, 300, 30), "shaderLeftAmmo: " + MetaInfo.ShaderLeftAmmo);
         GUI.Label(new Rect(945, 95, 300, 30), "shaderRightAmmo: " + MetaInfo.ShaderRightAmmo);
@@ -120,11 +115,8 @@ public class DebugGUI : MonoBehaviour
         GUI.Label(new Rect(945, 140, 300, 30), "shaderHealth: " + MetaInfo.ShaderHealth);
         GUI.Label(new Rect(945, 155, 300, 30), "shaderMaxHealth: " + MetaInfo.ShaderMaxHealth);
         GUI.Label(new Rect(945, 170, 300, 30), "shaderHealthPercentage: " + MetaInfo.ShaderHealthPercentage);
-            
-        if (GUI.Button(new Rect(25, 235, 200, 20), "Reload HUD"))
-        {
-            this._bootstrap.ReloadHudFromConfig();
-        }
+
+        if (GUI.Button(new Rect(25, 235, 200, 20), "Reload HUD")) this._bootstrap.ReloadHudFromConfig();
 
         TimeSpan since = DateTime.Now - this._bootstrap.lastLoad;
         GUI.Label(new Rect(25, 265, 300, 30), $"Last reloaded {since.TotalSeconds:0.}s ago");

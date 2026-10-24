@@ -32,7 +32,6 @@ public class Gun_CompleteSlidePull
         {
             HudState.OnSlidePullRight(__instance);
             Logger.Debug("Right slide pulled");
-                
         }
         else if (__instance == HudState.LeftGun)
         {

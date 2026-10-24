@@ -23,9 +23,9 @@ namespace SpectatorHUD.Observers;
 
 public sealed class PlayerHealthObserver : MonoBehaviour
 {
-    private RigManager? _rigManager;
     private Health? _health;
-        
+    private RigManager? _rigManager;
+
     public PlayerHealthObserver(IntPtr ptr) : base(ptr)
     {
     }

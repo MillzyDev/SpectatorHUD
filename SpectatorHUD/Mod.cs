@@ -49,12 +49,12 @@ public sealed class Mod : MelonMod
 #endif // DEBUG
         }
     }
-        
+
     public override void OnInitializeMelon()
     {
         this.InitLogger();
         Logger.Msg("Logger initialised");
-            
+
         Logger.Msg("Injecting types");
         this.InjectType<LoadingSceneActivator>();
         // Animation
@@ -80,7 +80,7 @@ public sealed class Mod : MelonMod
         this.InjectType<HudController>();
         this.InjectType<HudBootstrap>();
         this.InjectType<AnimationController>();
-            
+
         Logger.Msg("Patching methods");
         this.InstallPatch(typeof(Gun_CompleteSlidePull));
         this.InstallPatch(typeof(Gun_OnMagazineInserted));
@@ -92,10 +92,10 @@ public sealed class Mod : MelonMod
         this.InstallPatch(typeof(PlayerMarker_OnPlayerSpawned));
         this.InstallPatch(typeof(LoadingScene_Start));
         this.InstallPatch(typeof(AmmoInventory_AddCartridge));
-            
+
         Logger.Msg("Creating HUDs directory");
         this.CreateHudDirectory();
-            
+
         Logger.Msg("Registering BoneMenu");
         SettingsMenu.Register();
     }
@@ -104,7 +104,7 @@ public sealed class Mod : MelonMod
     {
         Logger.Msg("Unpatching methods");
         this.HarmonyInstance.UnpatchSelf();
-            
+
         Logger.Msg("Saving config");
         Config.Instance.Save();
     }
@@ -112,7 +112,7 @@ public sealed class Mod : MelonMod
     private void InitLogger()
     {
         Logger.Instance = this.LoggerInstance;
-            
+
 #if DEBUG
         Logger.EnableDebug(true);
 #else // DEBUG

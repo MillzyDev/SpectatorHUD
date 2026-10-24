@@ -32,7 +32,6 @@ public static class Gun_OnMagazineInserted
         {
             HudState.OnMagazineInsertedRight();
             Logger.Debug("Right magazine inserted");
-                
         }
         else if (__instance == HudState.LeftGun)
         {
