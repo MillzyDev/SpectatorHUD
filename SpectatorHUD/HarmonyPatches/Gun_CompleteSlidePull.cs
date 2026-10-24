@@ -18,6 +18,7 @@
 
 using HarmonyLib;
 using Il2CppSLZ.Marrow;
+using SpectatorHUD.Extensions;
 
 namespace SpectatorHUD.HarmonyPatches;
 
@@ -30,13 +31,11 @@ public class Gun_CompleteSlidePull
     {
         if (__instance == HudState.RightGun)
         {
-            HudState.OnSlidePullRight(__instance);
-            Logger.Debug("Right slide pulled");
+            HudState.RightAmmo = HudState.RightGun.GetAmmoCount();
         }
         else if (__instance == HudState.LeftGun)
         {
-            HudState.OnSlidePullLeft(__instance);
-            Logger.Debug("Left slide pulled");
+            HudState.LeftAmmo = HudState.LeftGun.GetAmmoCount();
         }
     }
 }

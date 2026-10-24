@@ -27,16 +27,34 @@ namespace SpectatorHUD.HarmonyPatches;
 public static class AmmoInventory_AddCartridge
 {
     [HarmonyPostfix]
-    [HarmonyPatch(new[] { typeof(AmmoGroup), typeof(int) })]
-    public static void PostfixAmmoGroup()
+    [HarmonyPatch([typeof(AmmoGroup), typeof(int)])]
+    public static void PostfixAmmoGroup(AmmoGroup ammoGroup)
     {
-        HudState.OnCartridgeAdded();
+        string groupKey = ammoGroup.KeyName;
+        
+        if (groupKey == HudState.LeftDefaultCartridge?.groupKey)
+        {
+            HudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(groupKey);
+        }
+        else if (groupKey == HudState.RightDefaultCartridge?.groupKey)
+        {
+            HudState.RightReserve = AmmoInventory.Instance.GetCartridgeCount(groupKey);
+        }
     }
 
     [HarmonyPostfix]
-    [HarmonyPatch(new[] { typeof(CartridgeData), typeof(int) })]
-    private static void PostfixCartridgeData()
+    [HarmonyPatch([typeof(CartridgeData), typeof(int)])]
+    private static void PostfixCartridgeData(CartridgeData cartridge, AmmoInventory __instance)
     {
-        HudState.OnCartridgeAdded();
+        string groupKey = __instance.GetGroupByCartridge(cartridge);
+        
+        if (groupKey == HudState.LeftDefaultCartridge?.groupKey)
+        {
+            HudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(groupKey);
+        }
+        else if (groupKey == HudState.RightDefaultCartridge?.groupKey)
+        {
+            HudState.RightReserve = AmmoInventory.Instance.GetCartridgeCount(groupKey);
+        }
     }
 }

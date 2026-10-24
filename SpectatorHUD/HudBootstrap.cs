@@ -45,14 +45,13 @@ public class HudBootstrap : MonoBehaviour
 
     private void OnDestroy()
     {
-        HudState.CloseState();
+        
     }
 
     public void UnloadCurrentHud()
     {
         if (this.hud == null) return;
-
-        HudState.CloseState();
+        
         Destroy(this.hud);
     }
 

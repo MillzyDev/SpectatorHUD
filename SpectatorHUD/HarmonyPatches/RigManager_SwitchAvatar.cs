@@ -30,6 +30,7 @@ public static class RigManager_SwitchAvatar
     {
         if (__instance != HudState.RigManager) return;
 
-        HudState.OnMaxHealthUpdated(__instance.health.max_Health);
+        float maxHealth = __instance.health.max_Health;
+        HudState.MaxHealth = maxHealth;
     }
 }

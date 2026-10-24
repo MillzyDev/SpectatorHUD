@@ -18,6 +18,7 @@
 
 using HarmonyLib;
 using Il2CppSLZ.Marrow;
+using SpectatorHUD.Extensions;
 
 namespace SpectatorHUD.HarmonyPatches;
 
@@ -30,13 +31,15 @@ public static class Gun_OnMagazineInserted
     {
         if (__instance == HudState.RightGun)
         {
-            HudState.OnMagazineInsertedRight();
+            HudState.RightAmmo = HudState.RightGun.GetAmmoCount();
+            HudState.RightReserve = AmmoInventory.Instance.GetTotalAmmoForGun(__instance) - HudState.RightAmmo;
             Logger.Debug("Right magazine inserted");
         }
         else if (__instance == HudState.LeftGun)
         {
-            HudState.OnMagazineInsertedLeft();
-            Logger.Debug("Left magazine removed");
+            HudState.LeftAmmo = HudState.LeftGun.GetAmmoCount();
+            HudState.LeftReserve = AmmoInventory.Instance.GetTotalAmmoForGun(__instance) - HudState.LeftAmmo;
+            Logger.Debug("Left magazine inserted");
         }
     }
 }
