@@ -34,135 +34,134 @@ using BuildInfo = SpectatorHUD.BuildInfo;
 [assembly: MelonID(BuildInfo.Id)]
 [assembly: HarmonyDontPatchAll]
 
-namespace SpectatorHUD
+namespace SpectatorHUD;
+
+public sealed class Mod : MelonMod
 {
-    public sealed class Mod : MelonMod
+    public static bool DebugEnabled
     {
-        public static bool DebugEnabled
+        get
         {
-            get
-            {
 #if DEBUG
-                return true;
+            return true;
 #else // DEBUG
                 return MelonDebug.IsEnabled();
 #endif // DEBUG
-            }
         }
+    }
         
-        public override void OnInitializeMelon()
-        {
-            this.InitLogger();
-            Logger.Msg("Logger initialised");
+    public override void OnInitializeMelon()
+    {
+        this.InitLogger();
+        Logger.Msg("Logger initialised");
             
-            Logger.Msg("Injecting types");
-            this.InjectType<LoadingSceneActivator>();
-            // Animation
-            this.InjectType<AnimationBoolReference>();
-            this.InjectType<AnimationFloatReference>();
-            this.InjectType<AnimationIntReference>();
-            this.InjectType<AnimationTriggerReference>();
-            this.InjectType<TMPMaterialPropertyOverrideFloat>();
-            this.InjectType<TMPMaterialPropertyOverrideColor>();
-            this.InjectType<TMPMaterialPropertyOverrideInt>();
-            this.InjectType<TMPMaterialPropertyOverrideVector>();
-            // Shading
-            this.InjectType<ShaderFloatReference>();
-            this.InjectType<ShaderIntReference>();
-            this.InjectType<ShaderController>();
-            // Watchers
-            this.InjectType<PlayerHealthObserver>();
-            // Hud
-            this.InjectType<DebugGUI>();
-            this.InjectType<HudVersion>();
-            this.InjectType<HudV1>();
-            this.InjectType<LinearParameters>();
-            this.InjectType<HudController>();
-            this.InjectType<HudBootstrap>();
-            this.InjectType<AnimationController>();
+        Logger.Msg("Injecting types");
+        this.InjectType<LoadingSceneActivator>();
+        // Animation
+        this.InjectType<AnimationBoolReference>();
+        this.InjectType<AnimationFloatReference>();
+        this.InjectType<AnimationIntReference>();
+        this.InjectType<AnimationTriggerReference>();
+        this.InjectType<TMPMaterialPropertyOverrideFloat>();
+        this.InjectType<TMPMaterialPropertyOverrideColor>();
+        this.InjectType<TMPMaterialPropertyOverrideInt>();
+        this.InjectType<TMPMaterialPropertyOverrideVector>();
+        // Shading
+        this.InjectType<ShaderFloatReference>();
+        this.InjectType<ShaderIntReference>();
+        this.InjectType<ShaderController>();
+        // Watchers
+        this.InjectType<PlayerHealthObserver>();
+        // Hud
+        this.InjectType<DebugGUI>();
+        this.InjectType<HudVersion>();
+        this.InjectType<HudV1>();
+        this.InjectType<LinearParameters>();
+        this.InjectType<HudController>();
+        this.InjectType<HudBootstrap>();
+        this.InjectType<AnimationController>();
             
-            Logger.Msg("Patching methods");
-            this.InstallPatch(typeof(Gun_CompleteSlidePull));
-            this.InstallPatch(typeof(Gun_OnMagazineInserted));
-            this.InstallPatch(typeof(AmmoSocket_OnPlugUnlocked));
-            this.InstallPatch(typeof(Gashapon_InsertMagazine));
-            this.InstallPatch(typeof(Gashapon_SetupAmmo));
-            this.InstallPatch(typeof(MonoMatNew_InsertMagazine));
-            this.InstallPatch(typeof(RigManager_SwitchAvatar));
-            this.InstallPatch(typeof(PlayerMarker_OnPlayerSpawned));
-            this.InstallPatch(typeof(LoadingScene_Start));
-            this.InstallPatch(typeof(AmmoInventory_AddCartridge));
+        Logger.Msg("Patching methods");
+        this.InstallPatch(typeof(Gun_CompleteSlidePull));
+        this.InstallPatch(typeof(Gun_OnMagazineInserted));
+        this.InstallPatch(typeof(AmmoSocket_OnPlugUnlocked));
+        this.InstallPatch(typeof(Gashapon_InsertMagazine));
+        this.InstallPatch(typeof(Gashapon_SetupAmmo));
+        this.InstallPatch(typeof(MonoMatNew_InsertMagazine));
+        this.InstallPatch(typeof(RigManager_SwitchAvatar));
+        this.InstallPatch(typeof(PlayerMarker_OnPlayerSpawned));
+        this.InstallPatch(typeof(LoadingScene_Start));
+        this.InstallPatch(typeof(AmmoInventory_AddCartridge));
             
-            Logger.Msg("Creating HUDs directory");
-            this.CreateHudDirectory();
+        Logger.Msg("Creating HUDs directory");
+        this.CreateHudDirectory();
             
-            Logger.Msg("Registering BoneMenu");
-            SettingsMenu.Register();
-        }
+        Logger.Msg("Registering BoneMenu");
+        SettingsMenu.Register();
+    }
 
-        public override void OnDeinitializeMelon()
-        {
-            Logger.Msg("Unpatching methods");
-            this.HarmonyInstance.UnpatchSelf();
+    public override void OnDeinitializeMelon()
+    {
+        Logger.Msg("Unpatching methods");
+        this.HarmonyInstance.UnpatchSelf();
             
-            Logger.Msg("Saving config");
-            Config.Instance.Save();
-        }
+        Logger.Msg("Saving config");
+        Config.Instance.Save();
+    }
 
-        private void InitLogger()
-        {
-            Logger.Instance = this.LoggerInstance;
+    private void InitLogger()
+    {
+        Logger.Instance = this.LoggerInstance;
             
 #if DEBUG
-            Logger.EnableDebug(true);
+        Logger.EnableDebug(true);
 #else // DEBUG
             Logger.EnableDebug(MelonDebug.IsEnabled())
 #endif // DEBUG
-        }
+    }
 
-        private void CreateHudDirectory()
+    private void CreateHudDirectory()
+    {
+        string path = Path.Join(MelonEnvironment.UserDataDirectory, "SpectatorHUD", "HUDs");
+        try
         {
-            string path = Path.Join(MelonEnvironment.UserDataDirectory, "SpectatorHUD", "HUDs");
-            try
-            {
-                Directory.CreateDirectory(path);
-            }
-            catch (Exception ex)
-            {
-                Logger.Error("Failed to create HUDs directory.", ex);
-            }
+            Directory.CreateDirectory(path);
         }
-
-        private void InstallPatch(Type patchType)
+        catch (Exception ex)
         {
-            PatchClassProcessor processor = this.HarmonyInstance.CreateClassProcessor(patchType, true);
-            try
-            {
-                List<MethodInfo> patchedMethods = processor.Patch();
-
-                patchedMethods.ForEach(method =>
-                    Logger.Debug(
-                        "Patched {0}::{1}",
-                        method.DeclaringType?.FullName ?? "",
-                        method.Name
-                    )
-                );
-            }
-            catch (HarmonyException ex)
-            {
-                Logger.Error("Failed to patch method.", ex);
-            }
+            Logger.Error("Failed to create HUDs directory.", ex);
         }
+    }
 
-        private void InjectType<T>()
+    private void InstallPatch(Type patchType)
+    {
+        PatchClassProcessor processor = this.HarmonyInstance.CreateClassProcessor(patchType, true);
+        try
         {
+            List<MethodInfo> patchedMethods = processor.Patch();
+
+            patchedMethods.ForEach(method =>
+                Logger.Debug(
+                    "Patched {0}::{1}",
+                    method.DeclaringType?.FullName ?? "",
+                    method.Name
+                )
+            );
+        }
+        catch (HarmonyException ex)
+        {
+            Logger.Error("Failed to patch method.", ex);
+        }
+    }
+
+    private void InjectType<T>()
+    {
 #if DEBUG
-            const int logLevel = 4;
+        const int logLevel = 4;
 #else // DEBUG
             const int logLevel = MelonDebug.IsEnabled() ? 4 : 0
 #endif // DEBUG
-            Logger.Debug("Injecting type {0}", typeof(T).FullName ?? "");
-            SerialisationHandler.Inject<T>(logLevel);
-        }
+        Logger.Debug("Injecting type {0}", typeof(T).FullName ?? "");
+        SerialisationHandler.Inject<T>(logLevel);
     }
 }

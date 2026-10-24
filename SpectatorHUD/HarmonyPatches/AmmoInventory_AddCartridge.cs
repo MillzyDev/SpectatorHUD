@@ -20,24 +20,23 @@ using HarmonyLib;
 using Il2CppSLZ.Marrow;
 using Il2CppSLZ.Marrow.Data;
 
-namespace SpectatorHUD.HarmonyPatches
-{
-    [HarmonyPatch(typeof(AmmoInventory))]
-    [HarmonyPatch(nameof(AmmoInventory.AddCartridge))]
-    public static class AmmoInventory_AddCartridge
-    {
-        [HarmonyPostfix]
-        [HarmonyPatch(new[]{typeof(AmmoGroup), typeof(int)})]
-        public static void PostfixAmmoGroup()
-        {
-            HudState.OnCartridgeAdded();
-        }
+namespace SpectatorHUD.HarmonyPatches;
 
-        [HarmonyPostfix]
-        [HarmonyPatch(new[] {typeof(CartridgeData), typeof(int)})]
-        private static void PostfixCartridgeData()
-        {
-            HudState.OnCartridgeAdded();
-        }
+[HarmonyPatch(typeof(AmmoInventory))]
+[HarmonyPatch(nameof(AmmoInventory.AddCartridge))]
+public static class AmmoInventory_AddCartridge
+{
+    [HarmonyPostfix]
+    [HarmonyPatch(new[]{typeof(AmmoGroup), typeof(int)})]
+    public static void PostfixAmmoGroup()
+    {
+        HudState.OnCartridgeAdded();
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(new[] {typeof(CartridgeData), typeof(int)})]
+    private static void PostfixCartridgeData()
+    {
+        HudState.OnCartridgeAdded();
     }
 }

@@ -20,35 +20,34 @@ using Il2CppInterop.Runtime;
 using Il2CppTMPro;
 using UnityEngine;
 
-namespace SpectatorHUD.Animation
+namespace SpectatorHUD.Animation;
+
+public class TMPMaterialPropertyOverrideColor : MonoBehaviour
 {
-    public class TMPMaterialPropertyOverrideColor : MonoBehaviour
+    public TMP_FontAsset fontAsset;
+    public string propertyName;
+    public Color value;
+
+    private Material _material;
+    private int _propertyId;
+
+    private readonly Il2CppFieldAccessor<Color> _valueAccessor;
+        
+    public TMPMaterialPropertyOverrideColor(IntPtr ptr) : base(ptr)
     {
-        public TMP_FontAsset fontAsset;
-        public string propertyName;
-        public Color value;
-
-        private Material _material;
-        private int _propertyId;
-
-        private readonly Il2CppFieldAccessor<Color> _valueAccessor;
+        this._valueAccessor = new Il2CppFieldAccessor<Color>(this, nameof(this.value));
+    }
         
-        public TMPMaterialPropertyOverrideColor(IntPtr ptr) : base(ptr)
-        {
-            this._valueAccessor = new Il2CppFieldAccessor<Color>(this, nameof(this.value));
-        }
-        
-        private void Awake()
-        {
-            this._material = this.fontAsset.material;
-            this._propertyId = Shader.PropertyToID(this.propertyName);
-        }
+    private void Awake()
+    {
+        this._material = this.fontAsset.material;
+        this._propertyId = Shader.PropertyToID(this.propertyName);
+    }
 
-        private void Update()
-        {
-            // The animator can't actually set our value field on the managed side, so we need to get the IL2CPP field ourselves
-            this.value = this._valueAccessor.Value;
-            this._material.SetColor(this._propertyId, this.value);
-        }
+    private void Update()
+    {
+        // The animator can't actually set our value field on the managed side, so we need to get the IL2CPP field ourselves
+        this.value = this._valueAccessor.Value;
+        this._material.SetColor(this._propertyId, this.value);
     }
 }

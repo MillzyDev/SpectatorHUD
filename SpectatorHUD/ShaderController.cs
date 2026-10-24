@@ -19,133 +19,132 @@
 using SpectatorHUD.Shading;
 using UnityEngine;
 
-namespace SpectatorHUD
+namespace SpectatorHUD;
+
+public class ShaderController : MonoBehaviour
 {
-    public class ShaderController : MonoBehaviour
+    public List<ShaderIntReference> shaderLeftAmmo;
+    public List<ShaderIntReference> shaderRightAmmo;
+    public List<ShaderIntReference> shaderLeftReserve;
+    public List<ShaderIntReference> shaderRightReserve;
+    public List<ShaderFloatReference> shaderHealth;
+    public List<ShaderFloatReference> shaderMaxHealth;
+    public List<ShaderFloatReference> shaderHealthPercentage;
+
+    public ShaderController(IntPtr ptr) : base(ptr)
     {
-        public List<ShaderIntReference> shaderLeftAmmo;
-        public List<ShaderIntReference> shaderRightAmmo;
-        public List<ShaderIntReference> shaderLeftReserve;
-        public List<ShaderIntReference> shaderRightReserve;
-        public List<ShaderFloatReference> shaderHealth;
-        public List<ShaderFloatReference> shaderMaxHealth;
-        public List<ShaderFloatReference> shaderHealthPercentage;
-
-        public ShaderController(IntPtr ptr) : base(ptr)
-        {
-        }
+    }
         
-        private void Start()
-        {
-            MetaInfo.ShaderLeftAmmo = this.shaderLeftAmmo.Count;
-            MetaInfo.ShaderRightAmmo = this.shaderRightAmmo.Count;
-            MetaInfo.ShaderLeftReserve = this.shaderLeftReserve.Count;
-            MetaInfo.ShaderRightReserve = this.shaderRightReserve.Count;
-            MetaInfo.ShaderHealth = this.shaderHealth.Count;
-            MetaInfo.ShaderMaxHealth = this.shaderMaxHealth.Count;
-            MetaInfo.ShaderHealthPercentage = this.shaderHealthPercentage.Count;
+    private void Start()
+    {
+        MetaInfo.ShaderLeftAmmo = this.shaderLeftAmmo.Count;
+        MetaInfo.ShaderRightAmmo = this.shaderRightAmmo.Count;
+        MetaInfo.ShaderLeftReserve = this.shaderLeftReserve.Count;
+        MetaInfo.ShaderRightReserve = this.shaderRightReserve.Count;
+        MetaInfo.ShaderHealth = this.shaderHealth.Count;
+        MetaInfo.ShaderMaxHealth = this.shaderMaxHealth.Count;
+        MetaInfo.ShaderHealthPercentage = this.shaderHealthPercentage.Count;
             
-            this.ProcessShaderProperties(this.shaderLeftAmmo);
-            this.ProcessShaderProperties(this.shaderRightAmmo);
-            this.ProcessShaderProperties(this.shaderLeftReserve);
-            this.ProcessShaderProperties(this.shaderRightReserve);
-            this.ProcessShaderProperties(this.shaderHealth);
-            this.ProcessShaderProperties(this.shaderMaxHealth);
-            this.ProcessShaderProperties(this.shaderHealthPercentage);
-        }
+        this.ProcessShaderProperties(this.shaderLeftAmmo);
+        this.ProcessShaderProperties(this.shaderRightAmmo);
+        this.ProcessShaderProperties(this.shaderLeftReserve);
+        this.ProcessShaderProperties(this.shaderRightReserve);
+        this.ProcessShaderProperties(this.shaderHealth);
+        this.ProcessShaderProperties(this.shaderMaxHealth);
+        this.ProcessShaderProperties(this.shaderHealthPercentage);
+    }
 
-        private void OnEnable()
-        {
-            HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoShader;
-            HudState.OnRightAmmoChanged += this.UpdateRightAmmoShader;
-            HudState.OnLeftReserveChanged += this.UpdateLeftReserveShader;
-            HudState.OnRightReserveChanged += this.UpdateRightReserveShader;
-            HudState.OnHealthChanged += this.UpdateHealthShader;
-            HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageShader;
-            HudState.OnMaxHealthChanged += this.UpdateMaxHealthShader;
-        }
+    private void OnEnable()
+    {
+        HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoShader;
+        HudState.OnRightAmmoChanged += this.UpdateRightAmmoShader;
+        HudState.OnLeftReserveChanged += this.UpdateLeftReserveShader;
+        HudState.OnRightReserveChanged += this.UpdateRightReserveShader;
+        HudState.OnHealthChanged += this.UpdateHealthShader;
+        HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageShader;
+        HudState.OnMaxHealthChanged += this.UpdateMaxHealthShader;
+    }
 
-        private void OnDisable()
-        {
-            HudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoShader;
-            HudState.OnRightAmmoChanged -= this.UpdateRightAmmoShader;
-            HudState.OnLeftReserveChanged -= this.UpdateLeftReserveShader;
-            HudState.OnRightReserveChanged -= this.UpdateRightReserveShader;
-            HudState.OnHealthChanged -= this.UpdateHealthShader;
-            HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageShader;
-            HudState.OnMaxHealthChanged -= this.UpdateMaxHealthShader;
-        }
+    private void OnDisable()
+    {
+        HudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoShader;
+        HudState.OnRightAmmoChanged -= this.UpdateRightAmmoShader;
+        HudState.OnLeftReserveChanged -= this.UpdateLeftReserveShader;
+        HudState.OnRightReserveChanged -= this.UpdateRightReserveShader;
+        HudState.OnHealthChanged -= this.UpdateHealthShader;
+        HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageShader;
+        HudState.OnMaxHealthChanged -= this.UpdateMaxHealthShader;
+    }
 
-        private void UpdateLeftAmmoShader(int? ammo)
-        {
-            this.SetShaderInts(this.shaderLeftAmmo, ammo ?? 0);
-        }
+    private void UpdateLeftAmmoShader(int? ammo)
+    {
+        this.SetShaderInts(this.shaderLeftAmmo, ammo ?? 0);
+    }
 
-        private void UpdateRightAmmoShader(int? ammo)
-        {
-            this.SetShaderInts(this.shaderRightAmmo, ammo ?? 0);
-        }
+    private void UpdateRightAmmoShader(int? ammo)
+    {
+        this.SetShaderInts(this.shaderRightAmmo, ammo ?? 0);
+    }
 
-        private void UpdateLeftReserveShader(int? reserve)
-        {
-            this.SetShaderInts(this.shaderLeftReserve, reserve ?? 0);
-        }
+    private void UpdateLeftReserveShader(int? reserve)
+    {
+        this.SetShaderInts(this.shaderLeftReserve, reserve ?? 0);
+    }
 
-        private void UpdateRightReserveShader(int? reserve)
-        {
-            this.SetShaderInts(this.shaderRightReserve, reserve ?? 0);
-        }
+    private void UpdateRightReserveShader(int? reserve)
+    {
+        this.SetShaderInts(this.shaderRightReserve, reserve ?? 0);
+    }
 
-        private void UpdateHealthShader(float? health)
-        {
-            this.SetShaderFloatsWithModifier(this.shaderHealth, health ?? 0);
-        }
+    private void UpdateHealthShader(float? health)
+    {
+        this.SetShaderFloatsWithModifier(this.shaderHealth, health ?? 0);
+    }
 
-        private void UpdateHealthPercentageShader(float? percentage)
-        {
-            this.SetShaderFloatsWithModifier(this.shaderHealthPercentage, percentage ?? 0f);
-        }
+    private void UpdateHealthPercentageShader(float? percentage)
+    {
+        this.SetShaderFloatsWithModifier(this.shaderHealthPercentage, percentage ?? 0f);
+    }
 
-        private void UpdateMaxHealthShader(float? maxHealth)
-        {
-            this.SetShaderFloatsWithModifier(this.shaderMaxHealth, maxHealth ?? 0);
-        }
+    private void UpdateMaxHealthShader(float? maxHealth)
+    {
+        this.SetShaderFloatsWithModifier(this.shaderMaxHealth, maxHealth ?? 0);
+    }
 
-        private void SetShaderInts(List<ShaderIntReference> properties, int value)
+    private void SetShaderInts(List<ShaderIntReference> properties, int value)
+    {
+        foreach (ShaderIntReference property in properties)
         {
-            foreach (ShaderIntReference property in properties)
-            {
-                property.material.SetInteger(property.propertyId, value);
-            }
+            property.material.SetInteger(property.propertyId, value);
         }
+    }
 
-        private void SetShaderFloatsWithModifier(List<ShaderFloatReference> properties, float value)
+    private void SetShaderFloatsWithModifier(List<ShaderFloatReference> properties, float value)
+    {
+        foreach (ShaderFloatReference property in properties)
         {
-            foreach (ShaderFloatReference property in properties)
-            {
-                property.material.SetFloat(property.propertyId, property.modifierExpression.Evaluate(value));
-            }
+            property.material.SetFloat(property.propertyId, property.modifierExpression.Evaluate(value));
         }
+    }
         
-        private void ProcessShaderProperties(List<ShaderIntReference> properties)
+    private void ProcessShaderProperties(List<ShaderIntReference> properties)
+    {
+        for (int i = 0; i < properties.Count; i++)
         {
-            for (int i = 0; i < properties.Count; i++)
-            {
-                ShaderIntReference property = properties[i];
-                property.propertyId = Shader.PropertyToID(property.propertyName);
-                properties[i] = property;
-            }
+            ShaderIntReference property = properties[i];
+            property.propertyId = Shader.PropertyToID(property.propertyName);
+            properties[i] = property;
         }
+    }
         
-        private void ProcessShaderProperties(List<ShaderFloatReference> properties)
+    private void ProcessShaderProperties(List<ShaderFloatReference> properties)
+    {
+        for (int i = 0; i < properties.Count; i++)
         {
-            for (int i = 0; i < properties.Count; i++)
-            {
-                ShaderFloatReference property = properties[i];
-                property.propertyId = Shader.PropertyToID(property.propertyName);
-                property.modifierExpression = property.modifier.ToExpression();
-                properties[i] = property;
-            }
+            ShaderFloatReference property = properties[i];
+            property.propertyId = Shader.PropertyToID(property.propertyName);
+            property.modifierExpression = property.modifier.ToExpression();
+            properties[i] = property;
         }
     }
 }

@@ -19,18 +19,17 @@
 using HarmonyLib;
 using Il2CppSLZ.Bonelab;
 
-namespace SpectatorHUD.HarmonyPatches
+namespace SpectatorHUD.HarmonyPatches;
+
+[HarmonyPatch(typeof(Control_Gashapon))]
+[HarmonyPatch(nameof(Control_Gashapon.SetupAmmo))]
+public class Gashapon_SetupAmmo
 {
-    [HarmonyPatch(typeof(Control_Gashapon))]
-    [HarmonyPatch(nameof(Control_Gashapon.SetupAmmo))]
-    public class Gashapon_SetupAmmo
+    [HarmonyPostfix]
+    private static void Postfix()
     {
-        [HarmonyPostfix]
-        private static void Postfix()
-        {
-            // this patch could totally be nothing;
-            // since the original method doesn't seem to be called or referenced from anywhere in the game
-            HudState.OnGachaMagazineInserted();
-        }
+        // this patch could totally be nothing;
+        // since the original method doesn't seem to be called or referenced from anywhere in the game
+        HudState.OnGachaMagazineInserted();
     }
 }

@@ -19,36 +19,35 @@
 using MelonLoader;
 using MelonLoader.Utils;
 
-namespace SpectatorHUD
+namespace SpectatorHUD;
+
+public sealed class Config
 {
-    public sealed class Config
-    {
-        private static readonly Lazy<Config> Lazy = new(() => new Config());
+    private static readonly Lazy<Config> Lazy = new(() => new Config());
 
-        private readonly MelonPreferences_Category _config;
-        private readonly MelonPreferences_Entry<string?> _hud; 
+    private readonly MelonPreferences_Category _config;
+    private readonly MelonPreferences_Entry<string?> _hud; 
         
-        private Config()
-        {
-            this._config = MelonPreferences.CreateCategory("Config");
+    private Config()
+    {
+        this._config = MelonPreferences.CreateCategory("Config");
             
-            // Add entries
-            this._hud = this._config.CreateEntry<string?>("hud", "");
+        // Add entries
+        this._hud = this._config.CreateEntry<string?>("hud", "");
             
-            this._config.SetFilePath(Path.Join(MelonEnvironment.UserDataDirectory, "SpectatorHUD", "config.cfg"));
-        }
+        this._config.SetFilePath(Path.Join(MelonEnvironment.UserDataDirectory, "SpectatorHUD", "config.cfg"));
+    }
 
-        public static Config Instance => Lazy.Value;
+    public static Config Instance => Lazy.Value;
 
-        public string? Hud
-        {
-            get => this._hud.Value;
-            set => this._hud.Value = value;
-        }
+    public string? Hud
+    {
+        get => this._hud.Value;
+        set => this._hud.Value = value;
+    }
 
-        public void Save()
-        {
-            this._config.SaveToFile();
-        }
+    public void Save()
+    {
+        this._config.SaveToFile();
     }
 }

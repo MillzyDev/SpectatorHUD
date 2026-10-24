@@ -1,21 +1,20 @@
 ﻿using Il2CppSLZ.Marrow;
 
-namespace SpectatorHUD.Extensions
+namespace SpectatorHUD.Extensions;
+
+public static class HandRecieverExtensions
 {
-    public static class HandRecieverExtensions
+    extension (HandReciever handReciever)
     {
-        extension (HandReciever handReciever)
+        public bool TryFindGunFromReceiver(out Gun? gun)
         {
-            public bool TryFindGunFromReceiver(out Gun? gun)
+            gun = handReciever.GetComponentInParent<Gun>();
+            if (gun == null)
             {
-                gun = handReciever.GetComponentInParent<Gun>();
-                if (gun == null)
-                {
-                    return false;
-                }
-                            
-                return gun.triggerGrip == handReciever;
+                return false;
             }
+                            
+            return gun.triggerGrip == handReciever;
         }
     }
 }

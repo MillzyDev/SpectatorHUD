@@ -19,16 +19,15 @@
 using SpectatorHUD.Expressions;
 using UnityEngine;
 
-namespace SpectatorHUD.Shading
-{
-    [Serializable]
-    public struct ShaderFloatReference
-    {
-        public Material material;
-        public string propertyName;
-        public LinearParameters modifier;
+namespace SpectatorHUD.Shading;
 
-        [NonSerialized] public int propertyId;
-        [NonSerialized] public LinearExpression<float> modifierExpression;
-    }
+[Serializable]
+public struct ShaderFloatReference
+{
+    public Material material;
+    public string propertyName;
+    public LinearParameters modifier;
+
+    [NonSerialized] public int propertyId;
+    [NonSerialized] public LinearExpression<float> modifierExpression;
 }

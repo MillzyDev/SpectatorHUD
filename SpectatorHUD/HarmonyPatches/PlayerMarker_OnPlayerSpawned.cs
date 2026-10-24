@@ -20,17 +20,16 @@ using HarmonyLib;
 using Il2CppSLZ.Marrow.SceneStreaming;
 using UnityEngine;
 
-namespace SpectatorHUD.HarmonyPatches
+namespace SpectatorHUD.HarmonyPatches;
+
+[HarmonyPatch(typeof(PlayerMarker))]
+[HarmonyPatch(nameof(PlayerMarker.OnPlayerSpawned))]
+public static class PlayerMarker_OnPlayerSpawned
 {
-    [HarmonyPatch(typeof(PlayerMarker))]
-    [HarmonyPatch(nameof(PlayerMarker.OnPlayerSpawned))]
-    public static class PlayerMarker_OnPlayerSpawned
+    [HarmonyPostfix]
+    private static void Postfix(PlayerMarker __instance, GameObject go)
     {
-        [HarmonyPostfix]
-        private static void Postfix(PlayerMarker __instance, GameObject go)
-        {
-            Logger.Debug("Player Spawned: " + go.name);
-            go.AddComponent<HudBootstrap>();
-        }
+        Logger.Debug("Player Spawned: " + go.name);
+        go.AddComponent<HudBootstrap>();
     }
 }

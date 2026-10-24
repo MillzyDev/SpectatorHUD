@@ -19,27 +19,26 @@
 using Il2CppSLZ.Marrow;
 using UnityEngine;
 
-namespace SpectatorHUD.Observers
+namespace SpectatorHUD.Observers;
+
+public sealed class PlayerHealthObserver : MonoBehaviour
 {
-    public sealed class PlayerHealthObserver : MonoBehaviour
-    {
-        private RigManager? _rigManager;
-        private Health? _health;
+    private RigManager? _rigManager;
+    private Health? _health;
         
-        public PlayerHealthObserver(IntPtr ptr) : base(ptr)
-        {
-        }
+    public PlayerHealthObserver(IntPtr ptr) : base(ptr)
+    {
+    }
 
-        public void Start()
-        {
-            this._rigManager = this.GetComponent<RigManager>();
-            this._health = this._rigManager.health;
-        }
+    public void Start()
+    {
+        this._rigManager = this.GetComponent<RigManager>();
+        this._health = this._rigManager.health;
+    }
 
-        public void Update()
-        {
-            float? boundHealth = MathF.Max(this._health?.curr_Health ?? 0f, 0f);
-            HudState.Health = boundHealth;
-        }
+    public void Update()
+    {
+        float? boundHealth = MathF.Max(this._health?.curr_Health ?? 0f, 0f);
+        HudState.Health = boundHealth;
     }
 }

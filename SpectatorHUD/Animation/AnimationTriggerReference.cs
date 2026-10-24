@@ -18,13 +18,12 @@
 
 using UnityEngine;
 
-namespace SpectatorHUD.Animation
+namespace SpectatorHUD.Animation;
+
+[Serializable]
+public struct AnimationTriggerReference
 {
-    [Serializable]
-    public struct AnimationTriggerReference
-    {
-        public Animator animator;
-        public string parameterName;
-        [NonSerialized] public int parameterId;
-    }
+    public Animator animator;
+    public string parameterName;
+    [NonSerialized] public int parameterId;
 }

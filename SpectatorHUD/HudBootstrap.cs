@@ -20,157 +20,156 @@ using System.Reflection;
 using Il2CppSLZ.Marrow;
 using UnityEngine;
 
-namespace SpectatorHUD
+namespace SpectatorHUD;
+
+public class HudBootstrap : MonoBehaviour
 {
-    public class HudBootstrap : MonoBehaviour
-    {
-        // TODO: Replace with the really awesome Half-Life 2 HUD I made.
-        public static readonly string DefaultHud = "SpectatorHUD.Resources.TestHUD.hud";
+    // TODO: Replace with the really awesome Half-Life 2 HUD I made.
+    public static readonly string DefaultHud = "SpectatorHUD.Resources.TestHUD.hud";
         
-        private RigManager? _rigManager;
-        public GameObject? hud;
-        public DateTime lastLoad;
+    private RigManager? _rigManager;
+    public GameObject? hud;
+    public DateTime lastLoad;
 
-        public HudBootstrap(IntPtr ptr) : base(ptr)
+    public HudBootstrap(IntPtr ptr) : base(ptr)
+    {
+    }
+
+    public void Start()
+    {
+        this._rigManager = this.GetComponent<RigManager>();
+        this.LoadHudFromConfig();
+
+        if (Mod.DebugEnabled)
         {
+            this.gameObject.AddComponent<DebugGUI>();
         }
+    }
 
-        public void Start()
+    public void UnloadCurrentHud()
+    {
+        if (this.hud == null)
         {
-            this._rigManager = this.GetComponent<RigManager>();
-            this.LoadHudFromConfig();
-
-            if (Mod.DebugEnabled)
-            {
-                this.gameObject.AddComponent<DebugGUI>();
-            }
+            return;
         }
-
-        public void UnloadCurrentHud()
-        {
-            if (this.hud == null)
-            {
-                return;
-            }
             
-            HudState.CloseState();
-            GameObject.Destroy(this.hud);
-        }
+        HudState.CloseState();
+        GameObject.Destroy(this.hud);
+    }
 
-        public void ReloadHudFromConfig()
-        {
-            this.UnloadCurrentHud();
-            this.LoadHudFromConfig();
-            this.hud?.SetActive(true);
-        }
+    public void ReloadHudFromConfig()
+    {
+        this.UnloadCurrentHud();
+        this.LoadHudFromConfig();
+        this.hud?.SetActive(true);
+    }
 
-        public void LoadHudFromConfig()
+    public void LoadHudFromConfig()
+    {
+        if (string.IsNullOrEmpty(Config.Instance.Hud))
         {
-            if (string.IsNullOrEmpty(Config.Instance.Hud))
-            {
-                // No hud set in melon prefs, attempt loading embedded default
-                this.LoadHudFromEmbeddedResource(DefaultHud);
-                return;
-            }
+            // No hud set in melon prefs, attempt loading embedded default
+            this.LoadHudFromEmbeddedResource(DefaultHud);
+            return;
+        }
             
-            // Hud path set, attempt to load from file
-            this.LoadHudFromFile(Config.Instance.Hud);
-        }
+        // Hud path set, attempt to load from file
+        this.LoadHudFromFile(Config.Instance.Hud);
+    }
 
-        public void LoadHudFromFile(string filePath)
+    public void LoadHudFromFile(string filePath)
+    {
+        Logger.Msg("Loading bundle at: {0}", filePath);
+        AssetBundle assetBundle = AssetBundle.LoadFromFile(filePath);
+        if (assetBundle == null)
         {
-            Logger.Msg("Loading bundle at: {0}", filePath);
-            AssetBundle assetBundle = AssetBundle.LoadFromFile(filePath);
-            if (assetBundle == null)
-            {
-                Logger.Error("Failed to load asset bundle.");
-                //Destroy(this);
-                return;
-            }
-            this.LoadHudFromAssetBundle(assetBundle);
-            assetBundle.Unload(false); // free asset bundle resource
+            Logger.Error("Failed to load asset bundle.");
+            //Destroy(this);
+            return;
         }
+        this.LoadHudFromAssetBundle(assetBundle);
+        assetBundle.Unload(false); // free asset bundle resource
+    }
 
-        public void LoadHudFromEmbeddedResource(string resource)
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            using Stream? stream = assembly.GetManifestResourceStream(resource);
+    public void LoadHudFromEmbeddedResource(string resource)
+    {
+        Assembly assembly = Assembly.GetExecutingAssembly();
+        using Stream? stream = assembly.GetManifestResourceStream(resource);
             
-            if (stream == null)
-            {
-                Logger.Error("Unable to open stream to embedded resource");
-                return;
-            }
+        if (stream == null)
+        {
+            Logger.Error("Unable to open stream to embedded resource");
+            return;
+        }
                 
-            var memoryStream = new MemoryStream();
-            stream.CopyTo(memoryStream);
+        var memoryStream = new MemoryStream();
+        stream.CopyTo(memoryStream);
 
-            AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
-            this.LoadHudFromAssetBundle(assetBundle);
+        AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
+        this.LoadHudFromAssetBundle(assetBundle);
+    }
+
+    public void LoadHudFromAssetBundle(AssetBundle assetBundle)
+    {
+        var hudVersion = assetBundle.LoadAsset("Hud.Version.asset").TryCast<HudVersion>();
+        if (hudVersion == null)
+        {
+            // Version SO is required but not present,
+            Logger.Error("Hud Version asset was not found in asset bundle.");
+            //Destroy(this);
+            return;
         }
 
-        public void LoadHudFromAssetBundle(AssetBundle assetBundle)
+        switch (hudVersion.version)
         {
-            var hudVersion = assetBundle.LoadAsset("Hud.Version.asset").TryCast<HudVersion>();
-            if (hudVersion == null)
-            {
-                // Version SO is required but not present,
-                Logger.Error("Hud Version asset was not found in asset bundle.");
-                //Destroy(this);
+            case 1:
+                this.LoadHudV1(assetBundle);
+                break;
+            default:
+                Logger.Error("Unsupported HUD version. You may need to update the mod.");
+                Destroy(this);
                 return;
-            }
-
-            switch (hudVersion.version)
-            {
-                case 1:
-                    this.LoadHudV1(assetBundle);
-                    break;
-                default:
-                    Logger.Error("Unsupported HUD version. You may need to update the mod.");
-                    Destroy(this);
-                    return;
-            }
-
-            MetaInfo.HUDCompatibility = hudVersion.version;
-            this.lastLoad = DateTime.Now;
         }
 
-        private void LoadHudV1(AssetBundle assetBundle)
+        MetaInfo.HUDCompatibility = hudVersion.version;
+        this.lastLoad = DateTime.Now;
+    }
+
+    private void LoadHudV1(AssetBundle assetBundle)
+    {
+        var hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
+        if (hudInfo == null)
         {
-            var hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
-            if (hudInfo == null)
-            {
-                Logger.Error("Hud.asset could not be loaded from asset bundle.");
-                //Destroy(this);
-                return;
-            }
-            
-            Logger.Msg("Loaded {0} v{1} by {2}", hudInfo.hudName, hudInfo.hudVersion, hudInfo.hudAuthor);
-            this.hud = GameObject.Instantiate(hudInfo.hudAsset);
-            this.hud.name = "SpectatorHUD UI";
-
-            MetaInfo.HUDName = hudInfo.hudName;
-            MetaInfo.HUDAuthor = hudInfo.hudAuthor;
-            MetaInfo.HUDVersion = hudInfo.hudVersion;
-
-            this.HudRun();
-            
-            this.hud.SetActive(false); // gets set active when the loading scene disappears
+            Logger.Error("Hud.asset could not be loaded from asset bundle.");
+            //Destroy(this);
+            return;
         }
-
-        private void HudRun()
-        {
-            if (this._rigManager == null)
-            {
-                Logger.Error("FUCKKK WHERES THE RIG MANAGER");
-                return;
-            }
             
-            HudState.OpenState(this._rigManager); }
+        Logger.Msg("Loaded {0} v{1} by {2}", hudInfo.hudName, hudInfo.hudVersion, hudInfo.hudAuthor);
+        this.hud = GameObject.Instantiate(hudInfo.hudAsset);
+        this.hud.name = "SpectatorHUD UI";
 
-        private void OnDestroy()
+        MetaInfo.HUDName = hudInfo.hudName;
+        MetaInfo.HUDAuthor = hudInfo.hudAuthor;
+        MetaInfo.HUDVersion = hudInfo.hudVersion;
+
+        this.HudRun();
+            
+        this.hud.SetActive(false); // gets set active when the loading scene disappears
+    }
+
+    private void HudRun()
+    {
+        if (this._rigManager == null)
         {
-            HudState.CloseState();
+            Logger.Error("FUCKKK WHERES THE RIG MANAGER");
+            return;
         }
+            
+        HudState.OpenState(this._rigManager); }
+
+    private void OnDestroy()
+    {
+        HudState.CloseState();
     }
 }

@@ -18,16 +18,15 @@
 
 using UnityEngine;
 
-namespace SpectatorHUD
+namespace SpectatorHUD;
+
+public class HudV1 : ScriptableObject
 {
-    public class HudV1 : ScriptableObject
-    {
-        public string hudName;
-        public int hudVersion;
-        public string hudAuthor;
+    public string hudName;
+    public int hudVersion;
+    public string hudAuthor;
         
-        public HudVersion spectatorHudVersion;
+    public HudVersion spectatorHudVersion;
         
-        public GameObject hudAsset;
-    }
+    public GameObject hudAsset;
 }

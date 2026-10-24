@@ -19,16 +19,15 @@
 using HarmonyLib;
 using Il2CppSLZ.Bonelab;
 
-namespace SpectatorHUD.HarmonyPatches
+namespace SpectatorHUD.HarmonyPatches;
+
+[HarmonyPatch(typeof(Control_MonoMatNew))]
+[HarmonyPatch(nameof(Control_MonoMatNew.InsertMagazine))]
+public class MonoMatNew_InsertMagazine
 {
-    [HarmonyPatch(typeof(Control_MonoMatNew))]
-    [HarmonyPatch(nameof(Control_MonoMatNew.InsertMagazine))]
-    public class MonoMatNew_InsertMagazine
+    [HarmonyPostfix]
+    private static void Postfix()
     {
-        [HarmonyPostfix]
-        private static void Postfix()
-        {
-            HudState.OnGachaMagazineInserted();
-        }
+        HudState.OnGachaMagazineInserted();
     }
 }

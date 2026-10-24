@@ -20,35 +20,34 @@ using Il2CppInterop.Runtime;
 using Il2CppTMPro;
 using UnityEngine;
 
-namespace SpectatorHUD.Animation
+namespace SpectatorHUD.Animation;
+
+public class TMPMaterialPropertyOverrideFloat : MonoBehaviour
 {
-    public class TMPMaterialPropertyOverrideFloat : MonoBehaviour
-    {
-        public TMP_FontAsset fontAsset;
-        public string propertyName;
-        public float value;
+    public TMP_FontAsset fontAsset;
+    public string propertyName;
+    public float value;
 
-        private Material _material;
-        private int _propertyId;
+    private Material _material;
+    private int _propertyId;
 
-        private readonly Il2CppFieldAccessor<float> _valueAccessor;
+    private readonly Il2CppFieldAccessor<float> _valueAccessor;
         
-        public TMPMaterialPropertyOverrideFloat(IntPtr ptr) : base(ptr)
-        {
-            this._valueAccessor = new Il2CppFieldAccessor<float>(this, nameof(this.value));
-        }
+    public TMPMaterialPropertyOverrideFloat(IntPtr ptr) : base(ptr)
+    {
+        this._valueAccessor = new Il2CppFieldAccessor<float>(this, nameof(this.value));
+    }
 
-        private void Awake()
-        {
-            this._material = this.fontAsset.material;
-            this._propertyId = Shader.PropertyToID(this.propertyName);
-        }
+    private void Awake()
+    {
+        this._material = this.fontAsset.material;
+        this._propertyId = Shader.PropertyToID(this.propertyName);
+    }
 
-        private void Update()
-        {
-            // The animator can't actually set our value field on the managed side, so we need to get the IL2CPP field ourselves
-            this.value = this._valueAccessor.Value;
-            this._material.SetFloat(this._propertyId, this.value);
-        }
+    private void Update()
+    {
+        // The animator can't actually set our value field on the managed side, so we need to get the IL2CPP field ourselves
+        this.value = this._valueAccessor.Value;
+        this._material.SetFloat(this._propertyId, this.value);
     }
 }

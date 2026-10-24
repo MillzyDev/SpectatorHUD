@@ -18,14 +18,13 @@
 
 using UnityEngine;
 
-namespace SpectatorHUD
-{
-    public class HudVersion : ScriptableObject
-    {
-        public int version;
+namespace SpectatorHUD;
 
-        public HudVersion(IntPtr ptr) : base(ptr)
-        {
-        }
+public class HudVersion : ScriptableObject
+{
+    public int version;
+
+    public HudVersion(IntPtr ptr) : base(ptr)
+    {
     }
 }
