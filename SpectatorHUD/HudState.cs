@@ -318,8 +318,6 @@ namespace SpectatorHUD
             }
             
             RightGun = gun;
-            Logger.Debug("Gun: " + gun);
-            Logger.Debug("Cartridge: " + gun?.defaultCartridge);
             RightDefaultCartridge = gun?.defaultCartridge;
             OnRightGunChanged?.Invoke(gun);
             
