@@ -28,7 +28,7 @@ namespace SpectatorHUD.HarmonyPatches
     {
         [HarmonyPostfix]
         [HarmonyPatch(new[]{typeof(AmmoGroup), typeof(int)})]
-        public static void Postfix()
+        public static void PostfixAmmoGroup()
         {
             HudState.OnCartridgeAdded();
         }
