@@ -38,6 +38,7 @@ public static class HudState
 
     public static CartridgeData? LeftDefaultCartridge { get; private set; }
     public static CartridgeData? RightDefaultCartridge { get; private set; }
+    public static string? LeftCartridgeKey { get; private set; }
 
     public static RigManager? RigManager { get; private set; }
     public static event Action<Gun?>? OnLeftGunChanged;
@@ -302,7 +303,7 @@ public static class HudState
         get;
         set
         {
-            if (field != value) OnLeftGunChanged?.Invoke(value);
+            if (field != value) OnRightGunChanged?.Invoke(value);
             field = value;
         }
     }
