@@ -20,7 +20,7 @@
 using Il2CppInterop.Runtime;
 using Il2CppSLZ.Marrow;
 using Il2CppSLZ.Marrow.Data;
-using SpectatorHUD.Watchers;
+using SpectatorHUD.Observers;
 
 namespace SpectatorHUD
 {

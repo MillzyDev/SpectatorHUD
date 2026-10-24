@@ -19,14 +19,12 @@
 using Il2CppSLZ.Marrow;
 using UnityEngine;
 
-namespace SpectatorHUD.Watchers
+namespace SpectatorHUD.Observers
 {
     public sealed class PlayerHealthObserver : MonoBehaviour
     {
         private RigManager? _rigManager;
         private Health? _health;
-
-        private float? _lastHealth;
         
         public PlayerHealthObserver(IntPtr ptr) : base(ptr)
         {
