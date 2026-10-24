@@ -19,24 +19,31 @@
 using Il2CppInterop.Runtime;
 using Il2CppInterop.Runtime.InteropTypes;
 
-// "unmanaged" is unsupported unfortunately
+// "unmanaged" keyword isnt in .NET 6 unfortunately
 #pragma warning disable CS8500 // This takes the address of, gets the size of, or declares a pointer to a managed type
 
-namespace SpectatorHUD;
+namespace SpectatorHUD.Util;
 
 public class Il2CppFieldAccessor<T> where T : struct
 {
     private readonly IntPtr _fieldInfo;
     private readonly Il2CppObjectBase _objectBase;
+    private readonly uint _fieldOffset;
 
     public Il2CppFieldAccessor(Il2CppObjectBase obj, string fieldName)
+        : this(obj, IL2CPP.GetIl2CppField(obj.ObjectClass, fieldName))
+    {
+    }
+
+    public Il2CppFieldAccessor(Il2CppObjectBase obj, IntPtr nativeFieldInfo)
     {
         this._objectBase = obj;
-        this._fieldInfo = IL2CPP.GetIl2CppField(obj.ObjectClass, fieldName);
+        this._fieldInfo = nativeFieldInfo;
+        this._fieldOffset = IL2CPP.il2cpp_field_get_offset(this._fieldInfo);
+        
         IntPtr fieldType = IL2CPP.il2cpp_field_get_type(this._fieldInfo);
         IntPtr klass = IL2CPP.il2cpp_class_from_type(fieldType);
         bool isValueType = IL2CPP.il2cpp_class_is_valuetype(klass);
-
         if (!isValueType) throw new ArgumentException("T must be a value type");
     }
 
@@ -49,12 +56,12 @@ public class Il2CppFieldAccessor<T> where T : struct
     public unsafe T Get()
     {
         return *(T*)(IL2CPP.Il2CppObjectBaseToPtrNotNull(this._objectBase) +
-                     (int)IL2CPP.il2cpp_field_get_offset(this._fieldInfo));
+                     (int)this._fieldOffset);
     }
 
     public unsafe void Set(T value)
     {
         *(T*)(IL2CPP.Il2CppObjectBaseToPtrNotNull(this._objectBase) +
-              (int)IL2CPP.il2cpp_field_get_offset(this._fieldInfo)) = value;
+              (int)this._fieldOffset) = value;
     }
 }
