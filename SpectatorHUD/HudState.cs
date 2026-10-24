@@ -26,14 +26,6 @@ namespace SpectatorHUD
 {
     public static class HudState
     {
-        public static RigManager? RigManager { get; private set; } = null;
-        public static Gun? LeftGun { get; private set; } = null;
-        public static Gun? RightGun { get; private set; } = null;
-        public static CartridgeData? LeftDefaultCartridge { get; private set; }
-        public static CartridgeData? RightDefaultCartridge { get; private set; }
-        public static int? LeftReserve { get; private set; }
-        public static int? RightReserve { get; private set; }
-
         public static event Action<Gun?>? OnLeftGunChanged = null;
         public static event Action<Gun?>? OnRightGunChanged = null;
         public static event Action<int?>? OnLeftAmmoChanged = null;
