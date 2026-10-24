@@ -25,8 +25,8 @@ using SpectatorHUD;
 using SpectatorHUD.Animation;
 using SpectatorHUD.Expressions;
 using SpectatorHUD.HarmonyPatches;
+using SpectatorHUD.Observers;
 using SpectatorHUD.Shading;
-using SpectatorHUD.Watchers;
 using BuildInfo = SpectatorHUD.BuildInfo;
 
 [assembly: MelonInfo(typeof(Mod), BuildInfo.Name, BuildInfo.Version, BuildInfo.Author)]
