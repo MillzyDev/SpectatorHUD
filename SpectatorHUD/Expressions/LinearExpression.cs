@@ -16,6 +16,7 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
+using System.Diagnostics.Contracts;
 using System.Linq.Expressions;
 
 namespace SpectatorHUD.Expressions;
@@ -40,6 +41,7 @@ public class LinearExpression<T> where T : struct
         this._function = lambdaX.Compile();
     }
 
+    [Pure]
     public T Evaluate(T x)
     {
         return this._function.Invoke(x);
