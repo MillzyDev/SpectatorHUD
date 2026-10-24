@@ -89,11 +89,19 @@ public sealed class Mod : MelonMod
         this.InstallPatch(typeof(Gun_CompleteSlidePull));
         this.InstallPatch(typeof(Gun_OnMagazineInserted));
         this.InstallPatch(typeof(Gun_OnMagazineRemoved));
+        this.InstallPatch(typeof(Health_SetAvatar));
         this.InstallPatch(typeof(MonoMatNew_InsertMagazine));
-        this.InstallPatch(typeof(RigManager_SwitchAvatar));
+        this.InstallPatch(typeof(PlayerHealth_CoRegenHealth));
+        this.InstallPatch(typeof(PlayerHealth_Dying));
+        this.InstallPatch(typeof(PlayerHealth_LifeSavingDamgeDelt));
+        this.InstallPatch(typeof(PlayerHealth_SetFullHealth));
+        this.InstallPatch(typeof(PlayerHealth_STARTDATA));
+        this.InstallPatch(typeof(PlayerHealth_TAKEDAMAGE));
+        this.InstallPatch(typeof(PlayerHealth_ToggleInstantDeathMode));
+        this.InstallPatch(typeof(PlayerHealth_UpdateHealth));
         
-        this.InstallPatch(typeof(PlayerMarker_OnPlayerSpawned));
         this.InstallPatch(typeof(LoadingScene_Start));
+        this.InstallPatch(typeof(PlayerMarker_OnPlayerSpawned));
 
         Logger.Msg("Creating HUDs directory");
         this.CreateHudDirectory();
