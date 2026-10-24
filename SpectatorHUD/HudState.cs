@@ -40,8 +40,17 @@ namespace SpectatorHUD
         public static event Action<int?>? OnRightAmmoChanged = null;
         public static event Action<int?>? OnLeftReserveChanged = null;
         public static event Action<int?>? OnRightReserveChanged = null;
+        public static event Action<int?>? OnLeftTotalAmmoChanged = null;
+        public static event Action<int?>? OnRightTotalAmmoChanged = null;
+        public static event Action<int?>? OnTotalLightAmmoChanged = null;
+        public static event Action<int?>? OnTotalMediumAmmoChanged = null;
+        public static event Action<int?>? OnTotalHeavyAmmoChanged = null;
         public static event Action<float?, float?>? OnHealthChanged = null;
+        public static event Action<float?>? OnHealthPercentageChanged;
         public static event Action<float?>? OnMaxHealthChanged = null;
+        
+        public static CartridgeData? LeftDefaultCartridge { get; private set; }
+        public static CartridgeData? RightDefaultCartridge { get; private set; }
         
         private static Hand? _leftHand = null;
         private static Hand? _rightHand = null;
@@ -52,6 +61,152 @@ namespace SpectatorHUD
         private static Il2CppSystem.Action<HandReciever>? _onReceiverAttachedRight;
         private static Il2CppSystem.Action<HandReciever>? _onReceiverDetachedRight;
         
+        public static RigManager? RigManager { get; private set; } = null;
+        
+        #region Notifier Properties
+        public static Gun? LeftGun
+        {
+            get;
+            set
+            {
+                if (field != value) OnLeftGunChanged?.Invoke(value);
+                field = value;
+            }
+        }
+
+        public static Gun? RightGun
+        {
+            get;
+            set
+            {
+                if (field != value) OnLeftGunChanged?.Invoke(value);
+                field = value;
+            }
+        }
+
+        public static int? LeftAmmo
+        {
+            get;
+            set
+            {
+                if (field != value) OnLeftAmmoChanged?.Invoke(value);
+                field = value;
+            }
+        }
+
+        public static int? RightAmmo
+        {
+            get;
+            set
+            {
+                if (field != value) OnRightAmmoChanged?.Invoke(value);
+                field = value;
+            }
+        }
+
+        public static int? LeftReserve
+        {
+            get;
+            set
+            {
+                if (field != value) OnLeftReserveChanged?.Invoke(value);
+                field = value;
+            }
+        }
+
+        public static int? RightReserve
+        {
+            get;
+            set
+            {
+                if (field != value) OnRightReserveChanged?.Invoke(value);
+                field = value;
+            }
+        }
+        
+        public static int? LeftTotalAmmo
+        {
+            get;
+            set
+            {
+                if (field != value) OnLeftTotalAmmoChanged?.Invoke(value);
+                field = value;
+            }
+        }
+
+        public static int? RightTotalAmmo
+        {
+            get;
+            set
+            {
+                if (field != value) OnRightTotalAmmoChanged?.Invoke(value);
+                field = value;
+            }
+        }
+
+        public static int? TotalLightAmmo
+        {
+            get;
+            set
+            {
+                if (field != value) OnTotalLightAmmoChanged?.Invoke(value);
+                field = value;
+            }
+        }
+
+        public static int? TotalMediumAmmo
+        {
+            get;
+            set
+            {
+                if (field != value) OnTotalMediumAmmoChanged?.Invoke(value);
+                field = value;
+            }
+        }
+
+        public static int? TotalHeavyAmmo
+        {
+            get;
+            set
+            {
+                if (field != value) OnTotalHeavyAmmoChanged?.Invoke(value);
+                field = value;
+            }
+        }
+
+        public static float? Health
+        {
+            get;
+            set
+            {
+                if (field != value) OnHealthChanged?.Invoke(value);
+                field = value;
+            }
+        }
+
+        public static float? HealthPercentage
+        {
+            get;
+            set
+            {
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
+                if (field != value) OnHealthPercentageChanged?.Invoke(value);
+                field = value;
+            }
+        }
+
+        public static float? MaxHealth
+        {
+            get;
+            set
+            {
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
+                if (field != value) OnMaxHealthChanged?.Invoke(value);
+                field = value;
+            }
+        }
+        
+        #endregion // Notifier Properties
         
         /// <summary>
         /// Configures members for player load and invokes all callbacks to trigger initial values.
