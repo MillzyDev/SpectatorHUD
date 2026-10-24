@@ -38,16 +38,8 @@ namespace SpectatorHUD.Observers
 
         public void Update()
         {
-            float? currentHealth = MathF.Max(this._health?.curr_Health ?? 0f, 0f);
-            // ReSharper disable once CompareOfFloatsByEqualityOperator
-            if (this._lastHealth == currentHealth)
-            {
-                return;
-            }
-
-            Logger.Debug($"Health change: {this._lastHealth} -> {currentHealth}");
-            this._lastHealth = currentHealth;
-            HudState.OnHealthUpdated(currentHealth, currentHealth / this._health?.max_Health);
+            float? boundHealth = MathF.Max(this._health?.curr_Health ?? 0f, 0f);
+            HudState.Health = boundHealth;
         }
     }
 }
