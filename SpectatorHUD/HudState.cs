@@ -80,13 +80,6 @@ public static class HudState
         UpdateLeftReserveCount();
         UpdateRightReserveCount();
     }
-
-    public static void OnCartridgeAdded()
-    {
-        Logger.Debug("HudState: OnCartridgeAdded called");
-        UpdateLeftReserveCount();
-        UpdateRightReserveCount();
-    }
     
 
     private static void UpdateLeftAmmoCount()
@@ -109,7 +102,7 @@ public static class HudState
             return;
         }
 
-        int? newReserve = AmmoInventory.Instance.GetCartridgeCount(LeftDefaultCartridge) - LeftAmmo;
+        int? newReserve = AmmoInventory.Instance.GetCartridgeCount(LeftDefaultCartridge.cartridge) - LeftAmmo;
         LeftReserve = newReserve;
     }
 
@@ -121,7 +114,7 @@ public static class HudState
             return;
         }
 
-        int? newReserve = AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge) - RightAmmo;
+        int? newReserve = AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge.cartridge) - RightAmmo;
         RightReserve = newReserve;
     }
 
