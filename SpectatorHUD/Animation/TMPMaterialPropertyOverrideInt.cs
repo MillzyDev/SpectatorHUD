@@ -17,6 +17,7 @@
  */
 
 using Il2CppTMPro;
+using SpectatorHUD.Util;
 using UnityEngine;
 
 namespace SpectatorHUD.Animation;
