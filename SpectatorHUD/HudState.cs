@@ -20,6 +20,7 @@
 using Il2CppInterop.Runtime;
 using Il2CppSLZ.Marrow;
 using Il2CppSLZ.Marrow.Data;
+using SpectatorHUD.Extensions;
 using SpectatorHUD.Observers;
 
 namespace SpectatorHUD
@@ -278,7 +279,7 @@ namespace SpectatorHUD
         {
             Logger.Debug("HudState: OnReceiverAttachedLeft called");
             
-            if (!TryFindGunFromReceiver(handReciever, out Gun? gun))
+            if (!handReciever.TryFindGunFromReceiver(out Gun? gun))
             {
                 return;
             }
@@ -295,11 +296,6 @@ namespace SpectatorHUD
         {
             Logger.Debug("HudState: OnReceiverDetachedLeft called");
             
-            if (!TryFindGunFromReceiver(handReciever, out Gun? gun))
-            {
-                return;
-            }
-            
             LeftGun = null;
             LeftDefaultCartridge = null;
             OnLeftGunChanged?.Invoke(null);
@@ -312,7 +308,7 @@ namespace SpectatorHUD
         {
             Logger.Debug("HudState: OnReceiverAttachedRight called");
             
-            if (!TryFindGunFromReceiver(handReciever, out Gun? gun))
+            if (!handReciever.TryFindGunFromReceiver(out Gun? gun))
             {
                 return;
             }
@@ -329,28 +325,12 @@ namespace SpectatorHUD
         {
             Logger.Debug("HudState: OnReceiverDetachedRight called");
             
-            if (!TryFindGunFromReceiver(handReciever, out Gun? gun))
-            {
-                return;
-            }
-            
             RightGun = null;
             RightDefaultCartridge = null;
             OnRightGunChanged?.Invoke(null);
             
             UpdateRightAmmoCount();
             UpdateRightReserveCount();
-        }
-
-        private static bool TryFindGunFromReceiver(HandReciever handReciever, out Gun? gun)
-        {
-            gun = handReciever.GetComponentInParent<Gun>();
-            if (gun == null)
-            {
-                return false;
-            }
-            
-            return gun.triggerGrip == handReciever;
         }
 
         public static void OnMagazineInsertedLeft()
@@ -475,36 +455,6 @@ namespace SpectatorHUD
         {
             Logger.Debug("HudState: Right reserve updated");
             OnMaxHealthUpdated(RigManager?.health.max_Health);
-        }
-
-        public static int? GetLeftAmmoCount()
-        {
-            return GetAmmoCount(LeftGun);
-        }
-
-        public static int? GetRightAmmoCount()
-        {
-            return GetAmmoCount(RightGun);
-        }
-
-        public static int? GetAmmoCount(Gun? gun)
-        {
-            if (gun == null)
-            {
-                return null;
-            }
-            
-            if (gun?._magState != null)
-            {
-                return gun.chamberedCartridge != null ? gun._magState.AmmoCount + 1 : gun._magState.AmmoCount;
-            }
-
-            if (gun?.chamberedCartridge != null)
-            {
-                return 1;
-            }
-
-            return 0;
         }
 
         public static void OnSlidePullLeft(Gun gun)
