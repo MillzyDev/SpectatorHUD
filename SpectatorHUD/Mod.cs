@@ -90,6 +90,7 @@ public sealed class Mod : MelonMod
         this.InstallPatch(typeof(Gun_OnMagazineInserted));
         this.InstallPatch(typeof(Gun_OnMagazineRemoved));
         this.InstallPatch(typeof(Health_SetAvatar));
+        this.InstallPatch(typeof(HealthSetterMachine_SET_HEALTH));
         this.InstallPatch(typeof(MonoMatNew_InsertMagazine));
         this.InstallPatch(typeof(PlayerHealth_CoRegenHealth));
         this.InstallPatch(typeof(PlayerHealth_Dying));
