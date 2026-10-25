@@ -39,8 +39,6 @@ public class HudBootstrap : MonoBehaviour
     {
         this._rigManager = this.GetComponent<RigManager>();
         this.LoadHudFromConfig();
-
-        if (Mod.DebugEnabled) this.gameObject.AddComponent<DebugGUI>();
     }
 
     private void OnDestroy()

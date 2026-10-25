@@ -32,5 +32,10 @@ public static class PlayerMarker_OnPlayerSpawned
         Logger.Debug("Player Spawned: " + go.name);
         go.AddComponent<HudBootstrap>();
         go.AddComponent<PlayerEvents>();
+        
+        if (Mod.DebugEnabled)
+        {
+            go.AddComponent<DebugGUI>();
+        }
     }
 }
