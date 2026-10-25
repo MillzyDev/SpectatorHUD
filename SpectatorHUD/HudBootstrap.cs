@@ -43,13 +43,15 @@ public class HudBootstrap : MonoBehaviour
 
     private void OnDestroy()
     {
-        
     }
 
     public void UnloadCurrentHud()
     {
-        if (this.hud == null) return;
-        
+        if (this.hud == null)
+        {
+            return;
+        }
+
         Destroy(this.hud);
     }
 
@@ -90,7 +92,7 @@ public class HudBootstrap : MonoBehaviour
 
     public void LoadHudFromEmbeddedResource(string resource)
     {
-        var assembly = Assembly.GetExecutingAssembly();
+        Assembly assembly = Assembly.GetExecutingAssembly();
         using Stream? stream = assembly.GetManifestResourceStream(resource);
 
         if (stream == null)
@@ -99,7 +101,7 @@ public class HudBootstrap : MonoBehaviour
             return;
         }
 
-        var memoryStream = new MemoryStream();
+        MemoryStream memoryStream = new();
         stream.CopyTo(memoryStream);
 
         AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
@@ -108,7 +110,7 @@ public class HudBootstrap : MonoBehaviour
 
     public void LoadHudFromAssetBundle(AssetBundle assetBundle)
     {
-        var hudVersion = assetBundle.LoadAsset("Hud.Version.asset").TryCast<HudVersion>();
+        HudVersion? hudVersion = assetBundle.LoadAsset("Hud.Version.asset").TryCast<HudVersion>();
         if (hudVersion == null)
         {
             // Version SO is required but not present,
@@ -134,7 +136,7 @@ public class HudBootstrap : MonoBehaviour
 
     private void LoadHudV1(AssetBundle assetBundle)
     {
-        var hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
+        HudV1? hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
         if (hudInfo == null)
         {
             Logger.Error("Hud.asset could not be loaded from asset bundle.");

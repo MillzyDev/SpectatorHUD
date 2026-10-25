@@ -31,8 +31,8 @@ public static class PlayerHealth_CoRegenHealth
         if (__instance._timer_5__2 > 0.0)
         {
             return;
-        } 
-        
+        }
+
         HudState.Health = __instance.__4__this.curr_Health;
     }
 }

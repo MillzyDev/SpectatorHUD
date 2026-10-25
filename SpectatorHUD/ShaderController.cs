@@ -113,13 +113,18 @@ public class ShaderController : MonoBehaviour
 
     private void SetShaderInts(List<ShaderIntReference> properties, int value)
     {
-        foreach (ShaderIntReference property in properties) property.material.SetInteger(property.propertyId, value);
+        foreach (ShaderIntReference property in properties)
+        {
+            property.material.SetInteger(property.propertyId, value);
+        }
     }
 
     private void SetShaderFloatsWithModifier(List<ShaderFloatReference> properties, float value)
     {
         foreach (ShaderFloatReference property in properties)
+        {
             property.material.SetFloat(property.propertyId, property.modifierExpression.Evaluate(value));
+        }
     }
 
     private void ProcessShaderProperties(List<ShaderIntReference> properties)

@@ -67,7 +67,7 @@ public static class HudState
         UpdateLeftReserveCount();
         UpdateRightReserveCount();
     }
-    
+
 
     private static void UpdateLeftAmmoCount()
     {
@@ -124,7 +124,11 @@ public static class HudState
         get;
         set
         {
-            if (field != value) OnLeftGunChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnLeftGunChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -134,7 +138,11 @@ public static class HudState
         get;
         set
         {
-            if (field != value) OnRightGunChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnRightGunChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -144,7 +152,11 @@ public static class HudState
         get;
         set
         {
-            if (field != value) OnLeftAmmoChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnLeftAmmoChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -154,7 +166,11 @@ public static class HudState
         get;
         set
         {
-            if (field != value) OnRightAmmoChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnRightAmmoChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -164,7 +180,11 @@ public static class HudState
         get;
         set
         {
-            if (field != value) OnLeftReserveChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnLeftReserveChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -174,7 +194,11 @@ public static class HudState
         get;
         set
         {
-            if (field != value) OnRightReserveChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnRightReserveChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -184,7 +208,11 @@ public static class HudState
         get;
         set
         {
-            if (field != value) OnLeftTotalAmmoChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnLeftTotalAmmoChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -194,7 +222,11 @@ public static class HudState
         get;
         set
         {
-            if (field != value) OnRightTotalAmmoChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnRightTotalAmmoChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -204,7 +236,11 @@ public static class HudState
         get;
         set
         {
-            if (field != value) OnTotalLightAmmoChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnTotalLightAmmoChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -214,7 +250,11 @@ public static class HudState
         get;
         set
         {
-            if (field != value) OnTotalMediumAmmoChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnTotalMediumAmmoChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -224,7 +264,11 @@ public static class HudState
         get;
         set
         {
-            if (field != value) OnTotalHeavyAmmoChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnTotalHeavyAmmoChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -235,7 +279,11 @@ public static class HudState
         set
         {
             // ReSharper disable once CompareOfFloatsByEqualityOperator
-            if (field != value) OnHealthChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnHealthChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -246,7 +294,11 @@ public static class HudState
         set
         {
             // ReSharper disable once CompareOfFloatsByEqualityOperator
-            if (field != value) OnHealthPercentageChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnHealthPercentageChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }
@@ -257,7 +309,11 @@ public static class HudState
         set
         {
             // ReSharper disable once CompareOfFloatsByEqualityOperator
-            if (field != value) OnMaxHealthChanged?.Invoke(value);
+            if (field != value)
+            {
+                OnMaxHealthChanged?.Invoke(value);
+            }
+
             field = value;
         }
     }

@@ -97,7 +97,7 @@ public sealed class Mod : MelonMod
         this.InstallPatch(typeof(PlayerHealth_TAKEDAMAGE));
         this.InstallPatch(typeof(PlayerHealth_ToggleInstantDeathMode));
         this.InstallPatch(typeof(PlayerHealth_UpdateHealth));
-        
+
         this.InstallPatch(typeof(LoadingScene_Start));
         this.InstallPatch(typeof(PlayerMarker_OnPlayerSpawned));
 

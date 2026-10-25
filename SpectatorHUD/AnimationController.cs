@@ -237,16 +237,25 @@ public class AnimationController : MonoBehaviour
 
     private void SetAnimationBools(List<AnimationBoolReference> bools, bool value)
     {
-        foreach (AnimationBoolReference @bool in bools) @bool.animator.SetBool(@bool.parameterId, value);
+        foreach (AnimationBoolReference @bool in bools)
+        {
+            @bool.animator.SetBool(@bool.parameterId, value);
+        }
     }
 
     private void SetAnimationFloats(List<AnimationFloatReference> floats, float value)
     {
-        foreach (AnimationFloatReference @float in floats) @float.animator.SetFloat(@float.parameterId, value);
+        foreach (AnimationFloatReference @float in floats)
+        {
+            @float.animator.SetFloat(@float.parameterId, value);
+        }
     }
 
     private void SetAnimationInts(List<AnimationIntReference> ints, int value)
     {
-        foreach (AnimationIntReference @int in ints) @int.animator.SetInteger(@int.parameterId, value);
+        foreach (AnimationIntReference @int in ints)
+        {
+            @int.animator.SetInteger(@int.parameterId, value);
+        }
     }
 }

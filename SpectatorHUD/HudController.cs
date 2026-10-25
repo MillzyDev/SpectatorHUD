@@ -78,20 +78,41 @@ public class HudController : MonoBehaviour
         HudState.OnLeftGunChanged += this.OnLeftGunChanged;
         HudState.OnRightGunChanged += this.OnRightGunChanged;
 
-        if (this.leftHandAmmoCounter != null) HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoCounter;
+        if (this.leftHandAmmoCounter != null)
+        {
+            HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoCounter;
+        }
 
-        if (this.rightHandAmmoCounter != null) HudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
+        if (this.rightHandAmmoCounter != null)
+        {
+            HudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
+        }
 
-        if (this.leftHandReserveCounter != null) HudState.OnLeftReserveChanged += this.UpdateLeftReserveCounter;
+        if (this.leftHandReserveCounter != null)
+        {
+            HudState.OnLeftReserveChanged += this.UpdateLeftReserveCounter;
+        }
 
-        if (this.rightHandReserveCounter != null) HudState.OnRightReserveChanged += this.UpdateRightReserveCounter;
+        if (this.rightHandReserveCounter != null)
+        {
+            HudState.OnRightReserveChanged += this.UpdateRightReserveCounter;
+        }
 
-        if (this.healthCounter != null) HudState.OnHealthChanged += this.UpdateHealthCounter;
+        if (this.healthCounter != null)
+        {
+            HudState.OnHealthChanged += this.UpdateHealthCounter;
+        }
 
-        if (this.percentageHealthCounter) HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageCounter;
+        if (this.percentageHealthCounter)
+        {
+            HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageCounter;
+        }
 
-        if (this.maxHealthCounter) HudState.OnMaxHealthChanged += this.UpdateMaxHealthCounter;
-        
+        if (this.maxHealthCounter)
+        {
+            HudState.OnMaxHealthChanged += this.UpdateMaxHealthCounter;
+        }
+
         HudState.ForceNotifierRepoll();
     }
 

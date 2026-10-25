@@ -36,12 +36,18 @@ public class DebugGUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F8)) this._showGui = !this._showGui;
+        if (Input.GetKeyDown(KeyCode.F8))
+        {
+            this._showGui = !this._showGui;
+        }
     }
 
     private void OnGUI()
     {
-        if (!this._showGui) return;
+        if (!this._showGui)
+        {
+            return;
+        }
 
         GUI.Label(new Rect(25, 25, 300, 30), "SpectatorHUD v" + BuildInfo.Version);
 
@@ -116,7 +122,10 @@ public class DebugGUI : MonoBehaviour
         GUI.Label(new Rect(945, 155, 300, 30), "shaderMaxHealth: " + MetaInfo.ShaderMaxHealth);
         GUI.Label(new Rect(945, 170, 300, 30), "shaderHealthPercentage: " + MetaInfo.ShaderHealthPercentage);
 
-        if (GUI.Button(new Rect(25, 235, 200, 20), "Reload HUD")) this._bootstrap.ReloadHudFromConfig();
+        if (GUI.Button(new Rect(25, 235, 200, 20), "Reload HUD"))
+        {
+            this._bootstrap.ReloadHudFromConfig();
+        }
 
         TimeSpan since = DateTime.Now - this._bootstrap.lastLoad;
         GUI.Label(new Rect(25, 265, 300, 30), $"Last reloaded {since.TotalSeconds:0.}s ago");

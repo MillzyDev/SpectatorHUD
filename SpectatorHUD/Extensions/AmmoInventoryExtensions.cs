@@ -28,7 +28,7 @@ public static class AmmoInventoryExtensions
         {
             return ammoInventory.GetCartridgeCount(gun.defaultCartridge);
         }
-        
+
         public int GetReserveForGun(Gun gun)
         {
             return ammoInventory.GetTotalAmmoForGun(gun) - gun.GetAmmoCount();

@@ -46,7 +46,10 @@ public static class SettingsMenu
 
         // Get metadata for the default hud.
         HudV1? defaultHud = GetMetadataFromEmbeddedResource(HudBootstrap.DefaultHud);
-        if (defaultHud != null) hudMetadatas.Add(new Tuple<HudV1, string?>(defaultHud, null));
+        if (defaultHud != null)
+        {
+            hudMetadatas.Add(new Tuple<HudV1, string?>(defaultHud, null));
+        }
 
         // Collect the metadata for all files and add it to the list of all metadata.
         string path = Path.Join(MelonEnvironment.UserDataDirectory, "SpectatorHUD", "HUDs");
@@ -57,6 +60,7 @@ public static class SettingsMenu
         hudMetadatas.AddRange(fileMetadatas);
 
         foreach ((HudV1 hud, string? hudPath) in hudMetadatas)
+        {
             parent.CreateFunction(
                 $"{hud.hudName} <color=#828282>v{hud.hudVersion}</color>",
                 Color.white,
@@ -72,6 +76,7 @@ public static class SettingsMenu
                     });
                 }
             );
+        }
     }
 
     private static HudV1? GetMetadataFromFile(string path)
@@ -88,7 +93,7 @@ public static class SettingsMenu
 
     private static HudV1? GetMetadataFromEmbeddedResource(string resource)
     {
-        var assembly = Assembly.GetExecutingAssembly();
+        Assembly assembly = Assembly.GetExecutingAssembly();
         using Stream? stream = assembly.GetManifestResourceStream(resource);
         if (stream == null)
         {
@@ -96,7 +101,7 @@ public static class SettingsMenu
             return null;
         }
 
-        var memoryStream = new MemoryStream();
+        MemoryStream memoryStream = new();
         stream.CopyTo(memoryStream);
 
         AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
@@ -106,7 +111,7 @@ public static class SettingsMenu
     private static HudV1? GetMetadataFromAssetBundle(AssetBundle assetBundle)
     {
         // TODO: Load version first and check that
-        var hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
+        HudV1? hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
         if (hudInfo == null)
         {
             Logger.Error("Hud.asset could not be loaded from assetBundle: " + assetBundle.name);

@@ -32,7 +32,7 @@ public static class Health_SetAvatar
         {
             return;
         }
-        
+
         HudState.Health = __instance.curr_Health;
         HudState.MaxHealth = __instance.max_Health;
     }

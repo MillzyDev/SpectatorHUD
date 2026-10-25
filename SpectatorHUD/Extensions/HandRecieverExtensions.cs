@@ -27,7 +27,10 @@ public static class HandRecieverExtensions
         public bool TryFindGunFromReceiver(out Gun? gun)
         {
             gun = handReciever.GetComponentInParent<Gun>();
-            if (gun == null) return false;
+            if (gun == null)
+            {
+                return false;
+            }
 
             return gun.triggerGrip == handReciever;
         }

@@ -31,7 +31,7 @@ public static class AmmoInventory_AddCartridge
     public static void PostfixAmmoGroup(AmmoGroup ammoGroup)
     {
         string groupKey = ammoGroup.KeyName;
-        
+
         if (groupKey == HudState.LeftDefaultCartridge?.groupKey)
         {
             HudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(groupKey);
@@ -47,7 +47,7 @@ public static class AmmoInventory_AddCartridge
     private static void PostfixCartridgeData(CartridgeData cartridge, AmmoInventory __instance)
     {
         string groupKey = __instance.GetGroupByCartridge(cartridge);
-        
+
         if (groupKey == HudState.LeftDefaultCartridge?.groupKey)
         {
             HudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(groupKey);

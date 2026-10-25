@@ -27,8 +27,8 @@ namespace SpectatorHUD.Util;
 public class Il2CppFieldAccessor<T> where T : struct
 {
     private readonly IntPtr _fieldInfo;
-    private readonly Il2CppObjectBase _objectBase;
     private readonly uint _fieldOffset;
+    private readonly Il2CppObjectBase _objectBase;
 
     public Il2CppFieldAccessor(Il2CppObjectBase obj, string fieldName)
         : this(obj, IL2CPP.GetIl2CppField(obj.ObjectClass, fieldName))
@@ -40,11 +40,14 @@ public class Il2CppFieldAccessor<T> where T : struct
         this._objectBase = obj;
         this._fieldInfo = nativeFieldInfo;
         this._fieldOffset = IL2CPP.il2cpp_field_get_offset(this._fieldInfo);
-        
+
         IntPtr fieldType = IL2CPP.il2cpp_field_get_type(this._fieldInfo);
         IntPtr klass = IL2CPP.il2cpp_class_from_type(fieldType);
         bool isValueType = IL2CPP.il2cpp_class_is_valuetype(klass);
-        if (!isValueType) throw new ArgumentException("T must be a value type");
+        if (!isValueType)
+        {
+            throw new ArgumentException("T must be a value type");
+        }
     }
 
     public T Value

@@ -27,14 +27,14 @@ namespace SpectatorHUD;
 public class PlayerEvents : MonoBehaviour
 {
     private readonly Il2CppSystem.Action<HandReciever>? _onReceiverAttachedLeft;
-    private readonly Il2CppSystem.Action<HandReciever>? _onReceiverDetachedLeft;
     private readonly Il2CppSystem.Action<HandReciever>? _onReceiverAttachedRight;
+    private readonly Il2CppSystem.Action<HandReciever>? _onReceiverDetachedLeft;
     private readonly Il2CppSystem.Action<HandReciever>? _onReceiverDetachedRight;
+    private Hand? _leftHand;
 
     private RigManager? _rigManager;
-    private Hand? _leftHand;
     private Hand? _rightHand;
-    
+
     public PlayerEvents(IntPtr ptr) : base(ptr)
     {
         this._onReceiverAttachedLeft =
@@ -73,7 +73,10 @@ public class PlayerEvents : MonoBehaviour
     {
         Logger.Debug("HudState: OnReceiverAttachedLeft called");
 
-        if (!handReciever.TryFindGunFromReceiver(out Gun? gun)) return;
+        if (!handReciever.TryFindGunFromReceiver(out Gun? gun))
+        {
+            return;
+        }
 
         HudState.LeftGun = gun;
         if (gun != null)
@@ -107,7 +110,10 @@ public class PlayerEvents : MonoBehaviour
     {
         Logger.Debug("HudState: OnReceiverAttachedRight called");
 
-        if (!handReciever.TryFindGunFromReceiver(out Gun? gun)) return;
+        if (!handReciever.TryFindGunFromReceiver(out Gun? gun))
+        {
+            return;
+        }
 
         HudState.RightGun = gun;
         if (gun != null)
@@ -124,7 +130,7 @@ public class PlayerEvents : MonoBehaviour
 
         HudState.RightAmmo = gun.GetAmmoCount();
         HudState.RightReserve = AmmoInventory.Instance.GetCartridgeCount(HudState.RightDefaultCartridge.cartridge) -
-                               HudState.RightAmmo;
+                                HudState.RightAmmo;
     }
 
     private void OnReceiverDetachedRight(HandReciever handReciever)
