@@ -72,7 +72,7 @@ public class ShaderController : MonoBehaviour
         HudState.OnLeftReserveChanged -= this.UpdateLeftReserveShader;
         HudState.OnRightReserveChanged -= this.UpdateRightReserveShader;
         HudState.OnHealthChanged -= this.UpdateHealthShader;
-        HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageShader;
+        HudState.OnHealthPercentageChanged -= this.UpdateHealthPercentageShader;
         HudState.OnMaxHealthChanged -= this.UpdateMaxHealthShader;
     }
 
