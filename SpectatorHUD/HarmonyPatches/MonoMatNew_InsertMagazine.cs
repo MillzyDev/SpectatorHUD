@@ -18,6 +18,8 @@
 
 using HarmonyLib;
 using Il2CppSLZ.Bonelab;
+using Il2CppSLZ.Marrow;
+using Il2CppSLZ.Marrow.Data;
 
 namespace SpectatorHUD.HarmonyPatches;
 
@@ -26,8 +28,16 @@ namespace SpectatorHUD.HarmonyPatches;
 public static class MonoMatNew_InsertMagazine
 {
     [HarmonyPostfix]
-    private static void Postfix()
+    private static void Postfix(Magazine magazine)
     {
-        HudState.OnGachaMagazineInserted();
+        CartridgeData cartridgeData = magazine.magazineState.cartridgeData;
+        if (cartridgeData == HudState.LeftDefaultCartridge?.cartridge)
+        {
+            HudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(cartridgeData) - HudState.LeftAmmo;
+        }
+        else if (cartridgeData == HudState.RightDefaultCartridge?.cartridge)
+        {
+            HudState.RightReserve = AmmoInventory.Instance.GetCartridgeCount(cartridgeData) - HudState.RightAmmo;
+        }
     }
 }
