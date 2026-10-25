@@ -20,6 +20,7 @@ using HarmonyLib;
 using Il2CppSLZ.Bonelab;
 using Il2CppSLZ.Marrow;
 using Il2CppSLZ.Marrow.Data;
+using SpectatorHUD.Util;
 
 namespace SpectatorHUD.HarmonyPatches;
 
@@ -30,14 +31,71 @@ public static class MonoMatNew_InsertMagazine
     [HarmonyPostfix]
     private static void Postfix(Magazine magazine)
     {
-        CartridgeData cartridgeData = magazine.magazineState.cartridgeData;
-        if (cartridgeData == HudState.LeftDefaultCartridge?.cartridge)
+        CartridgeData cartridge = magazine.magazineState.cartridgeData;
+        int ammoTotal = AmmoInventory.Instance.GetCartridgeCount(cartridge);
+        
+        if (cartridge == HudState.LeftDefaultCartridge?.cartridge)
         {
-            HudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(cartridgeData) - HudState.LeftAmmo;
+            HudState.LeftTotalAmmo = ammoTotal;
+            HudState.LeftReserve = ammoTotal - HudState.LeftAmmo;
+
+            switch (HudState.LeftDefaultCartridge.ammoCategory)
+            {
+                case AmmoCategory.Unknown:
+                    break;
+                case AmmoCategory.Light:
+                    HudState.TotalLightAmmo = ammoTotal;
+                    break;
+                case AmmoCategory.Medium:
+                    HudState.TotalMediumAmmo = ammoTotal;
+                    break;
+                case AmmoCategory.Heavy:
+                    HudState.TotalHeavyAmmo = ammoTotal;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            return;
         }
-        else if (cartridgeData == HudState.RightDefaultCartridge?.cartridge)
+        
+        if (cartridge == HudState.RightDefaultCartridge?.cartridge)
         {
-            HudState.RightReserve = AmmoInventory.Instance.GetCartridgeCount(cartridgeData) - HudState.RightAmmo;
+            HudState.RightTotalAmmo = ammoTotal;
+            HudState.RightReserve = ammoTotal - HudState.RightAmmo;
+
+            switch (HudState.RightDefaultCartridge.ammoCategory)
+            {
+                case AmmoCategory.Unknown:
+                    break;
+                case AmmoCategory.Light:
+                    HudState.TotalLightAmmo = ammoTotal;
+                    break;
+                case AmmoCategory.Medium:
+                    HudState.TotalMediumAmmo = ammoTotal;
+                    break;
+                case AmmoCategory.Heavy:
+                    HudState.TotalHeavyAmmo = ammoTotal;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            return;
+        }
+
+        // Ammo category not computed ahead of time, so just do string comparison here
+        string groupKey = HudState.AmmoInventory.GetGroupByCartridge(cartridge);
+        if (groupKey == HudState.LightAmmoKey)
+        {
+            HudState.TotalLightAmmo = ammoTotal;
+        }
+        else if (groupKey == HudState.MediumAmmoKey)
+        {
+            HudState.TotalMediumAmmo = ammoTotal;
+        }
+        else if (groupKey == HudState.HeavyAmmoKey)
+        {
+            HudState.TotalHeavyAmmo = ammoTotal;
         }
     }
 }

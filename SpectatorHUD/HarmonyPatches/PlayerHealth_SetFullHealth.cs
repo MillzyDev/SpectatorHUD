@@ -29,5 +29,6 @@ public static class PlayerHealth_SetFullHealth
     private static void Postfix(Player_Health __instance)
     {
         HudState.Health = __instance.curr_Health;
+        HudState.HealthPercentage = HudState.Health / HudState.MaxHealth;
     }
 }

@@ -20,6 +20,7 @@ using HarmonyLib;
 using Il2CppSLZ.Bonelab;
 using Il2CppSLZ.Marrow;
 using Il2CppSLZ.Marrow.Data;
+using SpectatorHUD.Util;
 
 namespace SpectatorHUD.HarmonyPatches;
 
@@ -30,14 +31,7 @@ public static class Gashapon_InsertMagazine
     [HarmonyPostfix]
     private static void Postfix(Magazine magazine)
     {
-        CartridgeData cartridgeData = magazine.magazineState.cartridgeData;
-        if (cartridgeData == HudState.LeftDefaultCartridge?.cartridge)
-        {
-            HudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(cartridgeData) - HudState.LeftAmmo;
-        }
-        else if (cartridgeData == HudState.RightDefaultCartridge?.cartridge)
-        {
-            HudState.RightReserve = AmmoInventory.Instance.GetCartridgeCount(cartridgeData) - HudState.RightAmmo;
-        }
+        CartridgeData cartridge = magazine.magazineState.cartridgeData;
+        AmmoUpdateUtil.UpdateReservesTargeted(cartridge);
     }
 }

@@ -19,6 +19,7 @@
 using HarmonyLib;
 using Il2CppSLZ.Marrow;
 using Il2CppSLZ.Marrow.Data;
+using SpectatorHUD.Util;
 
 namespace SpectatorHUD.HarmonyPatches;
 
@@ -30,31 +31,13 @@ public static class AmmoInventory_AddCartridge
     [HarmonyPatch([typeof(AmmoGroup), typeof(int)])]
     public static void PostfixAmmoGroup(AmmoGroup ammoGroup)
     {
-        string groupKey = ammoGroup.KeyName;
-
-        if (groupKey == HudState.LeftDefaultCartridge?.groupKey)
-        {
-            HudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(groupKey);
-        }
-        else if (groupKey == HudState.RightDefaultCartridge?.groupKey)
-        {
-            HudState.RightReserve = AmmoInventory.Instance.GetCartridgeCount(groupKey);
-        }
+        AmmoUpdateUtil.UpdateReservesTargeted(ammoGroup.KeyName);
     }
 
     [HarmonyPostfix]
     [HarmonyPatch([typeof(CartridgeData), typeof(int)])]
-    private static void PostfixCartridgeData(CartridgeData cartridge, AmmoInventory __instance)
+    private static void PostfixCartridgeData(CartridgeData cartridge)
     {
-        string groupKey = __instance.GetGroupByCartridge(cartridge);
-
-        if (groupKey == HudState.LeftDefaultCartridge?.groupKey)
-        {
-            HudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(groupKey);
-        }
-        else if (groupKey == HudState.RightDefaultCartridge?.groupKey)
-        {
-            HudState.RightReserve = AmmoInventory.Instance.GetCartridgeCount(groupKey);
-        }
+        AmmoUpdateUtil.UpdateReservesTargeted(cartridge);
     }
 }

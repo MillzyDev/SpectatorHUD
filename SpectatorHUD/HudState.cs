@@ -16,18 +16,39 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
+using System.Diagnostics.Contracts;
 using Il2CppSLZ.Marrow;
-using SpectatorHUD.Extensions;
 using SpectatorHUD.Util;
 
 namespace SpectatorHUD;
 
 public static class HudState
 {
-    public static CartridgeContainer? LeftDefaultCartridge { get; set; }
-    public static CartridgeContainer? RightDefaultCartridge { get; set; }
+    public static CartridgeContainer? LeftDefaultCartridge { [Pure] get; set; }
+    public static CartridgeContainer? RightDefaultCartridge { [Pure] get; set; }
 
     public static RigManager? RigManager { get; set; }
+    public static AmmoInventory AmmoInventory
+    {
+        get
+        {
+            if (field != null)
+            {
+                return field;
+            }
+
+            field = AmmoInventory.Instance;
+            LightAmmoKey = field.lightAmmoGroup.KeyName;
+            MediumAmmoKey = field.mediumAmmoGroup.KeyName;
+            HeavyAmmoKey = field.heavyAmmoGroup.KeyName;
+
+            return field;
+        }
+    }
+    public static string? LightAmmoKey { get; private set; }
+    public static string? MediumAmmoKey { get; private set; }
+    public static string? HeavyAmmoKey { get; private set; }
+
     public static event Action<Gun?>? OnLeftGunChanged;
     public static event Action<Gun?>? OnRightGunChanged;
     public static event Action<int?>? OnLeftAmmoChanged;
@@ -59,62 +80,6 @@ public static class HudState
         OnHealthChanged?.Invoke(Health);
         OnHealthPercentageChanged?.Invoke(HealthPercentage);
         OnMaxHealthChanged?.Invoke(MaxHealth);
-    }
-
-    public static void OnGachaMagazineInserted()
-    {
-        Logger.Debug("HudState: OnGachaMagazineInserted called");
-        UpdateLeftReserveCount();
-        UpdateRightReserveCount();
-    }
-
-
-    private static void UpdateLeftAmmoCount()
-    {
-        Logger.Debug("HudState: Left ammo updated");
-        OnLeftAmmoChanged?.Invoke(LeftGun?.GetAmmoCount());
-    }
-
-    private static void UpdateRightAmmoCount()
-    {
-        Logger.Debug("HudState: Right ammo updated");
-        OnRightAmmoChanged?.Invoke(RightGun?.GetAmmoCount());
-    }
-
-    private static void UpdateLeftReserveCount()
-    {
-        if (LeftDefaultCartridge == null)
-        {
-            LeftReserve = null;
-            return;
-        }
-
-        int? newReserve = AmmoInventory.Instance.GetCartridgeCount(LeftDefaultCartridge.cartridge) - LeftAmmo;
-        LeftReserve = newReserve;
-    }
-
-    private static void UpdateRightReserveCount()
-    {
-        if (RightDefaultCartridge == null)
-        {
-            RightReserve = null;
-            return;
-        }
-
-        int? newReserve = AmmoInventory.Instance.GetCartridgeCount(RightDefaultCartridge.cartridge) - RightAmmo;
-        RightReserve = newReserve;
-    }
-
-    private static void UpdateHealth()
-    {
-        Logger.Debug("HudState: Health updated");
-        Health = RigManager?.health.curr_Health;
-    }
-
-    private static void UpdateMaxHealth()
-    {
-        Logger.Debug("HudState: Right reserve updated");
-        MaxHealth = RigManager?.health.max_Health;
     }
 
     #region Notifier Properties

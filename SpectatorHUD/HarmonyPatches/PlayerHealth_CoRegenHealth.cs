@@ -34,5 +34,6 @@ public static class PlayerHealth_CoRegenHealth
         }
 
         HudState.Health = __instance.__4__this.curr_Health;
+        HudState.HealthPercentage = HudState.Health / HudState.MaxHealth;
     }
 }

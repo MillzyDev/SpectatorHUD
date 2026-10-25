@@ -35,5 +35,6 @@ public static class Health_SetAvatar
 
         HudState.Health = __instance.curr_Health;
         HudState.MaxHealth = __instance.max_Health;
+        HudState.HealthPercentage = HudState.Health / HudState.MaxHealth;
     }
 }

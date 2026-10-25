@@ -19,6 +19,7 @@
 using HarmonyLib;
 using Il2CppSLZ.Marrow;
 using SpectatorHUD.Extensions;
+using SpectatorHUD.Util;
 
 namespace SpectatorHUD.HarmonyPatches;
 
@@ -31,11 +32,49 @@ public static class Gun_CompleteSlidePull
     {
         if (__instance == HudState.RightGun)
         {
+            HudState.RightTotalAmmo = HudState.AmmoInventory.GetTotalAmmoForGun(__instance);
             HudState.RightAmmo = HudState.RightGun.GetAmmoCount();
+
+            switch (HudState.RightDefaultCartridge?.ammoCategory)
+            {
+                case AmmoCategory.Light:
+                    HudState.TotalLightAmmo = HudState.RightTotalAmmo;
+                    break;
+                case AmmoCategory.Medium:
+                    HudState.TotalMediumAmmo = HudState.RightTotalAmmo;
+                    break;
+                case AmmoCategory.Heavy:
+                    HudState.TotalHeavyAmmo = HudState.RightTotalAmmo;
+                    break;
+                case AmmoCategory.Unknown:
+                case null:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
         else if (__instance == HudState.LeftGun)
         {
+            HudState.LeftTotalAmmo = HudState.AmmoInventory.GetTotalAmmoForGun(__instance);
             HudState.LeftAmmo = HudState.LeftGun.GetAmmoCount();
+            
+            switch (HudState.LeftDefaultCartridge?.ammoCategory)
+            {
+                case AmmoCategory.Light:
+                    HudState.TotalLightAmmo = HudState.LeftTotalAmmo;
+                    break;
+                case AmmoCategory.Medium:
+                    HudState.TotalMediumAmmo = HudState.LeftTotalAmmo;
+                    break;
+                case AmmoCategory.Heavy:
+                    HudState.TotalHeavyAmmo = HudState.LeftTotalAmmo;
+                    break;
+                case AmmoCategory.Unknown:
+                case null:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

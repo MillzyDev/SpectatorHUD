@@ -30,25 +30,10 @@ public class CartridgeContainer
 
     public CartridgeContainer(CartridgeData cartridgeData)
     {
-        this._ammoInventory = AmmoInventory.Instance;
+        this._ammoInventory = HudState.AmmoInventory;
         this.cartridge = cartridgeData;
         this.groupKey = this._ammoInventory.GetGroupByCartridge(cartridgeData);
 
-        if (this.groupKey == this._ammoInventory.lightAmmoGroup.KeyName)
-        {
-            this.ammoCategory = AmmoCategory.Light;
-        }
-        else if (this.groupKey == this._ammoInventory.mediumAmmoGroup.KeyName)
-        {
-            this.ammoCategory = AmmoCategory.Medium;
-        }
-        else if (this.groupKey == this._ammoInventory.heavyAmmoGroup.KeyName)
-        {
-            this.ammoCategory = AmmoCategory.Heavy;
-        }
-        else
-        {
-            this.ammoCategory = AmmoCategory.Unknown;
-        }
+        this.ammoCategory = AmmoCategoryUtil.GetCategoryFromGroupKey(this.groupKey);
     }
 }

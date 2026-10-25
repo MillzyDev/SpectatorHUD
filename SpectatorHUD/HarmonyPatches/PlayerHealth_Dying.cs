@@ -30,5 +30,6 @@ public static class PlayerHealth_Dying
     {
         // Health can get set below 0 in this function, clamp the value
         HudState.Health = Math.Max(__instance.curr_Health, 0.0f);
+        HudState.HealthPercentage = HudState.Health / HudState.MaxHealth;
     }
 }

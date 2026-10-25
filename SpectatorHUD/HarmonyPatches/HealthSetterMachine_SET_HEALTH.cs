@@ -30,5 +30,6 @@ public static class HealthSetterMachine_SET_HEALTH
     {
         // no fucking clue where this is used, but it sets the max health so /shrug
         HudState.MaxHealth = __instance.player_Health.max_Health;
+        HudState.HealthPercentage = HudState.Health / HudState.MaxHealth;
     }
 }
