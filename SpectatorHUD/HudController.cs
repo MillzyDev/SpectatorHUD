@@ -94,6 +94,31 @@ public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
             HudState.OnRightReserveChanged += this.UpdateRightReserveCounter;
         }
 
+        if (this.leftHandTotalAmmoCounter != null)
+        {
+            HudState.OnLeftTotalAmmoChanged += this.UpdateLeftTotalAmmoCounter;
+        }
+
+        if (this.rightHandTotalAmmoCounter != null)
+        {
+            HudState.OnRightTotalAmmoChanged += this.UpdateRightTotalAmmoCounter;
+        }
+
+        if (this.totalLightAmmoCounter != null)
+        {
+            HudState.OnTotalLightAmmoChanged += this.UpdateTotalLightAmmoCounter;
+        }
+
+        if (this.totalMediumAmmoCounter != null)
+        {
+            HudState.OnTotalMediumAmmoChanged += this.UpdateTotalMediumAmmoCounter;
+        }
+
+        if (this.totalHeavyAmmoCounter != null)
+        {
+            HudState.OnTotalHeavyAmmoChanged += this.UpdateTotalHeavyAmmoCounter;
+        }
+
         if (this.healthCounter != null)
         {
             HudState.OnHealthChanged += this.UpdateHealthCounter;
@@ -122,6 +147,11 @@ public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
         HudState.OnRightAmmoChanged -= this.UpdateRightAmmoCounter;
         HudState.OnLeftReserveChanged -= this.UpdateLeftReserveCounter;
         HudState.OnRightReserveChanged -= this.UpdateRightReserveCounter;
+        HudState.OnLeftTotalAmmoChanged -= this.UpdateLeftTotalAmmoCounter;
+        HudState.OnRightTotalAmmoChanged -= this.UpdateRightTotalAmmoCounter;
+        HudState.OnTotalLightAmmoChanged -= this.UpdateTotalLightAmmoCounter;
+        HudState.OnTotalMediumAmmoChanged -= this.UpdateTotalMediumAmmoCounter;
+        HudState.OnTotalHeavyAmmoChanged -= this.UpdateTotalHeavyAmmoCounter;
         HudState.OnHealthChanged -= this.UpdateHealthCounter;
         HudState.OnHealthPercentageChanged -= this.UpdateHealthPercentageCounter;
         HudState.OnMaxHealthChanged -= this.UpdateMaxHealthCounter;
@@ -145,6 +175,31 @@ public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
     private void UpdateRightReserveCounter(int? ammo)
     {
         this.rightHandReserveCounter.text = ammo.ToString();
+    }
+
+    private void UpdateLeftTotalAmmoCounter(int? ammo)
+    {
+        this.leftHandTotalAmmoCounter.text = ammo.ToString();
+    }
+
+    private void UpdateRightTotalAmmoCounter(int? ammo)
+    {
+        this.rightHandTotalAmmoCounter.text = ammo.ToString();
+    }
+
+    private void UpdateTotalLightAmmoCounter(int? ammo)
+    {
+        this.totalLightAmmoCounter.text = ammo.ToString();
+    }
+
+    private void UpdateTotalMediumAmmoCounter(int? ammo)
+    {
+        this.totalMediumAmmoCounter.text = ammo.ToString();
+    }
+
+    private void UpdateTotalHeavyAmmoCounter(int? ammo)
+    {
+        this.totalHeavyAmmoCounter.text = ammo.ToString();
     }
 
     private void UpdateHealthCounter(float? health)
