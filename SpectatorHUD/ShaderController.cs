@@ -27,6 +27,11 @@ public class ShaderController(IntPtr ptr) : MonoBehaviour(ptr)
     public List<ShaderIntReference> shaderRightAmmo;
     public List<ShaderIntReference> shaderLeftReserve;
     public List<ShaderIntReference> shaderRightReserve;
+    public List<ShaderIntReference> shaderTotalLeftAmmo;
+    public List<ShaderIntReference> shaderTotalRightAmmo;
+    public List<ShaderIntReference> shaderTotalLightAmmo;
+    public List<ShaderIntReference> shaderTotalMediumAmmo;
+    public List<ShaderIntReference> shaderTotalHeavyAmmo;
     public List<ShaderFloatReference> shaderHealth;
     public List<ShaderFloatReference> shaderMaxHealth;
     public List<ShaderFloatReference> shaderHealthPercentage;
@@ -37,6 +42,11 @@ public class ShaderController(IntPtr ptr) : MonoBehaviour(ptr)
         MetaInfo.ShaderRightAmmo = this.shaderRightAmmo.Count;
         MetaInfo.ShaderLeftReserve = this.shaderLeftReserve.Count;
         MetaInfo.ShaderRightReserve = this.shaderRightReserve.Count;
+        MetaInfo.ShaderTotalLeftAmmo = this.shaderTotalLeftAmmo.Count;
+        MetaInfo.ShaderTotalRightAmmo = this.shaderTotalRightAmmo.Count;
+        MetaInfo.ShaderTotalLightAmmo = this.shaderTotalLightAmmo.Count;
+        MetaInfo.ShaderTotalMediumAmmo = this.shaderTotalMediumAmmo.Count;
+        MetaInfo.ShaderTotalHeavyAmmo = this.shaderTotalHeavyAmmo.Count;
         MetaInfo.ShaderHealth = this.shaderHealth.Count;
         MetaInfo.ShaderMaxHealth = this.shaderMaxHealth.Count;
         MetaInfo.ShaderHealthPercentage = this.shaderHealthPercentage.Count;
@@ -45,6 +55,11 @@ public class ShaderController(IntPtr ptr) : MonoBehaviour(ptr)
         this.ProcessShaderProperties(this.shaderRightAmmo);
         this.ProcessShaderProperties(this.shaderLeftReserve);
         this.ProcessShaderProperties(this.shaderRightReserve);
+        this.ProcessShaderProperties(this.shaderTotalLeftAmmo);
+        this.ProcessShaderProperties(this.shaderTotalRightAmmo);
+        this.ProcessShaderProperties(this.shaderTotalLightAmmo);
+        this.ProcessShaderProperties(this.shaderTotalMediumAmmo);
+        this.ProcessShaderProperties(this.shaderTotalHeavyAmmo);
         this.ProcessShaderProperties(this.shaderHealth);
         this.ProcessShaderProperties(this.shaderMaxHealth);
         this.ProcessShaderProperties(this.shaderHealthPercentage);
