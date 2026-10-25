@@ -25,7 +25,6 @@ using SpectatorHUD;
 using SpectatorHUD.Animation;
 using SpectatorHUD.Expressions;
 using SpectatorHUD.HarmonyPatches;
-using SpectatorHUD.Observers;
 using SpectatorHUD.Shading;
 using BuildInfo = SpectatorHUD.BuildInfo;
 
@@ -71,8 +70,6 @@ public sealed class Mod : MelonMod
         this.InjectType<ShaderFloatReference>();
         this.InjectType<ShaderIntReference>();
         this.InjectType<ShaderController>();
-        // Watchers
-        this.InjectType<PlayerHealthObserver>();
         // Hud
         this.InjectType<DebugGUI>();
         this.InjectType<HudVersion>();

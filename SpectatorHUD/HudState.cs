@@ -16,12 +16,8 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
-
-using Il2CppInterop.Runtime;
 using Il2CppSLZ.Marrow;
-using Il2CppSLZ.Marrow.Data;
 using SpectatorHUD.Extensions;
-using SpectatorHUD.Observers;
 using SpectatorHUD.Util;
 
 namespace SpectatorHUD;
@@ -55,8 +51,6 @@ public static class HudState
     public static void OpenState(RigManager rigManager)
     {
         RigManager = rigManager;
-
-        RigManager.gameObject.AddComponent<PlayerHealthObserver>();
 
         ForceUpdateCounts();
 
