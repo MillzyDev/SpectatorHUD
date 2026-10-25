@@ -55,6 +55,17 @@ public static class MetaInfo
     public static int AnimationRightReserve { get; set; }
     public static int AnimationLeftReserveChanged { get; set; }
     public static int AnimationRightReserveChanged { get; set; }
+    
+    public static int AnimationTotalLeftAmmo { get; set; }
+    public static int AnimationTotalRightAmmo { get; set; }
+    public static int AnimationTotalLightAmmo { get; set; }
+    public static int AnimationTotalMediumAmmo { get; set; }
+    public static int AnimationTotalHeavyAmmo { get; set; }
+    public static int AnimationTotalLeftAmmoChanged { get; set; }
+    public static int AnimationTotalRightAmmoChanged { get; set; }
+    public static int AnimationTotalLightAmmoChanged { get; set; }
+    public static int AnimationTotalMediumAmmoChanged { get; set; }
+    public static int AnimationTotalHeavyAmmoChanged { get; set; }
 
     public static int AnimationHealth { get; set; }
     public static int AnimationMaxHealth { get; set; }

@@ -39,6 +39,17 @@ public class AnimationController(IntPtr ptr) : MonoBehaviour(ptr)
     public List<AnimationTriggerReference> animationLeftReserveChanged;
     public List<AnimationTriggerReference> animationRightReserveChanged;
 
+    public List<AnimationIntReference> animationTotalLeftAmmo;
+    public List<AnimationIntReference> animationTotalRightAmmo;
+    public List<AnimationIntReference> animationTotalLightAmmo;
+    public List<AnimationIntReference> animationTotalMediumAmmo;
+    public List<AnimationIntReference> animationTotalHeavyAmmo;
+    public List<AnimationTriggerReference> animationTotalLeftAmmoChanged;
+    public List<AnimationTriggerReference> animationTotalRightAmmoChanged;
+    public List<AnimationTriggerReference> animationTotalLightAmmoChanged;
+    public List<AnimationTriggerReference> animationTotalMediumAmmoChanged;
+    public List<AnimationTriggerReference> animationTotalHeavyAmmoChanged;
+
     public List<AnimationFloatReference> animationHealth;
     public List<AnimationFloatReference> animationMaxHealth;
     public List<AnimationFloatReference> animationHealthPercentage;
@@ -62,6 +73,17 @@ public class AnimationController(IntPtr ptr) : MonoBehaviour(ptr)
         MetaInfo.AnimationLeftReserveChanged = this.animationLeftReserveChanged.Count;
         MetaInfo.AnimationRightReserveChanged = this.animationRightReserveChanged.Count;
 
+        MetaInfo.AnimationTotalLeftAmmo = this.animationTotalLeftAmmo.Count;
+        MetaInfo.AnimationTotalRightAmmo = this.animationTotalRightAmmo.Count;
+        MetaInfo.AnimationTotalLightAmmo = this.animationTotalLightAmmo.Count;
+        MetaInfo.AnimationTotalMediumAmmo = this.animationTotalMediumAmmo.Count;
+        MetaInfo.AnimationTotalHeavyAmmo = this.animationTotalHeavyAmmo.Count;
+        MetaInfo.AnimationTotalLeftAmmoChanged = this.animationTotalLeftAmmoChanged.Count;
+        MetaInfo.AnimationTotalRightAmmoChanged = this.animationTotalRightAmmoChanged.Count;
+        MetaInfo.AnimationTotalLightAmmoChanged = this.animationTotalLightAmmoChanged.Count;
+        MetaInfo.AnimationTotalMediumAmmoChanged = this.animationTotalMediumAmmoChanged.Count;
+        MetaInfo.AnimationTotalHeavyAmmoChanged = this.animationTotalHeavyAmmoChanged.Count;
+
         MetaInfo.AnimationHealth = this.animationHealth.Count;
         MetaInfo.AnimationMaxHealth = this.animationMaxHealth.Count;
         MetaInfo.AnimationHealthPercentage = this.animationHealthPercentage.Count;
@@ -80,6 +102,16 @@ public class AnimationController(IntPtr ptr) : MonoBehaviour(ptr)
         this.ResolveAnimationParameterIds(this.animationRightReserve);
         this.ResolveAnimationParameterIds(this.animationLeftReserveChanged);
         this.ResolveAnimationParameterIds(this.animationRightReserveChanged);
+        this.ResolveAnimationParameterIds(this.animationTotalLeftAmmo);
+        this.ResolveAnimationParameterIds(this.animationTotalRightAmmo);
+        this.ResolveAnimationParameterIds(this.animationTotalLightAmmo);
+        this.ResolveAnimationParameterIds(this.animationTotalMediumAmmo);
+        this.ResolveAnimationParameterIds(this.animationTotalHeavyAmmo);
+        this.ResolveAnimationParameterIds(this.animationTotalLeftAmmoChanged);
+        this.ResolveAnimationParameterIds(this.animationTotalRightAmmoChanged);
+        this.ResolveAnimationParameterIds(this.animationTotalLightAmmoChanged);
+        this.ResolveAnimationParameterIds(this.animationTotalMediumAmmoChanged);
+        this.ResolveAnimationParameterIds(this.animationTotalHeavyAmmoChanged);
         this.ResolveAnimationParameterIds(this.animationHealth);
         this.ResolveAnimationParameterIds(this.animationMaxHealth);
         this.ResolveAnimationParameterIds(this.animationHealthPercentage);

@@ -59,8 +59,13 @@ public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
     {
         MetaInfo.HasLeftReserveCounter = this.leftHandReserveCounter != null;
         MetaInfo.HasLeftAmmoCounter = this.leftHandAmmoCounter != null;
+        MetaInfo.HasTotalLeftAmmoCounter = this.leftHandTotalAmmoCounter != null;
         MetaInfo.HasRightReserveCounter = this.rightHandReserveCounter != null;
         MetaInfo.HasRightAmmoCounter = this.rightHandAmmoCounter != null;
+        MetaInfo.HasTotalRightAmmoCounter = this.rightHandTotalAmmoCounter != null;
+        MetaInfo.HasTotalLightAmmoCounter = this.totalLightAmmoCounter != null;
+        MetaInfo.HasTotalMediumAmmoCounter = this.totalMediumAmmoCounter != null;
+        MetaInfo.HasTotalHeavyAmmoCounter = this.totalHeavyAmmoCounter != null;
         MetaInfo.HasHealthCounter = this.healthCounter != null;
         MetaInfo.HasMaxHealthCounter = this.maxHealthCounter != null;
         MetaInfo.HasHealthPercentageCounter = this.percentageHealthCounter != null;
