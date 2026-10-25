@@ -27,8 +27,13 @@ public static class MetaInfo
 
     public static bool HasLeftReserveCounter;
     public static bool HasLeftAmmoCounter;
+    public static bool HasTotalLeftAmmoCounter;
     public static bool HasRightReserveCounter;
     public static bool HasRightAmmoCounter;
+    public static bool HasTotalRightAmmoCounter;
+    public static bool HasTotalLightAmmoCounter;
+    public static bool HasTotalMediumAmmoCounter;
+    public static bool HasTotalHeavyAmmoCounter;
     public static bool HasHealthCounter;
     public static bool HasMaxHealthCounter;
     public static bool HasHealthPercentageCounter;
@@ -61,6 +66,11 @@ public static class MetaInfo
     public static int ShaderRightAmmo;
     public static int ShaderLeftReserve;
     public static int ShaderRightReserve;
+    public static int ShaderTotalLeftAmmo;
+    public static int ShaderTotalRightAmmo;
+    public static int ShaderTotalLightAmmo;
+    public static int ShaderTotalMediumAmmo;
+    public static int ShaderTotalHeavyAmmo;
     public static int ShaderHealth;
     public static int ShaderMaxHealth;
     public static int ShaderHealthPercentage;
