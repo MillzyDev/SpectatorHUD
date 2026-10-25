@@ -124,6 +124,7 @@ public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
         HudState.OnRightReserveChanged -= this.UpdateRightReserveCounter;
         HudState.OnHealthChanged -= this.UpdateHealthCounter;
         HudState.OnHealthPercentageChanged -= this.UpdateHealthPercentageCounter;
+        HudState.OnMaxHealthChanged -= this.UpdateMaxHealthCounter;
     }
 
     private void UpdateLeftAmmoCounter(int? ammo)
