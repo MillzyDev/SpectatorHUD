@@ -20,58 +20,58 @@ namespace SpectatorHUD;
 
 public static class MetaInfo
 {
-    public static int? HUDCompatibility;
-    public static string? HUDName;
-    public static string? HUDAuthor;
-    public static int? HUDVersion;
+    public static int? HUDCompatibility { get; set; }
+    public static string? HUDName { get; set; }
+    public static string? HUDAuthor { get; set; }
+    public static int? HUDVersion { get; set; }
 
-    public static bool HasLeftReserveCounter;
-    public static bool HasLeftAmmoCounter;
-    public static bool HasTotalLeftAmmoCounter;
-    public static bool HasRightReserveCounter;
-    public static bool HasRightAmmoCounter;
-    public static bool HasTotalRightAmmoCounter;
-    public static bool HasTotalLightAmmoCounter;
-    public static bool HasTotalMediumAmmoCounter;
-    public static bool HasTotalHeavyAmmoCounter;
-    public static bool HasHealthCounter;
-    public static bool HasMaxHealthCounter;
-    public static bool HasHealthPercentageCounter;
+    public static bool HasLeftReserveCounter { get; set; }
+    public static bool HasLeftAmmoCounter { get; set; }
+    public static bool HasTotalLeftAmmoCounter { get; set; }
+    public static bool HasRightReserveCounter { get; set; }
+    public static bool HasRightAmmoCounter { get; set; }
+    public static bool HasTotalRightAmmoCounter { get; set; }
+    public static bool HasTotalLightAmmoCounter { get; set; }
+    public static bool HasTotalMediumAmmoCounter { get; set; }
+    public static bool HasTotalHeavyAmmoCounter { get; set; }
+    public static bool HasHealthCounter { get; set; }
+    public static bool HasMaxHealthCounter { get; set; }
+    public static bool HasHealthPercentageCounter { get; set; }
 
-    public static int ActiveWithGunInLeftHand;
-    public static int ActiveWithGunInRightHand;
+    public static int ActiveWithGunInLeftHand { get; set; }
+    public static int ActiveWithGunInRightHand { get; set; }
 
-    public static int AnimationLeftGunHeld;
-    public static int AnimationRightGunHeld;
-    public static int AnimationLeftGunHeldChanged;
-    public static int AnimationRightGunHeldChanged;
+    public static int AnimationLeftGunHeld { get; set; }
+    public static int AnimationRightGunHeld { get; set; }
+    public static int AnimationLeftGunHeldChanged { get; set; }
+    public static int AnimationRightGunHeldChanged { get; set; }
 
-    public static int AnimationLeftAmmo;
-    public static int AnimationRightAmmo;
-    public static int AnimationLeftAmmoChanged;
-    public static int AnimationRightAmmoChanged;
+    public static int AnimationLeftAmmo { get; set; }
+    public static int AnimationRightAmmo { get; set; }
+    public static int AnimationLeftAmmoChanged { get; set; }
+    public static int AnimationRightAmmoChanged { get; set; }
 
-    public static int AnimationLeftReserve;
-    public static int AnimationRightReserve;
-    public static int AnimationLeftReserveChanged;
-    public static int AnimationRightReserveChanged;
+    public static int AnimationLeftReserve { get; set; }
+    public static int AnimationRightReserve { get; set; }
+    public static int AnimationLeftReserveChanged { get; set; }
+    public static int AnimationRightReserveChanged { get; set; }
 
-    public static int AnimationHealth;
-    public static int AnimationMaxHealth;
-    public static int AnimationHealthPercentage;
-    public static int AnimationHealthChanged;
-    public static int AnimationMaxHealthChanged;
+    public static int AnimationHealth { get; set; }
+    public static int AnimationMaxHealth { get; set; }
+    public static int AnimationHealthPercentage { get; set; }
+    public static int AnimationHealthChanged { get; set; }
+    public static int AnimationMaxHealthChanged{ get; set; }
 
-    public static int ShaderLeftAmmo;
-    public static int ShaderRightAmmo;
-    public static int ShaderLeftReserve;
-    public static int ShaderRightReserve;
-    public static int ShaderTotalLeftAmmo;
-    public static int ShaderTotalRightAmmo;
-    public static int ShaderTotalLightAmmo;
-    public static int ShaderTotalMediumAmmo;
-    public static int ShaderTotalHeavyAmmo;
-    public static int ShaderHealth;
-    public static int ShaderMaxHealth;
-    public static int ShaderHealthPercentage;
+    public static int ShaderLeftAmmo { get; set; }
+    public static int ShaderRightAmmo { get; set; }
+    public static int ShaderLeftReserve { get; set; }
+    public static int ShaderRightReserve { get; set; }
+    public static int ShaderTotalLeftAmmo { get; set; }
+    public static int ShaderTotalRightAmmo { get; set; }
+    public static int ShaderTotalLightAmmo { get; set; }
+    public static int ShaderTotalMediumAmmo { get; set; }
+    public static int ShaderTotalHeavyAmmo { get; set; }
+    public static int ShaderHealth { get; set; }
+    public static int ShaderMaxHealth { get; set; }
+    public static int ShaderHealthPercentage { get; set; }
 }
