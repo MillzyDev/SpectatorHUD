@@ -91,9 +91,8 @@ public class HudController : MonoBehaviour
         if (this.percentageHealthCounter) HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageCounter;
 
         if (this.maxHealthCounter) HudState.OnMaxHealthChanged += this.UpdateMaxHealthCounter;
-
-        // Animation events
-        HudState.ForceUpdateCounts();
+        
+        HudState.ForceNotifierRepoll();
     }
 
     private void OnDisable()

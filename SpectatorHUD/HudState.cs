@@ -27,7 +27,7 @@ public static class HudState
     public static CartridgeContainer? LeftDefaultCartridge { get; set; }
     public static CartridgeContainer? RightDefaultCartridge { get; set; }
 
-    public static RigManager? RigManager { get; private set; }
+    public static RigManager? RigManager { get; set; }
     public static event Action<Gun?>? OnLeftGunChanged;
     public static event Action<Gun?>? OnRightGunChanged;
     public static event Action<int?>? OnLeftAmmoChanged;
@@ -43,29 +43,22 @@ public static class HudState
     public static event Action<float?>? OnHealthPercentageChanged;
     public static event Action<float?>? OnMaxHealthChanged;
 
-    /// <summary>
-    ///     Configures members for player load and invokes all callbacks to trigger initial values.
-    ///     Should be called after the HUD has been loaded.
-    /// </summary>
-    /// <param name="rigManager">Target player's RigManager</param>
-    public static void OpenState(RigManager rigManager)
+    public static void ForceNotifierRepoll()
     {
-        RigManager = rigManager;
-
-        ForceUpdateCounts();
-
-        OnLeftGunChanged?.Invoke(null);
-        OnRightGunChanged?.Invoke(null);
-    }
-
-    public static void ForceUpdateCounts()
-    {
-        UpdateLeftAmmoCount();
-        UpdateRightAmmoCount();
-        UpdateLeftReserveCount();
-        UpdateRightReserveCount();
-        UpdateHealth();
-        UpdateMaxHealth();
+        OnLeftGunChanged?.Invoke(LeftGun);
+        OnRightGunChanged?.Invoke(RightGun);
+        OnLeftAmmoChanged?.Invoke(LeftAmmo);
+        OnRightAmmoChanged?.Invoke(RightAmmo);
+        OnLeftReserveChanged?.Invoke(LeftReserve);
+        OnRightReserveChanged?.Invoke(RightReserve);
+        OnLeftTotalAmmoChanged?.Invoke(LeftTotalAmmo);
+        OnRightTotalAmmoChanged?.Invoke(RightTotalAmmo);
+        OnTotalLightAmmoChanged?.Invoke(TotalLightAmmo);
+        OnTotalMediumAmmoChanged?.Invoke(TotalMediumAmmo);
+        OnTotalHeavyAmmoChanged?.Invoke(TotalHeavyAmmo);
+        OnHealthChanged?.Invoke(Health);
+        OnHealthPercentageChanged?.Invoke(HealthPercentage);
+        OnMaxHealthChanged?.Invoke(MaxHealth);
     }
 
     public static void OnGachaMagazineInserted()
