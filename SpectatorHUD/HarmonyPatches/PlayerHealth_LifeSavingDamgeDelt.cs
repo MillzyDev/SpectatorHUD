@@ -5,7 +5,7 @@ namespace SpectatorHUD.HarmonyPatches;
 
 [HarmonyPatch(typeof(Player_Health))]
 [HarmonyPatch(nameof(Player_Health.LifeSavingDamgeDealt))]
-public class PlayerHealth_LifeSavingDamgeDelt
+public static class PlayerHealth_LifeSavingDamgeDelt
 {
     [HarmonyPostfix]
     private static void Postfix(Player_Health __instance)

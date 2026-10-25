@@ -23,7 +23,7 @@ namespace SpectatorHUD.HarmonyPatches;
 
 [HarmonyPatch(typeof(Control_MonoMatNew))]
 [HarmonyPatch(nameof(Control_MonoMatNew.InsertMagazine))]
-public class MonoMatNew_InsertMagazine
+public static class MonoMatNew_InsertMagazine
 {
     [HarmonyPostfix]
     private static void Postfix()

@@ -6,7 +6,7 @@ namespace SpectatorHUD.HarmonyPatches;
 
 [HarmonyPatch(typeof(Gun))]
 [HarmonyPatch(nameof(Gun.OnMagazineRemoved))]
-public class Gun_OnMagazineRemoved
+public static class Gun_OnMagazineRemoved
 {
     [HarmonyPostfix]
     private static void Postfix(Gun __instance)

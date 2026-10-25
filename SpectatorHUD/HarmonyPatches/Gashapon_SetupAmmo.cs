@@ -23,7 +23,7 @@ namespace SpectatorHUD.HarmonyPatches;
 
 [HarmonyPatch(typeof(Control_Gashapon))]
 [HarmonyPatch(nameof(Control_Gashapon.SetupAmmo))]
-public class Gashapon_SetupAmmo
+public static class Gashapon_SetupAmmo
 {
     [HarmonyPostfix]
     private static void Postfix()

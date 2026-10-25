@@ -5,7 +5,7 @@ namespace SpectatorHUD.HarmonyPatches;
 
 [HarmonyPatch(typeof(Health))]
 [HarmonyPatch(nameof(Health.SetAvatar))]
-public class Health_SetAvatar
+public static class Health_SetAvatar
 {
     [HarmonyPostfix]
     private static void Postfix(Health __instance)

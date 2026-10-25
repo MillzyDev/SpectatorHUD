@@ -24,7 +24,7 @@ namespace SpectatorHUD.HarmonyPatches;
 
 [HarmonyPatch(typeof(Gun))]
 [HarmonyPatch(nameof(Gun.CompleteSlidePull))]
-public class Gun_CompleteSlidePull
+public static class Gun_CompleteSlidePull
 {
     [HarmonyPostfix]
     private static void Postfix(Gun __instance)

@@ -5,7 +5,7 @@ namespace SpectatorHUD.HarmonyPatches;
 
 [HarmonyPatch(typeof(HealthSetterMachine))]
 [HarmonyPatch(nameof(HealthSetterMachine.SET_HEALTH))]
-public class HealthSetterMachine_SET_HEALTH
+public static class HealthSetterMachine_SET_HEALTH
 {
     [HarmonyPostfix]
     private static void Postfix(HealthSetterMachine __instance)

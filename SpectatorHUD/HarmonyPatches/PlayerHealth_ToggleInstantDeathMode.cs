@@ -5,7 +5,7 @@ namespace SpectatorHUD.HarmonyPatches;
 
 [HarmonyPatch(typeof(Player_Health))]
 [HarmonyPatch(nameof(Player_Health.ToggleInstantDeathMode))]
-public class PlayerHealth_ToggleInstantDeathMode
+public static class PlayerHealth_ToggleInstantDeathMode
 {
     [HarmonyPostfix]
     private static void Postfix(Player_Health __instance)
