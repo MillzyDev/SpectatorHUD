@@ -22,7 +22,7 @@ using UnityEngine;
 
 namespace SpectatorHUD;
 
-public class AnimationController : MonoBehaviour
+public class AnimationController(IntPtr ptr) : MonoBehaviour(ptr)
 {
     public List<AnimationBoolReference> animationLeftGunHeld;
     public List<AnimationBoolReference> animationRightGunHeld;
@@ -44,10 +44,6 @@ public class AnimationController : MonoBehaviour
     public List<AnimationFloatReference> animationHealthPercentage;
     public List<AnimationTriggerReference> animationHealthChanged;
     public List<AnimationTriggerReference> animationMaxHealthChanged;
-
-    public AnimationController(IntPtr ptr) : base(ptr)
-    {
-    }
 
     private void Start()
     {

@@ -22,18 +22,14 @@ using UnityEngine;
 
 namespace SpectatorHUD;
 
-public class HudBootstrap : MonoBehaviour
+public class HudBootstrap(IntPtr ptr) : MonoBehaviour(ptr)
 {
     // TODO: Replace with the really awesome Half-Life 2 HUD I made.
-    public static readonly string DefaultHud = "SpectatorHUD.Resources.TestHUD.hud";
+    public const string DefaultHud = "SpectatorHUD.Resources.TestHUD.hud";
     public GameObject? hud;
 
     private RigManager? _rigManager;
     public DateTime lastLoad;
-
-    public HudBootstrap(IntPtr ptr) : base(ptr)
-    {
-    }
 
     public void Start()
     {

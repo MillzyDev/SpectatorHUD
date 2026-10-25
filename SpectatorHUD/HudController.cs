@@ -25,7 +25,7 @@ using UnityEngine;
 
 namespace SpectatorHUD;
 
-public class HudController : MonoBehaviour
+public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
 {
     public TMP_Text leftHandReserveCounter;
     public TMP_Text leftHandAmmoCounter;
@@ -48,10 +48,6 @@ public class HudController : MonoBehaviour
     public List<GameObject> activeWithGunHeldInRightHand;
 
     private LinearExpression<float> _healthModifierExpression;
-
-    public HudController(IntPtr ptr) : base(ptr)
-    {
-    }
 
     private void Awake()
     {

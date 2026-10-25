@@ -20,7 +20,7 @@ using UnityEngine;
 
 namespace SpectatorHUD;
 
-public class HudV1 : ScriptableObject
+public class HudV1(IntPtr ptr) : ScriptableObject(ptr)
 {
     public string hudName;
     public int hudVersion;

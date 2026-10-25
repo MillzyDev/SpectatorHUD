@@ -20,12 +20,8 @@ using UnityEngine;
 
 namespace SpectatorHUD;
 
-public class LoadingSceneActivator : MonoBehaviour
+public class LoadingSceneActivator(IntPtr ptr) : MonoBehaviour(ptr)
 {
-    public LoadingSceneActivator(IntPtr ptr) : base(ptr)
-    {
-    }
-
     private void OnDestroy()
     {
         // Set the HUD as active.

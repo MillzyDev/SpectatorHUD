@@ -21,7 +21,7 @@ using UnityEngine;
 
 namespace SpectatorHUD;
 
-public class ShaderController : MonoBehaviour
+public class ShaderController(IntPtr ptr) : MonoBehaviour(ptr)
 {
     public List<ShaderIntReference> shaderLeftAmmo;
     public List<ShaderIntReference> shaderRightAmmo;
@@ -30,10 +30,6 @@ public class ShaderController : MonoBehaviour
     public List<ShaderFloatReference> shaderHealth;
     public List<ShaderFloatReference> shaderMaxHealth;
     public List<ShaderFloatReference> shaderHealthPercentage;
-
-    public ShaderController(IntPtr ptr) : base(ptr)
-    {
-    }
 
     private void Start()
     {
