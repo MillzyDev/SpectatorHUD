@@ -36,7 +36,7 @@ public class RandomAnimationParameter(IntPtr ptr) : MonoBehaviour(ptr)
     public float interval;
     
     private float[] _buffer;
-    private object _coroutine;
+    private object? _coroutine;
 
     private void Start()
     {
@@ -60,6 +60,11 @@ public class RandomAnimationParameter(IntPtr ptr) : MonoBehaviour(ptr)
 
     private void OnDestroy()
     {
+        if (this._coroutine == null)
+        {
+            return;
+        }
+        
         MelonCoroutines.Stop(this._coroutine);
     }
 
