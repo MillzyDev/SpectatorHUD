@@ -16,6 +16,7 @@
  *      along with this program.  If not, see https://www.gnu.org/licenses/.
  */
 
+using SpectatorHUD.Util;
 using UnityEngine;
 
 namespace SpectatorHUD;
@@ -23,6 +24,7 @@ namespace SpectatorHUD;
 public class DebugGUI : MonoBehaviour
 {
     private HudBootstrap _bootstrap;
+    private GUILayoutManager _layout;
     private bool _showGui;
 
     public DebugGUI(IntPtr ptr) : base(ptr)
@@ -32,6 +34,16 @@ public class DebugGUI : MonoBehaviour
     private void Start()
     {
         this._bootstrap = this.GetComponent<HudBootstrap>();
+        this._layout = new GUILayoutManager(
+            startX:         25f, 
+            startY:         25f, 
+            elementWidth:   220f, 
+            elementHeight:  22f,
+            elementSpacing:-4f,
+            indentSize:     10f, 
+            spaceSize:      15f,
+            cacheSize:      60
+        );
     }
 
     private void Update()
@@ -48,86 +60,97 @@ public class DebugGUI : MonoBehaviour
         {
             return;
         }
+        
+        this._layout.Start();
+        
+        this._layout.Column(0);
+        GUI.Label(this._layout.GetNext(), "SpectatorHUD v" + BuildInfo.Version);
+        
+        this._layout.Space();
+        GUI.Label(this._layout.GetNext(), "Tracked Values:");
+        this._layout.Indent();
+        GUI.Label(this._layout.GetNext(), "Left Gun Held: " + (HudState.LeftGun != null));
+        GUI.Label(this._layout.GetNext(), "Right Gun Held: " + (HudState.RightGun != null));
+        GUI.Label(this._layout.GetNext(), "Left Ammo: " + HudState.LeftAmmo);
+        GUI.Label(this._layout.GetNext(), "Right Ammo: " + HudState.RightAmmo);
+        GUI.Label(this._layout.GetNext(), "Left Reserve: " + HudState.LeftReserve);
+        GUI.Label(this._layout.GetNext(), "Right Reserve: " + HudState.RightReserve);
+        GUI.Label(this._layout.GetNext(), "Health: " + HudState.Health);
+        GUI.Label(this._layout.GetNext(), "Max Health: " + HudState.MaxHealth);
+        GUI.Label(this._layout.GetNext(), "Health Percentage: " + HudState.HealthPercentage);
+        
+        this._layout.Outdent();
+        this._layout.Space();
+        GUI.Label(this._layout.GetNext(), "HUD Metadata:");
+        this._layout.Indent();
+        GUI.Label(this._layout.GetNext(), "SpectatorHUD Version: " + MetaInfo.HUDCompatibility);
+        GUI.Label(this._layout.GetNext(), "Name: " + MetaInfo.HUDName);
+        GUI.Label(this._layout.GetNext(), "Author: " + MetaInfo.HUDAuthor);
+        GUI.Label(this._layout.GetNext(), "Version: " + MetaInfo.HUDVersion);
 
-        GUI.Label(new Rect(25, 25, 300, 30), "SpectatorHUD v" + BuildInfo.Version);
-
-
-        GUI.Label(new Rect(25, 50, 300, 30), "Tracked Values:");
-
-        GUI.Label(new Rect(35, 65, 300, 30), "Left Gun Held: " + (HudState.LeftGun != null));
-        GUI.Label(new Rect(35, 80, 300, 30), "Right Gun Held: " + (HudState.RightGun != null));
-        GUI.Label(new Rect(35, 95, 300, 30), "Left Ammo: " + HudState.LeftAmmo);
-        GUI.Label(new Rect(35, 110, 300, 30), "Right Ammo: " + HudState.RightAmmo);
-        GUI.Label(new Rect(35, 125, 300, 30), "Left Reserve: " + HudState.LeftReserve);
-        GUI.Label(new Rect(35, 140, 300, 30), "Right Reserve: " + HudState.RightReserve);
-        GUI.Label(new Rect(35, 155, 300, 30), "Health: " + HudState.Health);
-        GUI.Label(new Rect(35, 170, 300, 30), "Max Health: " + HudState.MaxHealth);
-        GUI.Label(new Rect(35, 185, 300, 30), "Health Percentage: " + HudState.HealthPercentage);
-
-
-        GUI.Label(new Rect(225, 50, 300, 30), "HUD Metadata:");
-
-        GUI.Label(new Rect(235, 65, 300, 30), "SpectatorHUD Version: " + MetaInfo.HUDCompatibility);
-        GUI.Label(new Rect(235, 80, 300, 30), "Name: " + MetaInfo.HUDName);
-        GUI.Label(new Rect(235, 95, 300, 30), "Author: " + MetaInfo.HUDAuthor);
-        GUI.Label(new Rect(235, 110, 300, 30), "Version: " + MetaInfo.HUDVersion);
-
-
-        GUI.Label(new Rect(425, 50, 300, 30), "HudManager Inspection:");
-
-        GUI.Label(new Rect(435, 65, 300, 30), "Counters:");
-        GUI.Label(new Rect(445, 80, 300, 30), "leftReserveCounter: " + MetaInfo.HasLeftReserveCounter);
-        GUI.Label(new Rect(445, 95, 300, 30), "leftAmmoCounter: " + MetaInfo.HasLeftAmmoCounter);
-        GUI.Label(new Rect(445, 110, 300, 30), "rightReserveCounter: " + MetaInfo.HasRightReserveCounter);
-        GUI.Label(new Rect(445, 125, 300, 30), "rightAmmoCounter: " + MetaInfo.HasRightAmmoCounter);
-        GUI.Label(new Rect(445, 140, 300, 30), "healthCounter: " + MetaInfo.HasHealthCounter);
-        GUI.Label(new Rect(445, 155, 300, 30), "maxHealthCounter: " + MetaInfo.HasMaxHealthCounter);
-        GUI.Label(new Rect(445, 170, 300, 30), "healthPercentageCounter: " + MetaInfo.HasHealthPercentageCounter);
-
-
-        GUI.Label(new Rect(435, 190, 300, 30), "Toggleable Elements:");
-        GUI.Label(new Rect(445, 205, 300, 30), "activeWithGunInLeftHand: " + MetaInfo.ActiveWithGunInLeftHand);
-        GUI.Label(new Rect(445, 220, 300, 30), "activeWithGunInRightHand: " + MetaInfo.ActiveWithGunInRightHand);
-
-        GUI.Label(new Rect(685, 65, 300, 30), "Animation Events:");
-        GUI.Label(new Rect(695, 80, 300, 30), "animationLeftGunHeld: " + MetaInfo.AnimationLeftGunHeld);
-        GUI.Label(new Rect(695, 95, 300, 30), "animationRightGunHeld: " + MetaInfo.AnimationRightGunHeld);
-        GUI.Label(new Rect(695, 110, 300, 30), "animationLeftGunHeldChanged: " + MetaInfo.AnimationLeftGunHeldChanged);
-        GUI.Label(new Rect(695, 125, 300, 30),
-            "animationRightGunHeldChanged: " + MetaInfo.AnimationRightGunHeldChanged);
-
-        GUI.Label(new Rect(695, 145, 300, 30), "animationLeftAmmo: " + MetaInfo.AnimationLeftAmmo);
-        GUI.Label(new Rect(695, 160, 300, 30), "animationRightAmmo: " + MetaInfo.AnimationRightAmmo);
-        GUI.Label(new Rect(695, 175, 300, 30), "animationLeftAmmoChanged: " + MetaInfo.AnimationLeftAmmoChanged);
-        GUI.Label(new Rect(695, 190, 300, 30), "animationRightAmmoChanged: " + MetaInfo.AnimationRightAmmoChanged);
-
-        GUI.Label(new Rect(695, 210, 300, 30), "animationLeftReserve: " + MetaInfo.AnimationLeftReserve);
-        GUI.Label(new Rect(695, 225, 300, 30), "animationRightReserve: " + MetaInfo.AnimationRightReserve);
-        GUI.Label(new Rect(695, 240, 300, 30), "animationLeftReserveChanged: " + MetaInfo.AnimationLeftReserveChanged);
-        GUI.Label(new Rect(695, 255, 300, 30),
-            "animationRightReserveChanged: " + MetaInfo.AnimationRightReserveChanged);
-
-        GUI.Label(new Rect(695, 275, 300, 30), "animationHealth: " + MetaInfo.AnimationHealth);
-        GUI.Label(new Rect(695, 290, 300, 30), "animationMaxHealth: " + MetaInfo.AnimationMaxHealth);
-        GUI.Label(new Rect(695, 305, 300, 30), "animationHealthPercentage: " + MetaInfo.AnimationHealthPercentage);
-        GUI.Label(new Rect(695, 320, 300, 30), "animationHealthChanged: " + MetaInfo.AnimationHealthChanged);
-        GUI.Label(new Rect(695, 335, 300, 30), "animationMaxHealthChanged: " + MetaInfo.AnimationMaxHealthChanged);
-
-        GUI.Label(new Rect(935, 65, 300, 30), "Shader Events:");
-        GUI.Label(new Rect(945, 80, 300, 30), "shaderLeftAmmo: " + MetaInfo.ShaderLeftAmmo);
-        GUI.Label(new Rect(945, 95, 300, 30), "shaderRightAmmo: " + MetaInfo.ShaderRightAmmo);
-        GUI.Label(new Rect(945, 110, 300, 30), "shaderLeftReserve: " + MetaInfo.ShaderLeftReserve);
-        GUI.Label(new Rect(945, 125, 300, 30), "shaderRightReserve: " + MetaInfo.ShaderRightReserve);
-        GUI.Label(new Rect(945, 140, 300, 30), "shaderHealth: " + MetaInfo.ShaderHealth);
-        GUI.Label(new Rect(945, 155, 300, 30), "shaderMaxHealth: " + MetaInfo.ShaderMaxHealth);
-        GUI.Label(new Rect(945, 170, 300, 30), "shaderHealthPercentage: " + MetaInfo.ShaderHealthPercentage);
-
-        if (GUI.Button(new Rect(25, 235, 200, 20), "Reload HUD"))
+        this._layout.Outdent();
+        this._layout.Space(3);
+        if (GUI.Button(this._layout.GetNext(), "Reload HUD"))
         {
             this._bootstrap.ReloadHudFromConfig();
         }
 
         TimeSpan since = DateTime.Now - this._bootstrap.lastLoad;
-        GUI.Label(new Rect(25, 265, 300, 30), $"Last reloaded {since.TotalSeconds:0.}s ago");
+        GUI.Label(this._layout.GetNext(), $"Last reloaded {since.TotalSeconds:0.}s ago");
+        
+        this._layout.Column(1);
+        GUI.Label(this._layout.GetNext(), "Counters:");
+        this._layout.Indent();
+        GUI.Label(this._layout.GetNext(), "leftReserveCounter: " + MetaInfo.HasLeftReserveCounter);
+        GUI.Label(this._layout.GetNext(), "leftAmmoCounter: " + MetaInfo.HasLeftAmmoCounter);
+        GUI.Label(this._layout.GetNext(), "rightReserveCounter: " + MetaInfo.HasRightReserveCounter);
+        GUI.Label(this._layout.GetNext(), "rightAmmoCounter: " + MetaInfo.HasRightAmmoCounter);
+        GUI.Label(this._layout.GetNext(), "healthCounter: " + MetaInfo.HasHealthCounter);
+        GUI.Label(this._layout.GetNext(), "maxHealthCounter: " + MetaInfo.HasMaxHealthCounter);
+        GUI.Label(this._layout.GetNext(), "healthPercentageCounter: " + MetaInfo.HasHealthPercentageCounter);
+        this._layout.Outdent();
+        this._layout.Space();
+        GUI.Label(this._layout.GetNext(), "Toggleable Elements:");
+        this._layout.Indent();
+        GUI.Label(this._layout.GetNext(), "activeWithGunInLeftHand: " + MetaInfo.ActiveWithGunInLeftHand);
+        GUI.Label(this._layout.GetNext(), "activeWithGunInRightHand: " + MetaInfo.ActiveWithGunInRightHand);
+
+        // Animation Events
+        this._layout.Column(2);
+        GUI.Label(this._layout.GetNext(), "Animation Events:");
+        this._layout.Indent();
+        GUI.Label(this._layout.GetNext(), "animationLeftGunHeld: " + MetaInfo.AnimationLeftGunHeld);
+        GUI.Label(this._layout.GetNext(), "animationRightGunHeld: " + MetaInfo.AnimationRightGunHeld);
+        GUI.Label(this._layout.GetNext(), "animationLeftGunHeldChanged: " + MetaInfo.AnimationLeftGunHeldChanged);
+        GUI.Label(this._layout.GetNext(), "animationRightGunHeldChanged: " + MetaInfo.AnimationRightGunHeldChanged);
+        this._layout.Space();
+        GUI.Label(this._layout.GetNext(), "animationLeftAmmo: " + MetaInfo.AnimationLeftAmmo);
+        GUI.Label(this._layout.GetNext(), "animationRightAmmo: " + MetaInfo.AnimationRightAmmo);
+        GUI.Label(this._layout.GetNext(), "animationLeftAmmoChanged: " + MetaInfo.AnimationLeftAmmoChanged);
+        GUI.Label(this._layout.GetNext(), "animationRightAmmoChanged: " + MetaInfo.AnimationRightAmmoChanged);
+        this._layout.Space();
+        GUI.Label(this._layout.GetNext(), "animationLeftReserve: " + MetaInfo.AnimationLeftReserve);
+        GUI.Label(this._layout.GetNext(), "animationRightReserve: " + MetaInfo.AnimationRightReserve);
+        GUI.Label(this._layout.GetNext(), "animationLeftReserveChanged: " + MetaInfo.AnimationLeftReserveChanged);
+        GUI.Label(this._layout.GetNext(), "animationRightReserveChanged: " + MetaInfo.AnimationRightReserveChanged);
+        this._layout.Space();
+        GUI.Label(this._layout.GetNext(), "animationHealth: " + MetaInfo.AnimationHealth);
+        GUI.Label(this._layout.GetNext(), "animationMaxHealth: " + MetaInfo.AnimationMaxHealth);
+        GUI.Label(this._layout.GetNext(), "animationHealthPercentage: " + MetaInfo.AnimationHealthPercentage);
+        GUI.Label(this._layout.GetNext(), "animationHealthChanged: " + MetaInfo.AnimationHealthChanged);
+        GUI.Label(this._layout.GetNext(), "animationMaxHealthChanged: " + MetaInfo.AnimationMaxHealthChanged);
+        
+        this._layout.Column(3);
+        GUI.Label(this._layout.GetNext(), "Shader Events:");
+        this._layout.Indent();
+        GUI.Label(this._layout.GetNext(), "shaderLeftAmmo: " + MetaInfo.ShaderLeftAmmo);
+        GUI.Label(this._layout.GetNext(), "shaderRightAmmo: " + MetaInfo.ShaderRightAmmo);
+        GUI.Label(this._layout.GetNext(), "shaderLeftReserve: " + MetaInfo.ShaderLeftReserve);
+        GUI.Label(this._layout.GetNext(), "shaderRightReserve: " + MetaInfo.ShaderRightReserve);
+        GUI.Label(this._layout.GetNext(), "shaderHealth: " + MetaInfo.ShaderHealth);
+        GUI.Label(this._layout.GetNext(), "shaderMaxHealth: " + MetaInfo.ShaderMaxHealth);
+        GUI.Label(this._layout.GetNext(), "shaderHealthPercentage: " + MetaInfo.ShaderHealthPercentage);
+        
+        this._layout.End();
     }
 }
