@@ -60,6 +60,7 @@ public sealed class Mod : MelonMod
         this.InjectType<AnimationFloatReference>();
         this.InjectType<AnimationIntReference>();
         this.InjectType<AnimationTriggerReference>();
+        this.InjectType<RandomAnimationParameter>();
         this.InjectType<TMPMaterialPropertyOverrideFloat>();
         this.InjectType<TMPMaterialPropertyOverrideColor>();
         this.InjectType<TMPMaterialPropertyOverrideInt>();
