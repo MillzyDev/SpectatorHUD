@@ -213,7 +213,8 @@ public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
 
     private void UpdateHealthPercentageCounter(float? percentage)
     {
-        this.percentageHealthCounter.text = $"{percentage * 100:0.}";
+        float clamped = Math.Max(percentage ?? 0, 0f);
+        this.percentageHealthCounter.text = $"{clamped * 100:0.}";
     }
 
     private void UpdateMaxHealthCounter(float? maxHealth)
