@@ -87,12 +87,14 @@ public class PlayerEvents : MonoBehaviour
             HudState.LeftDefaultCartridge = null;
             HudState.LeftAmmo = null;
             HudState.LeftReserve = null;
+            HudState.LeftTotalAmmo = null;
             return;
         }
 
         HudState.LeftAmmo = gun.GetAmmoCount();
         HudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(HudState.LeftDefaultCartridge.cartridge) -
                                HudState.LeftAmmo;
+        HudState.LeftTotalAmmo = HudState.LeftAmmo + HudState.LeftReserve;
     }
 
     private void OnReceiverDetachedLeft(HandReciever handReciever)
@@ -103,6 +105,7 @@ public class PlayerEvents : MonoBehaviour
         HudState.LeftDefaultCartridge = null;
         HudState.LeftAmmo = null;
         HudState.LeftReserve = null;
+        HudState.LeftTotalAmmo = null;
     }
 
     private void OnReceiverAttachedRight(HandReciever handReciever)
@@ -124,12 +127,14 @@ public class PlayerEvents : MonoBehaviour
             HudState.RightDefaultCartridge = null;
             HudState.RightAmmo = null;
             HudState.RightReserve = null;
+            HudState.RightTotalAmmo = null;
             return;
         }
 
         HudState.RightAmmo = gun.GetAmmoCount();
         HudState.RightReserve = AmmoInventory.Instance.GetCartridgeCount(HudState.RightDefaultCartridge.cartridge) -
                                 HudState.RightAmmo;
+        HudState.RightTotalAmmo = HudState.RightAmmo + HudState.RightReserve;
     }
 
     private void OnReceiverDetachedRight(HandReciever handReciever)
@@ -140,5 +145,6 @@ public class PlayerEvents : MonoBehaviour
         HudState.RightDefaultCartridge = null;
         HudState.RightAmmo = null;
         HudState.RightReserve = null;
+        HudState.RightTotalAmmo = null;
     }
 }
