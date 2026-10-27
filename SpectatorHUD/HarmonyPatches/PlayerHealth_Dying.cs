@@ -28,7 +28,8 @@ public static class PlayerHealth_Dying
     private static void Postfix(Player_Health __instance)
     {
         // Health can get set below 0 in this function, clamp the value
-        HudState.Health = Math.Max(__instance.curr_Health, 0.0f);
+        // Negative zero is used so that checks for if health is less than zero are true
+        HudState.Health = Math.Max(__instance.curr_Health, -0.0f);
         HudState.HealthPercentage = HudState.Health / HudState.MaxHealth;
     }
 }
