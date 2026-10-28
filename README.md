@@ -44,6 +44,23 @@ Place the `.hud` file in there, and it will show up in the BoneMenu.
 ## Creating your own HUD
 Instructions for using the **Spectator HUD SDK** to make your own custom HUD can be found on it's GitHub page, [here](https://github.com/MillzyDev/SpectatorHUD-SDK).
 
+## Using the Debug Menu
+**In order to use the debug menu, Debug Mode must be enabled for MelonLoader.**  It can be enabled by adding `--melonloader.debug` as a launch argument to the game.
+
+Once in debug mode. Load into the game, in a level where the player spawns in. The debug menu can be opened by pressing `F8`.
+
+The debug menu shows everything about the currently loaded HUD and what values Spectator HUD is currently tracking.
+- The version of Spectator HUD you are using;
+- The currently loaded HUD's name, version, and author(s);
+- The compatibility version of the currently loaded HUD;
+- What counters are present on the loaded HUD;
+- How many animation and shader events of each category there are.
+
+### Reload HUD Button
+There is a button in the debug menu to reload the currently selected HUD from disk. This is useful for working on HUDs in the Unity editor; you can export the HUD, press the button, and Spectator HUD will reload it. No need to restart the game.
+
+There is a stopwatch below the button showing the last time the HUD was reloaded.
+
 ## FAQ
 ### Does it work on Quest?
 No.
