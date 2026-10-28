@@ -12,7 +12,7 @@ Spectator HUD is a BONELAB mod that loads custom HUDs to display on the spectato
 
 **Animation and Shader integration! IT'S ALIVE!**
 
-// DOOM HUD GIF
+![SpectatorHUD Demo 2](https://github.com/MillzyDev/SpectatorHUD/blob/main/files/demo2.gif?raw=true)
 
 ## Features
 - Custom Unity package for creating custom HUDs
