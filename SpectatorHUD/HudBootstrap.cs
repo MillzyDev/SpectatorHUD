@@ -23,8 +23,7 @@ namespace SpectatorHUD;
 
 public class HudBootstrap(IntPtr ptr) : MonoBehaviour(ptr)
 {
-    // TODO: Replace with the really awesome Half-Life 2 HUD I made.
-    public const string DefaultHud = "SpectatorHUD.Resources.TestHUD.hud";
+    public const string DefaultHud = "SpectatorHUD.Resources.Half-Life 2.hud";
     public GameObject? hud;
 
     private RigManager? _rigManager;
