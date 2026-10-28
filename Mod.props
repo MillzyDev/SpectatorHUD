@@ -2,8 +2,8 @@
     <PropertyGroup>
         <ModName>$(RootNamespace)</ModName>
         <ModAuthor>Millzy</ModAuthor>
-        <ModVersion>0.1.0</ModVersion>
-        <ModDescription>Allows you to customize what enemies can spawn in the Arena.</ModDescription>
+        <ModVersion>1.0.0</ModVersion>
+        <ModDescription>Create and load custom HUDs for the spectator camera.</ModDescription>
         <ModId>dev.millzy.$(ModName)</ModId>
         <ModWebsiteUrl></ModWebsiteUrl>
     </PropertyGroup>
