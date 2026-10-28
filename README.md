@@ -8,7 +8,7 @@ Spectator HUD is a BONELAB mod that loads custom HUDs to display on the spectato
 
 **Responsive custom HUDs for your spectator camera to grace whoever is watching you play**
 
-// GIF SHOWING HL2 HUD
+![SpectatorHUD Demo 1](https://github.com/MillzyDev/SpectatorHUD/blob/main/files/demo1.gif?raw=true)
 
 **Animation and Shader integration! IT'S ALIVE!**
 
