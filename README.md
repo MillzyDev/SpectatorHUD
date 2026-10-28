@@ -1,7 +1,7 @@
 ![Static Badge](https://img.shields.io/badge/Source-SpectatorHUD-blue?style=for-the-badge&logo=github&link=https%3A%2F%2Fgithub.com%2FMillzyDev%2FSpectatorHUD%2Fblob%2Fmain%2FLICENSE.md)
 ![License](https://img.shields.io/badge/License-FSL--1.1--ALv2-green?style=for-the-badge&link=https%3A%2F%2Fgithub.com%2FMillzyDev%2FSpectatorHUD%2Fblob%2Fmain%2FLICENSE.md)
 ![Release](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fthunderstore.io%2Fapi%2Fexperimental%2Fpackage%2FMillzy%2FSpectatorHUD%2F&query=%24.latest.version_number&prefix=v&style=for-the-badge&logo=thunderstore&label=Release&color=teal)
-![Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fthunderstore.io%2Fapi%2Fexperimental%2Fpackage%2FMillzy%2FSpectatorHUD%2F&query=%24.total_downloads&prefix=v&style=for-the-badge&logo=thunderstore&label=Downloads&color=teal)
+![Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fthunderstore.io%2Fapi%2Fexperimental%2Fpackage%2FMillzy%2FSpectatorHUD%2F&query=%24.total_downloads&style=for-the-badge&logo=thunderstore&label=Downloads&color=teal)
 
 # Spectator HUD
 Spectator HUD is a BONELAB mod that loads custom HUDs to display on the spectator display.
