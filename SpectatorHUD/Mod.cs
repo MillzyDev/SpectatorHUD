@@ -124,7 +124,7 @@ public sealed class Mod : MelonMod
 #if DEBUG
         Logger.EnableDebug(true);
 #else // DEBUG
-            Logger.EnableDebug(MelonDebug.IsEnabled())
+        Logger.EnableDebug(MelonDebug.IsEnabled());
 #endif // DEBUG
     }
 
@@ -167,7 +167,7 @@ public sealed class Mod : MelonMod
 #if DEBUG
         const int logLevel = 4;
 #else // DEBUG
-            const int logLevel = MelonDebug.IsEnabled() ? 4 : 0
+        int logLevel = MelonDebug.IsEnabled() ? 4 : 0;
 #endif // DEBUG
         Logger.Debug("Injecting type {0}", typeof(T).FullName ?? "");
         SerialisationHandler.Inject<T>(logLevel);
