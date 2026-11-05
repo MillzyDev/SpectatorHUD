@@ -99,6 +99,12 @@ public class HudBootstrap(IntPtr ptr) : MonoBehaviour(ptr)
         stream.CopyTo(memoryStream);
 
         AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
+        if (assetBundle == null)
+        {
+            Logger.Error("Failed to load asset bundle from embedded resource.");
+            return;
+        }
+        
         this.LoadHudFromAssetBundle(assetBundle);
         assetBundle.Unload(false); // free asset bundle resource
     }
