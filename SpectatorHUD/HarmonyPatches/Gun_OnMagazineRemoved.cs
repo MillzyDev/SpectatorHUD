@@ -17,6 +17,7 @@
 
 using HarmonyLib;
 using Il2CppSLZ.Marrow;
+using SpectatorHUD.Annotations;
 using SpectatorHUD.Extensions;
 
 namespace SpectatorHUD.HarmonyPatches;
@@ -25,6 +26,7 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Gun.OnMagazineRemoved))]
 public static class Gun_OnMagazineRemoved
 {
+    [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(Gun __instance)
     {

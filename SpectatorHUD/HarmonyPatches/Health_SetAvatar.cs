@@ -17,6 +17,7 @@
 
 using HarmonyLib;
 using Il2CppSLZ.Marrow;
+using SpectatorHUD.Annotations;
 
 namespace SpectatorHUD.HarmonyPatches;
 
@@ -24,6 +25,7 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Health.SetAvatar))]
 public static class Health_SetAvatar
 {
+    [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(Health __instance)
     {

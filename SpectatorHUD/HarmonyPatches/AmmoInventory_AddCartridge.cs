@@ -18,6 +18,7 @@
 using HarmonyLib;
 using Il2CppSLZ.Marrow;
 using Il2CppSLZ.Marrow.Data;
+using SpectatorHUD.Annotations;
 using SpectatorHUD.Util;
 
 namespace SpectatorHUD.HarmonyPatches;
@@ -26,6 +27,7 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(AmmoInventory.AddCartridge))]
 public static class AmmoInventory_AddCartridge
 {
+    [UsedImplicitly]
     [HarmonyPostfix]
     [HarmonyPatch([typeof(AmmoGroup), typeof(int)])]
     public static void PostfixAmmoGroup(AmmoGroup ammoGroup)
@@ -33,6 +35,7 @@ public static class AmmoInventory_AddCartridge
         AmmoUpdateUtil.UpdateReservesTargeted(ammoGroup.KeyName);
     }
 
+    [UsedImplicitly]
     [HarmonyPostfix]
     [HarmonyPatch([typeof(CartridgeData), typeof(int)])]
     private static void PostfixCartridgeData(CartridgeData cartridge)

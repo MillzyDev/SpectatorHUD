@@ -18,6 +18,7 @@
 using HarmonyLib;
 using Il2CppSLZ.Bonelab;
 using Il2CppSLZ.Marrow;
+using SpectatorHUD.Annotations;
 using SpectatorHUD.Util;
 
 namespace SpectatorHUD.HarmonyPatches;
@@ -26,6 +27,7 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Control_Gashapon.SetupAmmo))]
 public static class Gashapon_SetupAmmo
 {
+    [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix()
     {

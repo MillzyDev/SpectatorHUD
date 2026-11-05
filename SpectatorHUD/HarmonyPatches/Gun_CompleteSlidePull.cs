@@ -17,6 +17,7 @@
 
 using HarmonyLib;
 using Il2CppSLZ.Marrow;
+using SpectatorHUD.Annotations;
 using SpectatorHUD.Extensions;
 using SpectatorHUD.Util;
 
@@ -26,6 +27,7 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Gun.CompleteSlidePull))]
 public static class Gun_CompleteSlidePull
 {
+    [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(Gun __instance)
     {

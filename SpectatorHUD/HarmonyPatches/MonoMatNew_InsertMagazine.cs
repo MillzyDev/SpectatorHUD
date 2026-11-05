@@ -19,6 +19,7 @@ using HarmonyLib;
 using Il2CppSLZ.Bonelab;
 using Il2CppSLZ.Marrow;
 using Il2CppSLZ.Marrow.Data;
+using SpectatorHUD.Annotations;
 using SpectatorHUD.Util;
 
 namespace SpectatorHUD.HarmonyPatches;
@@ -27,6 +28,7 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Control_MonoMatNew.InsertMagazine))]
 public static class MonoMatNew_InsertMagazine
 {
+    [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(Magazine magazine)
     {

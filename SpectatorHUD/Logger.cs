@@ -16,6 +16,7 @@
  */
 
 using MelonLoader;
+using SpectatorHUD.Annotations;
 
 namespace SpectatorHUD;
 
@@ -53,7 +54,8 @@ public static class Logger
     {
         _debugLogTxt?.Invoke(txt);
     }
-
+    
+    [StringFormatMethod("txt")]
     public static void Debug(string txt, params object[] args)
     {
         _debugLogFormat?.Invoke(txt, args);
@@ -69,6 +71,7 @@ public static class Logger
         Instance?.Msg(txt);
     }
 
+    [StringFormatMethod("txt")]
     public static void Msg(string txt, params object[] args)
     {
         Instance?.Msg(txt, args);
@@ -99,6 +102,7 @@ public static class Logger
         Instance?.Error(txt);
     }
 
+    [StringFormatMethod("txt")]
     public static void Error(string txt, params object[] args)
     {
         Instance?.Error(txt, args);

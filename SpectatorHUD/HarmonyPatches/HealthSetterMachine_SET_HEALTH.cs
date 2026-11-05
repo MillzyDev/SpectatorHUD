@@ -17,6 +17,7 @@
 
 using HarmonyLib;
 using Il2CppSLZ.Bonelab;
+using SpectatorHUD.Annotations;
 
 namespace SpectatorHUD.HarmonyPatches;
 
@@ -24,6 +25,7 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(HealthSetterMachine.SET_HEALTH))]
 public static class HealthSetterMachine_SET_HEALTH
 {
+    [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(HealthSetterMachine __instance)
     {

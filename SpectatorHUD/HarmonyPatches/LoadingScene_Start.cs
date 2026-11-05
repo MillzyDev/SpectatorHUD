@@ -17,6 +17,7 @@
 
 using HarmonyLib;
 using Il2CppSLZ.Bonelab;
+using SpectatorHUD.Annotations;
 
 namespace SpectatorHUD.HarmonyPatches;
 
@@ -24,6 +25,7 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(LoadingScene.Start))]
 public static class LoadingScene_Start
 {
+    [UsedImplicitly]
     [HarmonyPostfix]
     public static void Postfix(LoadingScene __instance)
     {

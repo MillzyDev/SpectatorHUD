@@ -17,6 +17,7 @@
 
 using HarmonyLib;
 using Il2CppSLZ.Marrow;
+using SpectatorHUD.Annotations;
 
 namespace SpectatorHUD.HarmonyPatches;
 
@@ -24,6 +25,7 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Player_Health.SetFullHealth))]
 public static class PlayerHealth_SetFullHealth
 {
+    [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(Player_Health __instance)
     {

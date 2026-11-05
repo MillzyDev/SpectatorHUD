@@ -17,6 +17,7 @@
 
 using HarmonyLib;
 using Il2CppSLZ.Marrow.SceneStreaming;
+using SpectatorHUD.Annotations;
 using UnityEngine;
 
 namespace SpectatorHUD.HarmonyPatches;
@@ -25,6 +26,7 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(PlayerMarker.OnPlayerSpawned))]
 public static class PlayerMarker_OnPlayerSpawned
 {
+    [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(PlayerMarker __instance, GameObject go)
     {

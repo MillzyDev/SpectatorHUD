@@ -76,6 +76,7 @@ public static class SettingsMenu
                     });
                 }
             );
+            Logger.Debug("Created element for: {} v{} by {}", hud.name, hud.hudVersion, hud.hudAuthor);
         }
     }
 
