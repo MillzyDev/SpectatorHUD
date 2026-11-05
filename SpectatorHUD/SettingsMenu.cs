@@ -58,6 +58,7 @@ public static class SettingsMenu
             .Where(m => m.Item1 != null)!;
         hudMetadatas.AddRange(fileMetadatas);
 
+        // TODO: Current implementation requires explicit HUD information, move to generator that yields FunctionElements
         foreach ((HudV1 hud, string? hudPath) in hudMetadatas)
         {
             parent.CreateFunction(
@@ -83,7 +84,7 @@ public static class SettingsMenu
         AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
         if (assetBundle == null)
         {
-            Logger.Error("Failed to load asset bundle from " + path);
+            Logger.Error("Failed to load asset bundle from file: " + path);
             return null;
         }
 
@@ -117,14 +118,19 @@ public static class SettingsMenu
 
     private static HudV1? GetMetadataFromAssetBundle(AssetBundle assetBundle)
     {
-        // TODO: Load version first and check that
-        HudV1? hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
+        var versionAsset = assetBundle.LoadAsset("Hud.Version.asset").TryCast<HudVersion>();
+        if (versionAsset == null)
+        {
+            Logger.Error("Hud.Version.asset could not be loaded from asset bundle: " + assetBundle.name);
+            return null;
+        }
+        
+        var hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
         if (hudInfo == null)
         {
             Logger.Error("Hud.asset could not be loaded from assetBundle: " + assetBundle.name);
             return null;
         }
-
         assetBundle.Unload(false);
 
         switch (hudInfo.spectatorHudVersion.version)
