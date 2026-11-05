@@ -2,7 +2,7 @@
     <PropertyGroup>
         <ModName>$(RootNamespace)</ModName>
         <ModAuthor>Millzy</ModAuthor>
-        <ModVersion>1.0.0</ModVersion>
+        <ModVersion>1.0.1</ModVersion>
         <ModDescription>Create and load custom HUDs for the spectator camera.</ModDescription>
         <ModId>dev.millzy.$(ModName)</ModId>
         <ModWebsiteUrl>https://github.com/MillzyDev/SpectatorHUD</ModWebsiteUrl>
