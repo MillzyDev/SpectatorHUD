@@ -104,7 +104,12 @@ public static class SettingsMenu
         stream.CopyTo(memoryStream);
 
         AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
-        return GetMetadataFromAssetBundle(assetBundle);
+        if (assetBundle == null)
+        {
+            Logger.Error("Failed to load asset bundle from embedded resource: " + resource);
+            return null;
+        }
+        
         HudV1? hud = GetMetadataFromAssetBundle(assetBundle);
         assetBundle.Unload(false);
         return hud;
