@@ -34,13 +34,11 @@ public static class Gun_OnMagazineInserted
         {
             HudState.RightAmmo = HudState.RightGun.GetAmmoCount();
             HudState.RightReserve = AmmoInventory.Instance.GetTotalAmmoForGun(__instance) - HudState.RightAmmo;
-            Logger.Debug("Right magazine inserted");
         }
         else if (__instance == HudState.LeftGun)
         {
             HudState.LeftAmmo = HudState.LeftGun.GetAmmoCount();
             HudState.LeftReserve = AmmoInventory.Instance.GetTotalAmmoForGun(__instance) - HudState.LeftAmmo;
-            Logger.Debug("Left magazine inserted");
         }
     }
 }

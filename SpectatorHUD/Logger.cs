@@ -33,9 +33,9 @@ public static class Logger
     {
         if (debug)
         {
-            _debugLogObject = obj => Instance?.Msg("[DEBUG] " + obj);
-            _debugLogTxt = txt => Instance?.Msg("[DEBUG] " + txt);
-            _debugLogFormat = (txt, args) => Instance?.Msg("[DEBUG] " + txt, args);
+            _debugLogObject = (@class, obj) => Instance?.Msg("[DEBUG] " + @class + ": " + obj);
+            _debugLogTxt = (@class, txt) => Instance?.Msg("[DEBUG] "+ @class + ": " + txt);
+            _debugLogFormat = (@class, txt, args) => Instance?.Msg("[DEBUG] " + @class + ": " + txt, args);
         }
         else
         {
@@ -45,20 +45,20 @@ public static class Logger
         }
     }
 
-    public static void Debug(object obj)
+    public static void Debug(string @class, object obj)
     {
-        _debugLogObject?.Invoke(obj);
+        _debugLogObject?.Invoke(@class, obj);
     }
 
-    public static void Debug(string txt)
+    public static void Debug(string @class, string txt)
     {
-        _debugLogTxt?.Invoke(txt);
+        _debugLogTxt?.Invoke(@class, txt);
     }
     
     [StringFormatMethod("txt")]
-    public static void Debug(string txt, params object[] args)
+    public static void Debug(string @class, string txt, params object[] args)
     {
-        _debugLogFormat?.Invoke(txt, args);
+        _debugLogFormat?.Invoke(@class, txt, args);
     }
 
     public static void Msg(object obj)
@@ -113,9 +113,9 @@ public static class Logger
         Instance?.Error(txt, ex);
     }
 
-    private delegate void DebugLogObject(object obj);
+    private delegate void DebugLogObject(string @class, object obj);
 
-    private delegate void DebugLogTxt(string txt);
+    private delegate void DebugLogTxt(string @class, string txt);
 
-    private delegate void DebugLogFormat(string txt, params object[] args);
+    private delegate void DebugLogFormat(string @class, string txt, params object[] args);
 }

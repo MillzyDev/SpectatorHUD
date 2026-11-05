@@ -70,7 +70,7 @@ public class PlayerEvents : MonoBehaviour
 
     private void OnReceiverAttachedLeft(HandReciever handReciever) // learn to spell SLZ
     {
-        Logger.Debug("HudState: OnReceiverAttachedLeft called");
+        Logger.Debug(nameof(PlayerEvents), "OnReceiverAttachedLeft called");
 
         if (!handReciever.TryFindGunFromReceiver(out Gun? gun))
         {
@@ -99,7 +99,7 @@ public class PlayerEvents : MonoBehaviour
 
     private void OnReceiverDetachedLeft(HandReciever handReciever)
     {
-        Logger.Debug("PlayerEvents: OnReceiverDetachedLeft called");
+        Logger.Debug(nameof(PlayerEvents), "OnReceiverDetachedLeft called");
 
         HudState.LeftGun = null;
         HudState.LeftDefaultCartridge = null;
@@ -110,7 +110,7 @@ public class PlayerEvents : MonoBehaviour
 
     private void OnReceiverAttachedRight(HandReciever handReciever)
     {
-        Logger.Debug("HudState: OnReceiverAttachedRight called");
+        Logger.Debug(nameof(PlayerEvents), "OnReceiverAttachedRight called");
 
         if (!handReciever.TryFindGunFromReceiver(out Gun? gun))
         {
@@ -139,7 +139,7 @@ public class PlayerEvents : MonoBehaviour
 
     private void OnReceiverDetachedRight(HandReciever handReciever)
     {
-        Logger.Debug("HudState: OnReceiverDetachedRight called");
+        Logger.Debug(nameof(PlayerEvents), "OnReceiverDetachedRight called");
 
         HudState.RightGun = null;
         HudState.RightDefaultCartridge = null;

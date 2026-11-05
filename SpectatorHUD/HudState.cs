@@ -91,6 +91,7 @@ public static class HudState
             if (field != value)
             {
                 OnLeftGunChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(LeftGun) + " changed " + field + " -> " + value);
             }
 
             field = value;
@@ -105,6 +106,8 @@ public static class HudState
             if (field != value)
             {
                 OnRightGunChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(RightGun) + " changed " + field + " -> " + value);
+
             }
 
             field = value;
@@ -119,6 +122,8 @@ public static class HudState
             if (field != value)
             {
                 OnLeftAmmoChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(LeftAmmo) + " changed " + field + " -> " + value);
+
             }
 
             field = value;
@@ -133,6 +138,8 @@ public static class HudState
             if (field != value)
             {
                 OnRightAmmoChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(RightAmmo) + " changed " + field + " -> " + value);
+
             }
 
             field = value;
@@ -147,6 +154,8 @@ public static class HudState
             if (field != value)
             {
                 OnLeftReserveChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(LeftReserve) + " changed " + field + " -> " + value);
+
             }
 
             field = value;
@@ -161,6 +170,7 @@ public static class HudState
             if (field != value)
             {
                 OnRightReserveChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(RightReserve) + " changed " + field + " -> " + value);
             }
 
             field = value;
@@ -175,6 +185,7 @@ public static class HudState
             if (field != value)
             {
                 OnLeftTotalAmmoChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(LeftTotalAmmo) + " changed " + field + " -> " + value);
             }
 
             field = value;
@@ -189,6 +200,7 @@ public static class HudState
             if (field != value)
             {
                 OnRightTotalAmmoChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(RightTotalAmmo) + " changed " + field + " -> " + value);
             }
 
             field = value;
@@ -203,6 +215,7 @@ public static class HudState
             if (field != value)
             {
                 OnTotalLightAmmoChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(TotalLightAmmo) + " changed " + field + " -> " + value);
             }
 
             field = value;
@@ -217,6 +230,7 @@ public static class HudState
             if (field != value)
             {
                 OnTotalMediumAmmoChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(TotalMediumAmmo) + " changed " + field + " -> " + value);
             }
 
             field = value;
@@ -231,6 +245,7 @@ public static class HudState
             if (field != value)
             {
                 OnTotalHeavyAmmoChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(TotalHeavyAmmo) + " changed " + field + " -> " + value);
             }
 
             field = value;
@@ -246,6 +261,7 @@ public static class HudState
             if (field != value)
             {
                 OnHealthChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(Health) + " changed " + field + " -> " + value);
             }
 
             field = value;
@@ -261,6 +277,7 @@ public static class HudState
             if (field != value)
             {
                 OnHealthPercentageChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(HealthPercentage) + " changed " + field + " -> " + value);
             }
 
             field = value;
@@ -276,6 +293,7 @@ public static class HudState
             if (field != value)
             {
                 OnMaxHealthChanged?.Invoke(value);
+                Logger.Debug(nameof(HudState), nameof(MaxHealth) + " changed " + field + " -> " + value);
             }
 
             field = value;

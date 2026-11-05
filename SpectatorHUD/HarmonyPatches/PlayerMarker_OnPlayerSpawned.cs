@@ -30,7 +30,6 @@ public static class PlayerMarker_OnPlayerSpawned
     [HarmonyPostfix]
     private static void Postfix(PlayerMarker __instance, GameObject go)
     {
-        Logger.Debug("Player Spawned: " + go.name);
         go.AddComponent<HudBootstrap>();
         go.AddComponent<PlayerEvents>();
 

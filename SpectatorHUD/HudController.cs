@@ -224,14 +224,13 @@ public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
 
     private void OnLeftGunChanged(Gun? gun)
     {
-        Logger.Debug("HudManagerV1: Left gun changed");
+        Logger.Debug(nameof(HudController), "Left gun changed");
 
         if (gun == null) // no gun in hand
         {
             foreach (GameObject go in this.activeWithGunHeldInLeftHand)
             {
                 go.active = false;
-                Logger.Debug("HudManagerV1: disabled " + go.name);
             }
 
             return;
@@ -240,19 +239,17 @@ public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
         foreach (GameObject go in this.activeWithGunHeldInLeftHand)
         {
             go.active = true;
-            Logger.Debug("HudManagerV1: enabled " + go.name);
         }
     }
 
     private void OnRightGunChanged(Gun? gun)
     {
-        Logger.Debug("HudManagerV1: Right gun changed");
+        Logger.Debug(nameof(HudController), "Right gun changed");
 
         if (gun == null) // no gun in hand
         {
             foreach (GameObject go in this.activeWithGunHeldInRightHand)
             {
-                Logger.Debug("HudManagerV1: disabled " + go.name);
                 go.active = false;
             }
 
@@ -261,7 +258,6 @@ public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
 
         foreach (GameObject go in this.activeWithGunHeldInRightHand)
         {
-            Logger.Debug("HudManagerV1: enabled " + go.name);
             go.active = true;
         }
     }
