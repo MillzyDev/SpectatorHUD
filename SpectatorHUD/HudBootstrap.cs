@@ -100,6 +100,7 @@ public class HudBootstrap(IntPtr ptr) : MonoBehaviour(ptr)
 
         AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
         this.LoadHudFromAssetBundle(assetBundle);
+        assetBundle.Unload(false); // free asset bundle resource
     }
 
     public void LoadHudFromAssetBundle(AssetBundle assetBundle)

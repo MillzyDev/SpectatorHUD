@@ -105,6 +105,9 @@ public static class SettingsMenu
 
         AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
         return GetMetadataFromAssetBundle(assetBundle);
+        HudV1? hud = GetMetadataFromAssetBundle(assetBundle);
+        assetBundle.Unload(false);
+        return hud;
     }
 
     private static HudV1? GetMetadataFromAssetBundle(AssetBundle assetBundle)
