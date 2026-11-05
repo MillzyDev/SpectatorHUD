@@ -55,9 +55,7 @@ public class GUILayoutManager
 
     public void End()
     {
-        // TrimExcess performs a float multiplication for a threshold heuristic and compares that to the capacity
-        // Because I am a massive nerd, float multiplication takes ~15 times longer than just a comparison
-        // An in the interest of meaningless optimisation, I am not using TrimExcess
+        // In the interest of meaningless optimisation, I am not using TrimExcess
         // this._cachedRects.TrimExcess();
         int count = this._cachedRects.Count;
         if (this._cachedRects.Capacity == count)
