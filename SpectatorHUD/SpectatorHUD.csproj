@@ -43,72 +43,93 @@
     <ItemGroup>
         <Reference Include="Assembly-CSharp">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="Il2CppInterop.Common">
             <HintPath>$(GamePath)\MelonLoader\net6\Il2CppInterop.Common.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="Il2CppInterop.Runtime">
             <HintPath>$(GamePath)\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="Il2Cppmscorlib">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="Il2CppSLZ.Marrow">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Il2CppSLZ.Marrow.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="Il2CppSystem">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Il2CppSystem.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="Il2CppSystem.Core">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Il2CppSystem.Core.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="Il2CppUltEvents">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Il2CppUltEvents.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="Unity.TextMeshPro">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Unity.TextMeshPro.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="UnityEngine">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="UnityEngine.AnimationModule">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.AnimationModule.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="UnityEngine.AssetBundleModule">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.AssetBundleModule.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="UnityEngine.IMGUIModule">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.IMGUIModule.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="UnityEngine.InputLegacyModule">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.InputLegacyModule.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="UnityEngine.UI">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="UnityEngine.UIModule">
             <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
+            <Private>true</Private>
         </Reference>
     </ItemGroup>
 
     <ItemGroup>
         <Reference Include="0Harmony">
             <HintPath>$(GamePath)\MelonLoader\net6\0Harmony.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="MelonLoader">
             <HintPath>$(GamePath)\MelonLoader\net6\MelonLoader.dll</HintPath>
+            <Private>true</Private>
         </Reference>
     </ItemGroup>
 
     <ItemGroup>
         <Reference Include="FieldInjector">
             <HintPath>$(GamePath)\Mods\FieldInjector.dll</HintPath>
+            <Private>true</Private>
         </Reference>
         <Reference Include="BoneLib">
             <HintPath>$(GamePath)\Mods\BoneLib.dll</HintPath>
+            <Private>true</Private>
         </Reference>
     </ItemGroup>
 
