@@ -139,7 +139,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Millzy.MelonModBuddy" Version="1.0.4" />
+      <PackageReference Include="Millzy.MelonModBuddy" Version="1.0.5" />
     </ItemGroup>
 
 </Project>
