@@ -63,7 +63,7 @@ public class DebugGUI : MonoBehaviour
         this._layout.Start();
         
         this._layout.Column(0);
-        GUI.Label(this._layout.GetNext(), "SpectatorHUD v" + BuildInfo.Version);
+        GUI.Label(this._layout.GetNext(), "SpectatorHUD v" + ModInfo.Version);
         
         this._layout.Space();
         GUI.Label(this._layout.GetNext(), "Tracked Values:");

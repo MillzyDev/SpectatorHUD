@@ -1,12 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <ItemGroup>
-        <None Include="SpectatorHUD.csproj.user"/>
-    </ItemGroup>
-
-    <Import Project="$(SolutionDir)\Mod.props"/>
-    <Import Project="$(SolutionDir)\Mod.targets"/>
-
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -14,90 +7,118 @@
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
         <LangVersion>14</LangVersion>
     </PropertyGroup>
+    
+    <PropertyGroup>
+        <ModName>$(RootNamespace)</ModName>
+        <ModAuthor>Millzy</ModAuthor>
+        <ModVersion>1.0.1</ModVersion>
+        <ModDescription>Create and load custom HUDs for the spectator camera.</ModDescription>
+        <ModWebsite>https://github.com/MillzyDev/SpectatorHUD</ModWebsite>
+        
+        <ModApplyMelonAttributes>true</ModApplyMelonAttributes>
+        <ModUseMelonId>true</ModUseMelonId>
+        
+        <MelonGameName>BONELAB</MelonGameName>
+        <MelonGameDeveloper>StressLevelZero</MelonGameDeveloper>
+        <AndroidGamePackageName>com.StressLevelZero.BONELAB</AndroidGamePackageName>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ModDependencies Include="LavaGang-MelonLoader-0.6.6" />
+        <ModDependencies Include="bonelib-BoneLib-3.2.2" />
+        <ModDependencies Include="WNP78-FieldInjector-2.1.1" />
+    </ItemGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <CopyToModsFolder>true</CopyToModsFolder>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <CopyToModsFolder>true</CopyToModsFolder>
+        <ThunderstorePackage>true</ThunderstorePackage>
     </PropertyGroup>
 
     <ItemGroup>
         <Reference Include="Assembly-CSharp">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppInterop.Common">
-            <HintPath>$(BonelabDir)\MelonLoader\net6\Il2CppInterop.Common.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\net6\Il2CppInterop.Common.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppInterop.Runtime">
-            <HintPath>$(BonelabDir)\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
         </Reference>
         <Reference Include="Il2Cppmscorlib">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppSLZ.Marrow">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Il2CppSLZ.Marrow.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Il2CppSLZ.Marrow.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppSystem">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Il2CppSystem.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Il2CppSystem.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppSystem.Core">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Il2CppSystem.Core.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Il2CppSystem.Core.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppUltEvents">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Il2CppUltEvents.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Il2CppUltEvents.dll</HintPath>
         </Reference>
         <Reference Include="Unity.TextMeshPro">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\Unity.TextMeshPro.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\Unity.TextMeshPro.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AnimationModule">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.AnimationModule.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.AnimationModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AssetBundleModule">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.AssetBundleModule.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.AssetBundleModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.IMGUIModule">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.IMGUIModule.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.IMGUIModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.InputLegacyModule">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.InputLegacyModule.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.InputLegacyModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UIModule">
-            <HintPath>$(BonelabDir)\MelonLoader\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
         </Reference>
     </ItemGroup>
 
     <ItemGroup>
         <Reference Include="0Harmony">
-            <HintPath>$(BonelabDir)\MelonLoader\net6\0Harmony.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\net6\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="MelonLoader">
-            <HintPath>$(BonelabDir)\MelonLoader\net6\MelonLoader.dll</HintPath>
+            <HintPath>$(GamePath)\MelonLoader\net6\MelonLoader.dll</HintPath>
         </Reference>
     </ItemGroup>
 
     <ItemGroup>
         <Reference Include="FieldInjector">
-            <HintPath>$(BonelabDir)\Mods\FieldInjector.dll</HintPath>
+            <HintPath>$(GamePath)\Mods\FieldInjector.dll</HintPath>
         </Reference>
         <Reference Include="BoneLib">
-            <HintPath>$(BonelabDir)\Mods\BoneLib.dll</HintPath>
+            <HintPath>$(GamePath)\Mods\BoneLib.dll</HintPath>
         </Reference>
     </ItemGroup>
 
     <ItemGroup>
         <None Remove="Resources\Half-Life 2.hud" />
         <EmbeddedResource Include="Resources\Half-Life 2.hud" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Millzy.MelonModBuddy" Version="1.0.1" />
     </ItemGroup>
 
 </Project>

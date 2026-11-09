@@ -20,17 +20,10 @@ using FieldInjector;
 using HarmonyLib;
 using MelonLoader;
 using MelonLoader.Utils;
-using SpectatorHUD;
 using SpectatorHUD.Animation;
 using SpectatorHUD.Expressions;
 using SpectatorHUD.HarmonyPatches;
 using SpectatorHUD.Shading;
-using BuildInfo = SpectatorHUD.BuildInfo;
-
-[assembly: MelonInfo(typeof(Mod), BuildInfo.Name, BuildInfo.Version, BuildInfo.Author)]
-[assembly: MelonGame("Stress Level Zero", "BONELAB")]
-[assembly: MelonID(BuildInfo.Id)]
-[assembly: HarmonyDontPatchAll]
 
 namespace SpectatorHUD;
 
