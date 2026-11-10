@@ -15,6 +15,8 @@
  *      ALv2 Future License along with this program.  If not, see https://fsl.software/.
  */
 
+using System;
+using System.IO;
 using System.Reflection;
 using Il2CppSLZ.Marrow;
 using UnityEngine;

@@ -2,17 +2,21 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
         <LangVersion>14</LangVersion>
+        
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+        <Version>1.1.0</Version>
+        <Description>Create and load custom HUDs for the spectator camera.</Description>
     </PropertyGroup>
     
     <PropertyGroup>
         <ModName>$(RootNamespace)</ModName>
         <ModAuthor>Millzy</ModAuthor>
-        <ModVersion>1.0.1</ModVersion>
-        <ModDescription>Create and load custom HUDs for the spectator camera.</ModDescription>
+        <ModVersion>$(Version)</ModVersion>
+        <ModDescription>$(Description)</ModDescription>
         <ModWebsite>https://github.com/MillzyDev/SpectatorHUD</ModWebsite>
         
         <ModApplyMelonAttributes>true</ModApplyMelonAttributes>
@@ -30,12 +34,10 @@
     </ItemGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <CopyToModsFolder>true</CopyToModsFolder>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <CopyToModsFolder>true</CopyToModsFolder>
         <ThunderstorePackage>true</ThunderstorePackage>
     </PropertyGroup>

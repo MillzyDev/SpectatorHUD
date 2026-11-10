@@ -15,6 +15,7 @@
  *      ALv2 Future License along with this program.  If not, see https://fsl.software/.
  */
 
+using System;
 using HarmonyLib;
 using Il2CppSLZ.Bonelab;
 using Il2CppSLZ.Marrow;

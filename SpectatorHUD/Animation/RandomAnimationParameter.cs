@@ -15,7 +15,9 @@
  *      ALv2 Future License along with this program.  If not, see https://fsl.software/.
  */
 
+using System;
 using System.Collections;
+using System.Threading.Tasks;
 using MelonLoader;
 using UnityEngine;
 using Random = System.Random;

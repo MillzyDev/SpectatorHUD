@@ -15,6 +15,7 @@
  *      ALv2 Future License along with this program.  If not, see https://fsl.software/.
  */
 
+using System;
 using SpectatorHUD.Util;
 using UnityEngine;
 
