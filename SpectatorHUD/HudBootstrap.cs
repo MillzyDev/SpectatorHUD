@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using Il2CppSLZ.Marrow;
+using SpectatorHUD.Addons;
 using SpectatorHUD.Logging;
 using UnityEngine;
 using Logger = SpectatorHUD.Logging.Logger;
@@ -136,6 +137,9 @@ internal sealed class HudBootstrap : MonoBehaviour
             case 1:
                 this.LoadHudV1(assetBundle);
                 break;
+            case 2:
+                this.LoadHudV2(assetBundle);
+                break;
             default:
                 this._logger.Error("Unsupported HUD version. You may need to update the mod.");
                 Destroy(this);
@@ -152,10 +156,54 @@ internal sealed class HudBootstrap : MonoBehaviour
         if (hudInfo == null)
         {
             this._logger.Error("Hud.asset could not be loaded from asset bundle.");
-            //Destroy(this);
+            this._logger.Trace("Hud.asset for Version 1 HUD");
             return;
         }
 
+        this._logger.Info("Loaded {0} v{1} by {2}", hudInfo.hudName, hudInfo.hudVersion, hudInfo.hudAuthor);
+        this.hud = Instantiate(hudInfo.hudAsset);
+        this.hud.name = "SpectatorHUD UI";
+
+        MetaInfo.HUDName = hudInfo.hudName;
+        MetaInfo.HUDAuthor = hudInfo.hudAuthor;
+        MetaInfo.HUDVersion = hudInfo.hudVersion;
+
+        this.HudRun();
+
+        this.hud.SetActive(false); // gets set active when the loading scene disappears
+    }
+
+    private void LoadHudV2(AssetBundle assetBundle)
+    {
+        var hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV2>();
+        if (hudInfo == null)
+        {
+            this._logger.Error("Hud.asset could not be loaded from asset bundle.");
+            this._logger.Trace("Hud.asset for Version 2 HUD");
+            return;
+        }
+
+        // Check for compatible addons
+        var addonRegistry = AddonRegistry.Instance;
+        bool hasAllRequiredAddons = true;
+        foreach (Addon requiredAddon in hudInfo.requiredAddons)
+        {
+            bool hasAddon = addonRegistry.HasAddonCompatibleWith(requiredAddon.name, requiredAddon.version);
+            if (!hasAddon)
+            {
+                this._logger.Error("HUD {0} v{1} requires addon {2} v{3} but a compatible addon was not found",
+                    hudInfo.hudName, hudInfo.hudVersion, requiredAddon.name, requiredAddon.version);
+            }
+            
+            hasAllRequiredAddons = hasAllRequiredAddons && hasAddon;
+        }
+
+        if (!hasAllRequiredAddons)
+        {
+            this._logger.Error("All required addons not present, will not load HUD.");
+            return;
+        }
+        
         this._logger.Info("Loaded {0} v{1} by {2}", hudInfo.hudName, hudInfo.hudVersion, hudInfo.hudAuthor);
         this.hud = Instantiate(hudInfo.hudAsset);
         this.hud.name = "SpectatorHUD UI";
