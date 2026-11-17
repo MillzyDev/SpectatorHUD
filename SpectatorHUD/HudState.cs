@@ -24,8 +24,8 @@ namespace SpectatorHUD;
 
 public static class HudState
 {
-    public static CartridgeContainer? LeftDefaultCartridge { [Pure] get; set; }
-    public static CartridgeContainer? RightDefaultCartridge { [Pure] get; set; }
+    public static CartridgeContainer? LeftDefaultCartridge { get; set; }
+    public static CartridgeContainer? RightDefaultCartridge { get; set; }
 
     public static RigManager? RigManager { get; set; }
     public static AmmoInventory AmmoInventory
