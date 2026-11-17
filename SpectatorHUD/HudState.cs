@@ -21,13 +21,16 @@ using SpectatorHUD.Util;
 
 namespace SpectatorHUD;
 
-public static class HudState
+public sealed class HudState
 {
-    public static CartridgeContainer? LeftDefaultCartridge { get; set; }
-    public static CartridgeContainer? RightDefaultCartridge { get; set; }
+    private static readonly Lazy<HudState> LazyInitialiser = new();
+    public static HudState Instance => LazyInitialiser.Value;
+    
+    public CartridgeContainer? LeftDefaultCartridge { get; set; }
+    public CartridgeContainer? RightDefaultCartridge { get; set; }
 
-    public static RigManager? RigManager { get; set; }
-    public static AmmoInventory AmmoInventory
+    public RigManager? RigManager { get; set; }
+    public AmmoInventory AmmoInventory
     {
         get
         {
@@ -44,26 +47,30 @@ public static class HudState
             return field;
         }
     }
-    public static string? LightAmmoKey { get; private set; }
-    public static string? MediumAmmoKey { get; private set; }
-    public static string? HeavyAmmoKey { get; private set; }
+    public string? LightAmmoKey { get; private set; }
+    public string? MediumAmmoKey { get; private set; }
+    public string? HeavyAmmoKey { get; private set; }
 
-    public static event Action<Gun?>? OnLeftGunChanged;
-    public static event Action<Gun?>? OnRightGunChanged;
-    public static event Action<int?>? OnLeftAmmoChanged;
-    public static event Action<int?>? OnRightAmmoChanged;
-    public static event Action<int?>? OnLeftReserveChanged;
-    public static event Action<int?>? OnRightReserveChanged;
-    public static event Action<int?>? OnLeftTotalAmmoChanged;
-    public static event Action<int?>? OnRightTotalAmmoChanged;
-    public static event Action<int?>? OnTotalLightAmmoChanged;
-    public static event Action<int?>? OnTotalMediumAmmoChanged;
-    public static event Action<int?>? OnTotalHeavyAmmoChanged;
-    public static event Action<float?>? OnHealthChanged;
-    public static event Action<float?>? OnHealthPercentageChanged;
-    public static event Action<float?>? OnMaxHealthChanged;
+    public event Action<Gun?>? OnLeftGunChanged;
+    public event Action<Gun?>? OnRightGunChanged;
+    public event Action<int?>? OnLeftAmmoChanged;
+    public event Action<int?>? OnRightAmmoChanged;
+    public event Action<int?>? OnLeftReserveChanged;
+    public event Action<int?>? OnRightReserveChanged;
+    public event Action<int?>? OnLeftTotalAmmoChanged;
+    public event Action<int?>? OnRightTotalAmmoChanged;
+    public event Action<int?>? OnTotalLightAmmoChanged;
+    public event Action<int?>? OnTotalMediumAmmoChanged;
+    public event Action<int?>? OnTotalHeavyAmmoChanged;
+    public event Action<float?>? OnHealthChanged;
+    public event Action<float?>? OnHealthPercentageChanged;
+    public event Action<float?>? OnMaxHealthChanged;
 
-    public static void ForceNotifierRepoll()
+    private HudState()
+    {
+    }
+
+    public void ForceNotifierRepoll()
     {
         OnLeftGunChanged?.Invoke(LeftGun);
         OnRightGunChanged?.Invoke(RightGun);
@@ -83,7 +90,7 @@ public static class HudState
 
     #region Notifier Properties
 
-    public static Gun? LeftGun
+    public Gun? LeftGun
     {
         get;
         set
@@ -98,7 +105,7 @@ public static class HudState
         }
     }
 
-    public static Gun? RightGun
+    public Gun? RightGun
     {
         get;
         set
@@ -114,7 +121,7 @@ public static class HudState
         }
     }
 
-    public static int? LeftAmmo
+    public int? LeftAmmo
     {
         get;
         set
@@ -130,7 +137,7 @@ public static class HudState
         }
     }
 
-    public static int? RightAmmo
+    public int? RightAmmo
     {
         get;
         set
@@ -146,7 +153,7 @@ public static class HudState
         }
     }
 
-    public static int? LeftReserve
+    public int? LeftReserve
     {
         get;
         set
@@ -162,7 +169,7 @@ public static class HudState
         }
     }
 
-    public static int? RightReserve
+    public int? RightReserve
     {
         get;
         set
@@ -177,7 +184,7 @@ public static class HudState
         }
     }
 
-    public static int? LeftTotalAmmo
+    public int? LeftTotalAmmo
     {
         get;
         set
@@ -192,7 +199,7 @@ public static class HudState
         }
     }
 
-    public static int? RightTotalAmmo
+    public int? RightTotalAmmo
     {
         get;
         set
@@ -207,7 +214,7 @@ public static class HudState
         }
     }
 
-    public static int? TotalLightAmmo
+    public int? TotalLightAmmo
     {
         get;
         set
@@ -222,7 +229,7 @@ public static class HudState
         }
     }
 
-    public static int? TotalMediumAmmo
+    public int? TotalMediumAmmo
     {
         get;
         set
@@ -237,7 +244,7 @@ public static class HudState
         }
     }
 
-    public static int? TotalHeavyAmmo
+    public int? TotalHeavyAmmo
     {
         get;
         set
@@ -252,7 +259,7 @@ public static class HudState
         }
     }
 
-    public static float? Health
+    public float? Health
     {
         get;
         set
@@ -268,7 +275,7 @@ public static class HudState
         }
     }
 
-    public static float? HealthPercentage
+    public float? HealthPercentage
     {
         get;
         set
@@ -284,7 +291,7 @@ public static class HudState
         }
     }
 
-    public static float? MaxHealth
+    public float? MaxHealth
     {
         get;
         set
