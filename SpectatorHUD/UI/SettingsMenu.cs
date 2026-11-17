@@ -28,7 +28,7 @@ using SpectatorHUD.Logging;
 using UnityEngine;
 using Logger = SpectatorHUD.Logging.Logger;
 
-namespace SpectatorHUD;
+namespace SpectatorHUD.UI;
 
 public static class SettingsMenu
 {

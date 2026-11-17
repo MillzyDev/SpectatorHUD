@@ -28,6 +28,7 @@ using SpectatorHUD.Expressions;
 using SpectatorHUD.HarmonyPatches;
 using SpectatorHUD.Logging;
 using SpectatorHUD.Shading;
+using SpectatorHUD.UI;
 
 namespace SpectatorHUD;
 

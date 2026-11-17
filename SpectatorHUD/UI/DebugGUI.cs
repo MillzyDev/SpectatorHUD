@@ -16,10 +16,9 @@
  */
 
 using System;
-using SpectatorHUD.Util;
 using UnityEngine;
 
-namespace SpectatorHUD;
+namespace SpectatorHUD.UI;
 
 public class DebugGUI : MonoBehaviour
 {

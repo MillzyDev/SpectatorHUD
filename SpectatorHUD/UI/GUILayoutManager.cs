@@ -18,7 +18,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpectatorHUD.Util;
+namespace SpectatorHUD.UI;
 
 public class GUILayoutManager
 {

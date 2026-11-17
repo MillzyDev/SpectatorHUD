@@ -18,6 +18,7 @@
 using HarmonyLib;
 using Il2CppSLZ.Marrow.SceneStreaming;
 using SpectatorHUD.Annotations;
+using SpectatorHUD.UI;
 using UnityEngine;
 
 namespace SpectatorHUD.HarmonyPatches;
