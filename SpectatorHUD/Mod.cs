@@ -26,6 +26,7 @@ using MelonLoader.Utils;
 using SpectatorHUD.Animation;
 using SpectatorHUD.Expressions;
 using SpectatorHUD.HarmonyPatches;
+using SpectatorHUD.Logging;
 using SpectatorHUD.Shading;
 
 namespace SpectatorHUD;
@@ -46,10 +47,9 @@ public sealed class Mod : MelonMod
 
     public override void OnInitializeMelon()
     {
-        this.InitLogger();
-        Logger.Msg("Logger initialised");
-
-        Logger.Msg("Injecting types");
+        Logger logger = LogService.Logger;
+        
+        logger.Info("Injecting types");
         this.InjectType<LoadingSceneActivator>();
         // Animation
         this.InjectType<AnimationBoolReference>();
@@ -75,7 +75,7 @@ public sealed class Mod : MelonMod
         this.InjectType<HudBootstrap>();
         this.InjectType<PlayerEvents>();
 
-        Logger.Msg("Patching methods");
+        logger.Info("Patching methods");
         this.InstallPatch(typeof(AmmoInventory_AddCartridge));
         this.InstallPatch(typeof(Gashapon_InsertMagazine));
         this.InstallPatch(typeof(Gashapon_SetupAmmo));
@@ -97,35 +97,28 @@ public sealed class Mod : MelonMod
         this.InstallPatch(typeof(LoadingScene_Start));
         this.InstallPatch(typeof(PlayerMarker_OnPlayerSpawned));
 
-        Logger.Msg("Creating HUDs directory");
+        logger.Info("Creating HUDs directory");
         this.CreateHudDirectory();
 
-        Logger.Msg("Registering BoneMenu");
+        logger.Info("Registering BoneMenu");
         SettingsMenu.Register();
     }
 
     public override void OnDeinitializeMelon()
     {
-        Logger.Msg("Unpatching methods");
+        Logger logger = LogService.Logger;
+        
+        logger.Info("Unpatching methods");
         this.HarmonyInstance.UnpatchSelf();
 
-        Logger.Msg("Saving config");
+        logger.Info("Saving config");
         Config.Instance.Save();
-    }
-
-    private void InitLogger()
-    {
-        Logger.Instance = this.LoggerInstance;
-
-#if DEBUG
-        Logger.EnableDebug(true);
-#else // DEBUG
-        Logger.EnableDebug(MelonDebug.IsEnabled());
-#endif // DEBUG
     }
 
     private void CreateHudDirectory()
     {
+        Logger logger = LogService.Logger;
+        
         string path = Path.Join(MelonEnvironment.UserDataDirectory, "SpectatorHUD", "HUDs");
         try
         {
@@ -133,19 +126,21 @@ public sealed class Mod : MelonMod
         }
         catch (Exception ex)
         {
-            Logger.Error("Failed to create HUDs directory.", ex);
+            logger.Error("Failed to create HUDs directory.", ex);
         }
     }
 
     private void InstallPatch(Type patchType)
     {
+        Logger logger = LogService.Logger;
+        
         PatchClassProcessor processor = this.HarmonyInstance.CreateClassProcessor(patchType, true);
         try
         {
             List<MethodInfo> patchedMethods = processor.Patch();
 
             patchedMethods.ForEach(method =>
-                Logger.Debug(
+                logger.Debug(
                     "Patched {0}::{1}",
                     method.DeclaringType?.FullName ?? "",
                     method.Name
@@ -154,7 +149,7 @@ public sealed class Mod : MelonMod
         }
         catch (HarmonyException ex)
         {
-            Logger.Error("Failed to patch method.", ex);
+            logger.Error("Failed to patch method.", ex);
         }
     }
 
@@ -165,7 +160,10 @@ public sealed class Mod : MelonMod
 #else // DEBUG
         int logLevel = MelonDebug.IsEnabled() ? 4 : 0;
 #endif // DEBUG
-        Logger.Debug("Injecting type {0}", typeof(T).FullName ?? "");
+        
+        Logger logger = LogService.Logger;
+        logger.Debug("Injecting type {0}", typeof(T).FullName ?? "");
+        
         SerialisationHandler.Inject<T>(logLevel);
     }
 }

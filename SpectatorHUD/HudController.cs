@@ -20,14 +20,18 @@ using System.Collections.Generic;
 using Il2CppSLZ.Marrow;
 using Il2CppTMPro;
 using SpectatorHUD.Expressions;
+using SpectatorHUD.Logging;
 using UnityEngine;
+using Logger = SpectatorHUD.Logging.Logger;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
 namespace SpectatorHUD;
 
-public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
+public class HudController : MonoBehaviour
 {
+    private readonly Logger _logger;
+    
     public TMP_Text leftHandReserveCounter;
     public TMP_Text leftHandAmmoCounter;
     public TMP_Text rightHandReserveCounter;
@@ -49,6 +53,11 @@ public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
     public List<GameObject> activeWithGunHeldInRightHand;
 
     private LinearExpression<float> _healthModifierExpression;
+
+    public HudController(IntPtr ptr) : base(ptr)
+    {
+        this._logger = LogService.Logger;
+    }
 
     private void Awake()
     {
@@ -226,7 +235,7 @@ public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
 
     private void OnLeftGunChanged(Gun? gun)
     {
-        Logger.Debug(nameof(HudController), "Left gun changed");
+        this._logger.Debug("Left gun changed");
 
         if (gun == null) // no gun in hand
         {
@@ -246,7 +255,7 @@ public class HudController(IntPtr ptr) : MonoBehaviour(ptr)
 
     private void OnRightGunChanged(Gun? gun)
     {
-        Logger.Debug(nameof(HudController), "Right gun changed");
+        this._logger.Debug("Right gun changed");
 
         if (gun == null) // no gun in hand
         {

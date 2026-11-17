@@ -19,24 +19,29 @@ using System;
 using Il2CppInterop.Runtime;
 using Il2CppSLZ.Marrow;
 using SpectatorHUD.Extensions;
+using SpectatorHUD.Logging;
 using SpectatorHUD.Util;
 using UnityEngine;
+using Logger = SpectatorHUD.Logging.Logger;
 
 namespace SpectatorHUD;
 
 public class PlayerEvents : MonoBehaviour
 {
+    private readonly Logger _logger;
     private readonly Il2CppSystem.Action<HandReciever>? _onReceiverAttachedLeft;
     private readonly Il2CppSystem.Action<HandReciever>? _onReceiverAttachedRight;
     private readonly Il2CppSystem.Action<HandReciever>? _onReceiverDetachedLeft;
     private readonly Il2CppSystem.Action<HandReciever>? _onReceiverDetachedRight;
-    private Hand? _leftHand;
-
+    
     private RigManager? _rigManager;
+    private Hand? _leftHand;
     private Hand? _rightHand;
 
     public PlayerEvents(IntPtr ptr) : base(ptr)
     {
+        this._logger = LogService.Logger;
+        
         this._onReceiverAttachedLeft =
             DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(this.OnReceiverAttachedLeft);
         this._onReceiverDetachedLeft =
@@ -71,7 +76,7 @@ public class PlayerEvents : MonoBehaviour
 
     private void OnReceiverAttachedLeft(HandReciever handReciever) // learn to spell SLZ
     {
-        Logger.Debug(nameof(PlayerEvents), "OnReceiverAttachedLeft called");
+        this._logger.Debug("OnReceiverAttachedLeft called");
 
         if (!handReciever.TryFindGunFromReceiver(out Gun? gun))
         {
@@ -100,7 +105,7 @@ public class PlayerEvents : MonoBehaviour
 
     private void OnReceiverDetachedLeft(HandReciever handReciever)
     {
-        Logger.Debug(nameof(PlayerEvents), "OnReceiverDetachedLeft called");
+        this._logger.Debug("OnReceiverDetachedLeft called");
 
         HudState.LeftGun = null;
         HudState.LeftDefaultCartridge = null;
@@ -111,7 +116,7 @@ public class PlayerEvents : MonoBehaviour
 
     private void OnReceiverAttachedRight(HandReciever handReciever)
     {
-        Logger.Debug(nameof(PlayerEvents), "OnReceiverAttachedRight called");
+        this._logger.Debug("OnReceiverAttachedRight called");
 
         if (!handReciever.TryFindGunFromReceiver(out Gun? gun))
         {
@@ -140,7 +145,7 @@ public class PlayerEvents : MonoBehaviour
 
     private void OnReceiverDetachedRight(HandReciever handReciever)
     {
-        Logger.Debug(nameof(PlayerEvents), "OnReceiverDetachedRight called");
+        this._logger.Debug("OnReceiverDetachedRight called");
 
         HudState.RightGun = null;
         HudState.RightDefaultCartridge = null;

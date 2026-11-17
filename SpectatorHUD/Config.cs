@@ -28,6 +28,7 @@ public sealed class Config
 
     private readonly MelonPreferences_Category _config;
     private readonly MelonPreferences_Entry<string?> _hud;
+    private readonly MelonPreferences_Entry<bool> _debugLogging; 
 
     private Config()
     {
@@ -35,6 +36,7 @@ public sealed class Config
 
         // Add entries
         this._hud = this._config.CreateEntry<string?>("hud", "");
+        this._debugLogging = this._config.CreateEntry<bool>("debugLogging", false);
 
         this._config.SetFilePath(Path.Join(MelonEnvironment.UserDataDirectory, "SpectatorHUD", "config.cfg"));
     }
@@ -45,6 +47,12 @@ public sealed class Config
     {
         get => this._hud.Value;
         set => this._hud.Value = value;
+    }
+
+    public bool DebugLogging
+    {
+        get => this._debugLogging.Value;
+        set => this._debugLogging.Value = value;
     }
 
     public void Save()

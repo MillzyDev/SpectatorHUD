@@ -24,7 +24,9 @@ using BoneLib.BoneMenu;
 using BoneLib.Notifications;
 using Il2CppSLZ.Marrow.SceneStreaming;
 using MelonLoader.Utils;
+using SpectatorHUD.Logging;
 using UnityEngine;
+using Logger = SpectatorHUD.Logging.Logger;
 
 namespace SpectatorHUD;
 
@@ -45,6 +47,7 @@ public static class SettingsMenu
 
     private static void FillSelectHudPage(Page parent)
     {
+        Logger logger = LogService.Logger;
         List<Tuple<HudV1, string?>> hudMetadatas = new();
 
         // Get metadata for the default hud.
@@ -80,16 +83,18 @@ public static class SettingsMenu
                     });
                 }
             );
-            Logger.Debug("Created element for: {} v{} by {}", hud.name, hud.hudVersion, hud.hudAuthor);
+            logger.Debug("Created element for: {} v{} by {}", hud.name, hud.hudVersion, hud.hudAuthor);
         }
     }
 
     private static HudV1? GetMetadataFromFile(string path)
     {
+        Logger logger = LogService.Logger;
+        
         AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
         if (assetBundle == null)
         {
-            Logger.Error("Failed to load asset bundle from file: " + path);
+            logger.Error("Failed to load asset bundle from file: " + path);
             return null;
         }
 
@@ -98,11 +103,13 @@ public static class SettingsMenu
 
     private static HudV1? GetMetadataFromEmbeddedResource(string resource)
     {
+        Logger logger = LogService.Logger;
+        
         Assembly assembly = Assembly.GetExecutingAssembly();
         using Stream? stream = assembly.GetManifestResourceStream(resource);
         if (stream == null)
         {
-            Logger.Error("Unable to open stream to embedded resource " + resource + " not found.");
+            logger.Error("Unable to open stream to embedded resource " + resource + " not found.");
             return null;
         }
 
@@ -112,7 +119,7 @@ public static class SettingsMenu
         AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
         if (assetBundle == null)
         {
-            Logger.Error("Failed to load asset bundle from embedded resource: " + resource);
+            logger.Error("Failed to load asset bundle from embedded resource: " + resource);
             return null;
         }
         
@@ -123,17 +130,19 @@ public static class SettingsMenu
 
     private static HudV1? GetMetadataFromAssetBundle(AssetBundle assetBundle)
     {
+        Logger logger = LogService.Logger;
+        
         var versionAsset = assetBundle.LoadAsset("Hud.Version.asset").TryCast<HudVersion>();
         if (versionAsset == null)
         {
-            Logger.Error("Hud.Version.asset could not be loaded from asset bundle: " + assetBundle.name);
+            logger.Error("Hud.Version.asset could not be loaded from asset bundle: " + assetBundle.name);
             return null;
         }
         
         var hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
         if (hudInfo == null)
         {
-            Logger.Error("Hud.asset could not be loaded from assetBundle: " + assetBundle.name);
+            logger.Error("Hud.asset could not be loaded from assetBundle: " + assetBundle.name);
             return null;
         }
         assetBundle.Unload(false);
@@ -144,7 +153,7 @@ public static class SettingsMenu
             case 1:
                 return hudInfo;
             default:
-                Logger.Error(
+                logger.Error(
                     $"{hudInfo.hudName} v{hudInfo.hudVersion} by {hudInfo.hudAuthor} requires SDK v{hudInfo.spectatorHudVersion.version} features. " +
                     "This version of SpectatorHUD supports up to v1"
                 );

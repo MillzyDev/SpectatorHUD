@@ -19,17 +19,26 @@ using System;
 using System.IO;
 using System.Reflection;
 using Il2CppSLZ.Marrow;
+using SpectatorHUD.Logging;
 using UnityEngine;
+using Logger = SpectatorHUD.Logging.Logger;
 
 namespace SpectatorHUD;
 
-public class HudBootstrap(IntPtr ptr) : MonoBehaviour(ptr)
+public class HudBootstrap : MonoBehaviour
 {
+    private readonly Logger _logger;
+    
     public const string DefaultHud = "SpectatorHUD.Resources.Half-Life 2.hud";
     public GameObject? hud;
 
     private RigManager? _rigManager;
     public DateTime lastLoad;
+
+    public HudBootstrap(IntPtr ptr) : base(ptr)
+    {
+        this._logger = LogService.Logger;
+    }
 
     public void Start()
     {
@@ -73,11 +82,11 @@ public class HudBootstrap(IntPtr ptr) : MonoBehaviour(ptr)
 
     public void LoadHudFromFile(string filePath)
     {
-        Logger.Msg("Loading bundle at: {0}", filePath);
+        this._logger.Info("Loading bundle at: {0}", filePath);
         AssetBundle assetBundle = AssetBundle.LoadFromFile(filePath);
         if (assetBundle == null)
         {
-            Logger.Error("Failed to load asset bundle.");
+            this._logger.Error("Failed to load asset bundle.");
             //Destroy(this);
             return;
         }
@@ -93,7 +102,7 @@ public class HudBootstrap(IntPtr ptr) : MonoBehaviour(ptr)
 
         if (stream == null)
         {
-            Logger.Error("Unable to open stream to embedded resource");
+            this._logger.Error("Unable to open stream to embedded resource");
             return;
         }
 
@@ -103,7 +112,7 @@ public class HudBootstrap(IntPtr ptr) : MonoBehaviour(ptr)
         AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
         if (assetBundle == null)
         {
-            Logger.Error("Failed to load asset bundle from embedded resource.");
+            this._logger.Error("Failed to load asset bundle from embedded resource.");
             return;
         }
         
@@ -117,7 +126,7 @@ public class HudBootstrap(IntPtr ptr) : MonoBehaviour(ptr)
         if (hudVersion == null)
         {
             // Version SO is required but not present,
-            Logger.Error("Hud Version asset was not found in asset bundle.");
+            this._logger.Error("Hud Version asset was not found in asset bundle.");
             //Destroy(this);
             return;
         }
@@ -128,7 +137,7 @@ public class HudBootstrap(IntPtr ptr) : MonoBehaviour(ptr)
                 this.LoadHudV1(assetBundle);
                 break;
             default:
-                Logger.Error("Unsupported HUD version. You may need to update the mod.");
+                this._logger.Error("Unsupported HUD version. You may need to update the mod.");
                 Destroy(this);
                 return;
         }
@@ -142,12 +151,12 @@ public class HudBootstrap(IntPtr ptr) : MonoBehaviour(ptr)
         HudV1? hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
         if (hudInfo == null)
         {
-            Logger.Error("Hud.asset could not be loaded from asset bundle.");
+            this._logger.Error("Hud.asset could not be loaded from asset bundle.");
             //Destroy(this);
             return;
         }
 
-        Logger.Msg("Loaded {0} v{1} by {2}", hudInfo.hudName, hudInfo.hudVersion, hudInfo.hudAuthor);
+        this._logger.Info("Loaded {0} v{1} by {2}", hudInfo.hudName, hudInfo.hudVersion, hudInfo.hudAuthor);
         this.hud = Instantiate(hudInfo.hudAsset);
         this.hud.name = "SpectatorHUD UI";
 
@@ -164,7 +173,7 @@ public class HudBootstrap(IntPtr ptr) : MonoBehaviour(ptr)
     {
         if (this._rigManager == null)
         {
-            Logger.Error("FUCKKK WHERES THE RIG MANAGER");
+            this._logger.Error("FUCKKK WHERES THE RIG MANAGER");
             return;
         }
 
