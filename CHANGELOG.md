@@ -1,8 +1,8 @@
 # v2.0.0
 - HUD v2 Support
-  - HUDs can specify "required extensions" which are intended to be used to signify features used by other mods other than SpectatorHUD
+  - HUDs can specify "required addons" which are intended to be used to signify features used by other mods other than SpectatorHUD
 - Extension API
-  - Other mods can integrate with SpectatorHUD to register as an "extension", i.e. adding extra functionality intended to be used in HUDs
+  - Other mods can integrate with SpectatorHUD to register as an "addon", i.e. adding extra functionality intended to be used in HUDs
   - Debug IMGUI integration support
 - Miscellaneous API changes:
   - `HudState` is now a lazily initialised singleton instead of a static class
