@@ -40,9 +40,9 @@ public sealed class HudState
             }
 
             field = AmmoInventory.Instance;
-            LightAmmoKey = field.lightAmmoGroup.KeyName;
-            MediumAmmoKey = field.mediumAmmoGroup.KeyName;
-            HeavyAmmoKey = field.heavyAmmoGroup.KeyName;
+            this.LightAmmoKey = field.lightAmmoGroup.KeyName;
+            this.MediumAmmoKey = field.mediumAmmoGroup.KeyName;
+            this.HeavyAmmoKey = field.heavyAmmoGroup.KeyName;
 
             return field;
         }
@@ -72,20 +72,20 @@ public sealed class HudState
 
     public void ForceNotifierRepoll()
     {
-        OnLeftGunChanged?.Invoke(LeftGun);
-        OnRightGunChanged?.Invoke(RightGun);
-        OnLeftAmmoChanged?.Invoke(LeftAmmo);
-        OnRightAmmoChanged?.Invoke(RightAmmo);
-        OnLeftReserveChanged?.Invoke(LeftReserve);
-        OnRightReserveChanged?.Invoke(RightReserve);
-        OnLeftTotalAmmoChanged?.Invoke(LeftTotalAmmo);
-        OnRightTotalAmmoChanged?.Invoke(RightTotalAmmo);
-        OnTotalLightAmmoChanged?.Invoke(TotalLightAmmo);
-        OnTotalMediumAmmoChanged?.Invoke(TotalMediumAmmo);
-        OnTotalHeavyAmmoChanged?.Invoke(TotalHeavyAmmo);
-        OnHealthChanged?.Invoke(Health);
-        OnHealthPercentageChanged?.Invoke(HealthPercentage);
-        OnMaxHealthChanged?.Invoke(MaxHealth);
+        this.OnLeftGunChanged?.Invoke(this.LeftGun);
+        this.OnRightGunChanged?.Invoke(this.RightGun);
+        this.OnLeftAmmoChanged?.Invoke(this.LeftAmmo);
+        this.OnRightAmmoChanged?.Invoke(this.RightAmmo);
+        this.OnLeftReserveChanged?.Invoke(this.LeftReserve);
+        this.OnRightReserveChanged?.Invoke(this.RightReserve);
+        this.OnLeftTotalAmmoChanged?.Invoke(this.LeftTotalAmmo);
+        this.OnRightTotalAmmoChanged?.Invoke(this.RightTotalAmmo);
+        this.OnTotalLightAmmoChanged?.Invoke(this.TotalLightAmmo);
+        this.OnTotalMediumAmmoChanged?.Invoke(this.TotalMediumAmmo);
+        this.OnTotalHeavyAmmoChanged?.Invoke(this.TotalHeavyAmmo);
+        this.OnHealthChanged?.Invoke(this.Health);
+        this.OnHealthPercentageChanged?.Invoke(this.HealthPercentage);
+        this.OnMaxHealthChanged?.Invoke(this.MaxHealth);
     }
 
     #region Notifier Properties
@@ -97,7 +97,7 @@ public sealed class HudState
         {
             if (field != value)
             {
-                OnLeftGunChanged?.Invoke(value);
+                this.OnLeftGunChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(LeftGun) + " changed " + field + " -> " + value);
             }
 
@@ -112,7 +112,7 @@ public sealed class HudState
         {
             if (field != value)
             {
-                OnRightGunChanged?.Invoke(value);
+                this.OnRightGunChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(RightGun) + " changed " + field + " -> " + value);
 
             }
@@ -128,7 +128,7 @@ public sealed class HudState
         {
             if (field != value)
             {
-                OnLeftAmmoChanged?.Invoke(value);
+                this.OnLeftAmmoChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(LeftAmmo) + " changed " + field + " -> " + value);
 
             }
@@ -144,7 +144,7 @@ public sealed class HudState
         {
             if (field != value)
             {
-                OnRightAmmoChanged?.Invoke(value);
+                this.OnRightAmmoChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(RightAmmo) + " changed " + field + " -> " + value);
 
             }
@@ -160,7 +160,7 @@ public sealed class HudState
         {
             if (field != value)
             {
-                OnLeftReserveChanged?.Invoke(value);
+                this.OnLeftReserveChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(LeftReserve) + " changed " + field + " -> " + value);
 
             }
@@ -176,7 +176,7 @@ public sealed class HudState
         {
             if (field != value)
             {
-                OnRightReserveChanged?.Invoke(value);
+                this.OnRightReserveChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(RightReserve) + " changed " + field + " -> " + value);
             }
 
@@ -191,7 +191,7 @@ public sealed class HudState
         {
             if (field != value)
             {
-                OnLeftTotalAmmoChanged?.Invoke(value);
+                this.OnLeftTotalAmmoChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(LeftTotalAmmo) + " changed " + field + " -> " + value);
             }
 
@@ -206,7 +206,7 @@ public sealed class HudState
         {
             if (field != value)
             {
-                OnRightTotalAmmoChanged?.Invoke(value);
+                this.OnRightTotalAmmoChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(RightTotalAmmo) + " changed " + field + " -> " + value);
             }
 
@@ -221,7 +221,7 @@ public sealed class HudState
         {
             if (field != value)
             {
-                OnTotalLightAmmoChanged?.Invoke(value);
+                this.OnTotalLightAmmoChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(TotalLightAmmo) + " changed " + field + " -> " + value);
             }
 
@@ -236,7 +236,7 @@ public sealed class HudState
         {
             if (field != value)
             {
-                OnTotalMediumAmmoChanged?.Invoke(value);
+                this.OnTotalMediumAmmoChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(TotalMediumAmmo) + " changed " + field + " -> " + value);
             }
 
@@ -251,7 +251,7 @@ public sealed class HudState
         {
             if (field != value)
             {
-                OnTotalHeavyAmmoChanged?.Invoke(value);
+                this.OnTotalHeavyAmmoChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(TotalHeavyAmmo) + " changed " + field + " -> " + value);
             }
 
@@ -267,7 +267,7 @@ public sealed class HudState
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (field != value)
             {
-                OnHealthChanged?.Invoke(value);
+                this.OnHealthChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(Health) + " changed " + field + " -> " + value);
             }
 
@@ -283,7 +283,7 @@ public sealed class HudState
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (field != value)
             {
-                OnHealthPercentageChanged?.Invoke(value);
+                this.OnHealthPercentageChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(HealthPercentage) + " changed " + field + " -> " + value);
             }
 
@@ -299,7 +299,7 @@ public sealed class HudState
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (field != value)
             {
-                OnMaxHealthChanged?.Invoke(value);
+                this.OnMaxHealthChanged?.Invoke(value);
                 //Logger.Debug(nameof(HudState), nameof(MaxHealth) + " changed " + field + " -> " + value);
             }
 
