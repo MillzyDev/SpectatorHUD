@@ -23,8 +23,10 @@ using UnityEngine;
 
 namespace SpectatorHUD;
 
-public class AnimationController(IntPtr ptr) : MonoBehaviour(ptr)
+public class AnimationController : MonoBehaviour
 {
+    private readonly HudState _hudState;
+    
     public List<AnimationBoolReference> animationLeftGunHeld;
     public List<AnimationBoolReference> animationRightGunHeld;
     public List<AnimationTriggerReference> animationLeftGunHeldChanged;
@@ -56,6 +58,11 @@ public class AnimationController(IntPtr ptr) : MonoBehaviour(ptr)
     public List<AnimationFloatReference> animationHealthPercentage;
     public List<AnimationTriggerReference> animationHealthChanged;
     public List<AnimationTriggerReference> animationMaxHealthChanged;
+
+    public AnimationController(IntPtr ptr) : base(ptr)
+    {
+        this._hudState = HudState.Instance;
+    }
 
     private void Start()
     {
@@ -122,30 +129,30 @@ public class AnimationController(IntPtr ptr) : MonoBehaviour(ptr)
 
     private void OnEnable()
     {
-        HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoAnimation;
-        HudState.OnRightAmmoChanged += this.UpdateRightAmmoAnimation;
-        HudState.OnLeftReserveChanged += this.UpdateLeftReserveAnimation;
-        HudState.OnRightReserveChanged += this.UpdateRightReserveAnimation;
-        HudState.OnHealthChanged += this.UpdateHealthAnimation;
-        HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageAnimation;
-        HudState.OnMaxHealthChanged += this.UpdateMaxHealthAnimation;
+        this._hudState.OnLeftAmmoChanged += this.UpdateLeftAmmoAnimation;
+        this._hudState.OnRightAmmoChanged += this.UpdateRightAmmoAnimation;
+        this._hudState.OnLeftReserveChanged += this.UpdateLeftReserveAnimation;
+        this._hudState.OnRightReserveChanged += this.UpdateRightReserveAnimation;
+        this._hudState.OnHealthChanged += this.UpdateHealthAnimation;
+        this._hudState.OnHealthPercentageChanged += this.UpdateHealthPercentageAnimation;
+        this._hudState.OnMaxHealthChanged += this.UpdateMaxHealthAnimation;
 
-        HudState.OnLeftGunChanged += this.OnLeftGunChanged;
-        HudState.OnRightGunChanged += this.OnRightGunChanged;
+        this._hudState.OnLeftGunChanged += this.OnLeftGunChanged;
+        this._hudState.OnRightGunChanged += this.OnRightGunChanged;
     }
 
     private void OnDisable()
     {
-        HudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoAnimation;
-        HudState.OnRightAmmoChanged -= this.UpdateRightAmmoAnimation;
-        HudState.OnLeftReserveChanged -= this.UpdateLeftReserveAnimation;
-        HudState.OnRightReserveChanged -= this.UpdateRightReserveAnimation;
-        HudState.OnHealthChanged -= this.UpdateHealthAnimation;
-        HudState.OnHealthPercentageChanged -= this.UpdateHealthPercentageAnimation;
-        HudState.OnMaxHealthChanged -= this.UpdateMaxHealthAnimation;
+        this._hudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoAnimation;
+        this._hudState.OnRightAmmoChanged -= this.UpdateRightAmmoAnimation;
+        this._hudState.OnLeftReserveChanged -= this.UpdateLeftReserveAnimation;
+        this._hudState.OnRightReserveChanged -= this.UpdateRightReserveAnimation;
+        this._hudState.OnHealthChanged -= this.UpdateHealthAnimation;
+        this._hudState.OnHealthPercentageChanged -= this.UpdateHealthPercentageAnimation;
+        this._hudState.OnMaxHealthChanged -= this.UpdateMaxHealthAnimation;
 
-        HudState.OnLeftGunChanged -= this.OnLeftGunChanged;
-        HudState.OnRightGunChanged -= this.OnRightGunChanged;
+        this._hudState.OnLeftGunChanged -= this.OnLeftGunChanged;
+        this._hudState.OnRightGunChanged -= this.OnRightGunChanged;
     }
 
     private void ResolveAnimationParameterIds(List<AnimationBoolReference> parameters)

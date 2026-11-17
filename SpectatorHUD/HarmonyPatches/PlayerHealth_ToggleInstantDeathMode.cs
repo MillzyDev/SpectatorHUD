@@ -25,6 +25,13 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Player_Health.ToggleInstantDeathMode))]
 public static class PlayerHealth_ToggleInstantDeathMode
 {
+    private static readonly HudState HudState;
+
+    static PlayerHealth_ToggleInstantDeathMode()
+    {
+        HudState = HudState.Instance;
+    }
+    
     [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(Player_Health __instance)

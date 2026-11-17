@@ -28,6 +28,13 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Control_Gashapon.SetupAmmo))]
 public static class Gashapon_SetupAmmo
 {
+    private static readonly HudState HudState;
+
+    static Gashapon_SetupAmmo()
+    {
+        HudState = HudState.Instance;
+    }
+    
     [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix()

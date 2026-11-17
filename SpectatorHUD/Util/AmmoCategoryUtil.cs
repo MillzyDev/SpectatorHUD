@@ -21,17 +21,19 @@ public static class AmmoCategoryUtil
 {
     public static AmmoCategory GetCategoryFromGroupKey(string groupKey)
     {
-        if (groupKey == HudState.LightAmmoKey)
+        HudState hudState = HudState.Instance;
+        
+        if (groupKey == hudState.LightAmmoKey)
         {
             return AmmoCategory.Light;
         }
 
-        if (groupKey == HudState.MediumAmmoKey)
+        if (groupKey == hudState.MediumAmmoKey)
         {
             return AmmoCategory.Medium;
         }
 
-        if (groupKey == HudState.HeavyAmmoKey)
+        if (groupKey == hudState.HeavyAmmoKey)
         {
             return AmmoCategory.Heavy;
         }

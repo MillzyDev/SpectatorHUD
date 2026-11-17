@@ -23,12 +23,15 @@ namespace SpectatorHUD;
 
 public class DebugGUI : MonoBehaviour
 {
+    private readonly HudState _hudState;
+    
     private HudBootstrap _bootstrap;
     private GUILayoutManager _layout;
     private bool _showGui;
 
     public DebugGUI(IntPtr ptr) : base(ptr)
     {
+        this._hudState = HudState.Instance;
     }
 
     private void Start()
@@ -69,15 +72,15 @@ public class DebugGUI : MonoBehaviour
         this._layout.Space();
         GUI.Label(this._layout.GetNext(), "Tracked Values:");
         this._layout.Indent();
-        GUI.Label(this._layout.GetNext(), "Left Gun Held: " + (HudState.LeftGun != null));
-        GUI.Label(this._layout.GetNext(), "Right Gun Held: " + (HudState.RightGun != null));
-        GUI.Label(this._layout.GetNext(), "Left Ammo: " + HudState.LeftAmmo);
-        GUI.Label(this._layout.GetNext(), "Right Ammo: " + HudState.RightAmmo);
-        GUI.Label(this._layout.GetNext(), "Left Reserve: " + HudState.LeftReserve);
-        GUI.Label(this._layout.GetNext(), "Right Reserve: " + HudState.RightReserve);
-        GUI.Label(this._layout.GetNext(), "Health: " + HudState.Health);
-        GUI.Label(this._layout.GetNext(), "Max Health: " + HudState.MaxHealth);
-        GUI.Label(this._layout.GetNext(), "Health Percentage: " + HudState.HealthPercentage);
+        GUI.Label(this._layout.GetNext(), "Left Gun Held: " + (this._hudState.LeftGun != null));
+        GUI.Label(this._layout.GetNext(), "Right Gun Held: " + (this._hudState.RightGun != null));
+        GUI.Label(this._layout.GetNext(), "Left Ammo: " + this._hudState.LeftAmmo);
+        GUI.Label(this._layout.GetNext(), "Right Ammo: " + this._hudState.RightAmmo);
+        GUI.Label(this._layout.GetNext(), "Left Reserve: " + this._hudState.LeftReserve);
+        GUI.Label(this._layout.GetNext(), "Right Reserve: " + this._hudState.RightReserve);
+        GUI.Label(this._layout.GetNext(), "Health: " + this._hudState.Health);
+        GUI.Label(this._layout.GetNext(), "Max Health: " + this._hudState.MaxHealth);
+        GUI.Label(this._layout.GetNext(), "Health Percentage: " + this._hudState.HealthPercentage);
         
         this._layout.Outdent();
         this._layout.Space();

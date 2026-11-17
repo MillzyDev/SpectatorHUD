@@ -28,6 +28,13 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Gun.CompleteSlidePull))]
 public static class Gun_CompleteSlidePull
 {
+    private static readonly HudState HudState;
+
+    static Gun_CompleteSlidePull()
+    {
+        HudState = HudState.Instance;
+    }
+    
     [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(Gun __instance)

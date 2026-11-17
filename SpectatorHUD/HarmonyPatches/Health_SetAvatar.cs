@@ -25,6 +25,13 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Health.SetAvatar))]
 public static class Health_SetAvatar
 {
+    private static readonly HudState HudState;
+
+    static Health_SetAvatar()
+    {
+        HudState = HudState.Instance;
+    }
+    
     [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(Health __instance)

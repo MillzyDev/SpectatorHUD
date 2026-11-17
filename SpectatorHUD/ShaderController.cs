@@ -68,24 +68,28 @@ public class ShaderController(IntPtr ptr) : MonoBehaviour(ptr)
 
     private void OnEnable()
     {
-        HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoShader;
-        HudState.OnRightAmmoChanged += this.UpdateRightAmmoShader;
-        HudState.OnLeftReserveChanged += this.UpdateLeftReserveShader;
-        HudState.OnRightReserveChanged += this.UpdateRightReserveShader;
-        HudState.OnHealthChanged += this.UpdateHealthShader;
-        HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageShader;
-        HudState.OnMaxHealthChanged += this.UpdateMaxHealthShader;
+        var hudState = HudState.Instance;
+        
+        hudState.OnLeftAmmoChanged += this.UpdateLeftAmmoShader;
+        hudState.OnRightAmmoChanged += this.UpdateRightAmmoShader;
+        hudState.OnLeftReserveChanged += this.UpdateLeftReserveShader;
+        hudState.OnRightReserveChanged += this.UpdateRightReserveShader;
+        hudState.OnHealthChanged += this.UpdateHealthShader;
+        hudState.OnHealthPercentageChanged += this.UpdateHealthPercentageShader;
+        hudState.OnMaxHealthChanged += this.UpdateMaxHealthShader;
     }
 
     private void OnDisable()
     {
-        HudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoShader;
-        HudState.OnRightAmmoChanged -= this.UpdateRightAmmoShader;
-        HudState.OnLeftReserveChanged -= this.UpdateLeftReserveShader;
-        HudState.OnRightReserveChanged -= this.UpdateRightReserveShader;
-        HudState.OnHealthChanged -= this.UpdateHealthShader;
-        HudState.OnHealthPercentageChanged -= this.UpdateHealthPercentageShader;
-        HudState.OnMaxHealthChanged -= this.UpdateMaxHealthShader;
+        var hudState = HudState.Instance;
+        
+        hudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoShader;
+        hudState.OnRightAmmoChanged -= this.UpdateRightAmmoShader;
+        hudState.OnLeftReserveChanged -= this.UpdateLeftReserveShader;
+        hudState.OnRightReserveChanged -= this.UpdateRightReserveShader;
+        hudState.OnHealthChanged -= this.UpdateHealthShader;
+        hudState.OnHealthPercentageChanged -= this.UpdateHealthPercentageShader;
+        hudState.OnMaxHealthChanged -= this.UpdateMaxHealthShader;
     }
 
     private void UpdateLeftAmmoShader(int? ammo)

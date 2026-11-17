@@ -24,25 +24,26 @@ public static class AmmoUpdateUtil
 {
     public static void UpdateReservesTargeted(CartridgeData cartridge)
     {
-        int ammoTotal = HudState.AmmoInventory.GetCartridgeCount(cartridge);
+        var hudState = HudState.Instance;
+        int ammoTotal = hudState.AmmoInventory.GetCartridgeCount(cartridge);
         
-        if (cartridge == HudState.LeftDefaultCartridge?.cartridge)
+        if (cartridge == hudState.LeftDefaultCartridge?.cartridge)
         {
-            HudState.LeftTotalAmmo = ammoTotal;
-            HudState.LeftReserve = ammoTotal - HudState.LeftAmmo;
+            hudState.LeftTotalAmmo = ammoTotal;
+            hudState.LeftReserve = ammoTotal - hudState.LeftAmmo;
 
-            switch (HudState.LeftDefaultCartridge.ammoCategory)
+            switch (hudState.LeftDefaultCartridge.ammoCategory)
             {
                 case AmmoCategory.Unknown:
                     break;
                 case AmmoCategory.Light:
-                    HudState.TotalLightAmmo = ammoTotal;
+                    hudState.TotalLightAmmo = ammoTotal;
                     break;
                 case AmmoCategory.Medium:
-                    HudState.TotalMediumAmmo = ammoTotal;
+                    hudState.TotalMediumAmmo = ammoTotal;
                     break;
                 case AmmoCategory.Heavy:
-                    HudState.TotalHeavyAmmo = ammoTotal;
+                    hudState.TotalHeavyAmmo = ammoTotal;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -50,23 +51,23 @@ public static class AmmoUpdateUtil
             return;
         }
         
-        if (cartridge == HudState.RightDefaultCartridge?.cartridge)
+        if (cartridge == hudState.RightDefaultCartridge?.cartridge)
         {
-            HudState.RightTotalAmmo = ammoTotal;
-            HudState.RightReserve = ammoTotal - HudState.RightAmmo;
+            hudState.RightTotalAmmo = ammoTotal;
+            hudState.RightReserve = ammoTotal - hudState.RightAmmo;
 
-            switch (HudState.RightDefaultCartridge.ammoCategory)
+            switch (hudState.RightDefaultCartridge.ammoCategory)
             {
                 case AmmoCategory.Unknown:
                     break;
                 case AmmoCategory.Light:
-                    HudState.TotalLightAmmo = ammoTotal;
+                    hudState.TotalLightAmmo = ammoTotal;
                     break;
                 case AmmoCategory.Medium:
-                    HudState.TotalMediumAmmo = ammoTotal;
+                    hudState.TotalMediumAmmo = ammoTotal;
                     break;
                 case AmmoCategory.Heavy:
-                    HudState.TotalHeavyAmmo = ammoTotal;
+                    hudState.TotalHeavyAmmo = ammoTotal;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -76,42 +77,43 @@ public static class AmmoUpdateUtil
         }
 
         // Ammo category not computed ahead of time, so just do string comparison here
-        string groupKey = HudState.AmmoInventory.GetGroupByCartridge(cartridge);
-        if (groupKey == HudState.LightAmmoKey)
+        string groupKey = hudState.AmmoInventory.GetGroupByCartridge(cartridge);
+        if (groupKey == hudState.LightAmmoKey)
         {
-            HudState.TotalLightAmmo = ammoTotal;
+            hudState.TotalLightAmmo = ammoTotal;
         }
-        else if (groupKey == HudState.MediumAmmoKey)
+        else if (groupKey == hudState.MediumAmmoKey)
         {
-            HudState.TotalMediumAmmo = ammoTotal;
+            hudState.TotalMediumAmmo = ammoTotal;
         }
-        else if (groupKey == HudState.HeavyAmmoKey)
+        else if (groupKey == hudState.HeavyAmmoKey)
         {
-            HudState.TotalHeavyAmmo = ammoTotal;
+            hudState.TotalHeavyAmmo = ammoTotal;
         }
     }
 
     public static void UpdateReservesTargeted(string groupKey)
     {
-        int ammoTotal = HudState.AmmoInventory.GetCartridgeCount(groupKey);
+        var hudState = HudState.Instance;
+        int ammoTotal = hudState.AmmoInventory.GetCartridgeCount(groupKey);
         
-        if (groupKey == HudState.LeftDefaultCartridge?.groupKey)
+        if (groupKey == hudState.LeftDefaultCartridge?.groupKey)
         {
-            HudState.LeftTotalAmmo = ammoTotal;
-            HudState.LeftReserve = ammoTotal - HudState.LeftAmmo;
+            hudState.LeftTotalAmmo = ammoTotal;
+            hudState.LeftReserve = ammoTotal - hudState.LeftAmmo;
 
-            switch (HudState.LeftDefaultCartridge.ammoCategory)
+            switch (hudState.LeftDefaultCartridge.ammoCategory)
             {
                 case AmmoCategory.Unknown:
                     break;
                 case AmmoCategory.Light:
-                    HudState.TotalLightAmmo = ammoTotal;
+                    hudState.TotalLightAmmo = ammoTotal;
                     break;
                 case AmmoCategory.Medium:
-                    HudState.TotalMediumAmmo = ammoTotal;
+                    hudState.TotalMediumAmmo = ammoTotal;
                     break;
                 case AmmoCategory.Heavy:
-                    HudState.TotalHeavyAmmo = ammoTotal;
+                    hudState.TotalHeavyAmmo = ammoTotal;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -119,23 +121,23 @@ public static class AmmoUpdateUtil
             return;
         }
         
-        if (groupKey == HudState.RightDefaultCartridge?.groupKey)
+        if (groupKey == hudState.RightDefaultCartridge?.groupKey)
         {
-            HudState.RightTotalAmmo = ammoTotal;
-            HudState.RightReserve = ammoTotal - HudState.RightAmmo;
+            hudState.RightTotalAmmo = ammoTotal;
+            hudState.RightReserve = ammoTotal - hudState.RightAmmo;
 
-            switch (HudState.RightDefaultCartridge.ammoCategory)
+            switch (hudState.RightDefaultCartridge?.ammoCategory)
             {
                 case AmmoCategory.Unknown:
                     break;
                 case AmmoCategory.Light:
-                    HudState.TotalLightAmmo = ammoTotal;
+                    hudState.TotalLightAmmo = ammoTotal;
                     break;
                 case AmmoCategory.Medium:
-                    HudState.TotalMediumAmmo = ammoTotal;
+                    hudState.TotalMediumAmmo = ammoTotal;
                     break;
                 case AmmoCategory.Heavy:
-                    HudState.TotalHeavyAmmo = ammoTotal;
+                    hudState.TotalHeavyAmmo = ammoTotal;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -145,17 +147,17 @@ public static class AmmoUpdateUtil
         }
 
         // Ammo category not computed ahead of time, so just do string comparison here
-        if (groupKey == HudState.LightAmmoKey)
+        if (groupKey == hudState.LightAmmoKey)
         {
-            HudState.TotalLightAmmo = ammoTotal;
+            hudState.TotalLightAmmo = ammoTotal;
         }
-        else if (groupKey == HudState.MediumAmmoKey)
+        else if (groupKey == hudState.MediumAmmoKey)
         {
-            HudState.TotalMediumAmmo = ammoTotal;
+            hudState.TotalMediumAmmo = ammoTotal;
         }
-        else if (groupKey == HudState.HeavyAmmoKey)
+        else if (groupKey == hudState.HeavyAmmoKey)
         {
-            HudState.TotalHeavyAmmo = ammoTotal;
+            hudState.TotalHeavyAmmo = ammoTotal;
         }
     }
 }

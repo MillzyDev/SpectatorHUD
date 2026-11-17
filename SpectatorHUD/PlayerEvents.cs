@@ -34,6 +34,7 @@ public class PlayerEvents : MonoBehaviour
     private readonly Il2CppSystem.Action<HandReciever>? _onReceiverDetachedLeft;
     private readonly Il2CppSystem.Action<HandReciever>? _onReceiverDetachedRight;
     
+    private readonly HudState _hudState;
     private RigManager? _rigManager;
     private Hand? _leftHand;
     private Hand? _rightHand;
@@ -41,6 +42,7 @@ public class PlayerEvents : MonoBehaviour
     public PlayerEvents(IntPtr ptr) : base(ptr)
     {
         this._logger = LogService.Logger;
+        this._hudState = HudState.Instance;
         
         this._onReceiverAttachedLeft =
             DelegateSupport.ConvertDelegate<Il2CppSystem.Action<HandReciever>>(this.OnReceiverAttachedLeft);
@@ -83,35 +85,35 @@ public class PlayerEvents : MonoBehaviour
             return;
         }
 
-        HudState.LeftGun = gun;
+        this._hudState.LeftGun = gun;
         if (gun != null)
         {
-            HudState.LeftDefaultCartridge = new CartridgeContainer(gun.defaultCartridge);
+            this._hudState.LeftDefaultCartridge = new CartridgeContainer(gun.defaultCartridge);
         }
         else
         {
-            HudState.LeftDefaultCartridge = null;
-            HudState.LeftAmmo = null;
-            HudState.LeftReserve = null;
-            HudState.LeftTotalAmmo = null;
+            this._hudState.LeftDefaultCartridge = null;
+            this._hudState.LeftAmmo = null;
+            this._hudState.LeftReserve = null;
+            this._hudState.LeftTotalAmmo = null;
             return;
         }
 
-        HudState.LeftAmmo = gun.GetAmmoCount();
-        HudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(HudState.LeftDefaultCartridge.cartridge) -
-                               HudState.LeftAmmo;
-        HudState.LeftTotalAmmo = HudState.LeftAmmo + HudState.LeftReserve;
+        this._hudState.LeftAmmo = gun.GetAmmoCount();
+        this._hudState.LeftReserve = AmmoInventory.Instance.GetCartridgeCount(this._hudState.LeftDefaultCartridge.cartridge) -
+                                     this._hudState.LeftAmmo;
+        this._hudState.LeftTotalAmmo = this._hudState.LeftAmmo + this._hudState.LeftReserve;
     }
 
     private void OnReceiverDetachedLeft(HandReciever handReciever)
     {
         this._logger.Debug("OnReceiverDetachedLeft called");
 
-        HudState.LeftGun = null;
-        HudState.LeftDefaultCartridge = null;
-        HudState.LeftAmmo = null;
-        HudState.LeftReserve = null;
-        HudState.LeftTotalAmmo = null;
+        this._hudState.LeftGun = null;
+        this._hudState.LeftDefaultCartridge = null;
+        this._hudState.LeftAmmo = null;
+        this._hudState.LeftReserve = null;
+        this._hudState.LeftTotalAmmo = null;
     }
 
     private void OnReceiverAttachedRight(HandReciever handReciever)
@@ -123,34 +125,34 @@ public class PlayerEvents : MonoBehaviour
             return;
         }
 
-        HudState.RightGun = gun;
+        this._hudState.RightGun = gun;
         if (gun != null)
         {
-            HudState.RightDefaultCartridge = new CartridgeContainer(gun.defaultCartridge);
+            this._hudState.RightDefaultCartridge = new CartridgeContainer(gun.defaultCartridge);
         }
         else
         {
-            HudState.RightDefaultCartridge = null;
-            HudState.RightAmmo = null;
-            HudState.RightReserve = null;
-            HudState.RightTotalAmmo = null;
+            this._hudState.RightDefaultCartridge = null;
+            this._hudState.RightAmmo = null;
+            this._hudState.RightReserve = null;
+            this._hudState.RightTotalAmmo = null;
             return;
         }
 
-        HudState.RightAmmo = gun.GetAmmoCount();
-        HudState.RightReserve = AmmoInventory.Instance.GetCartridgeCount(HudState.RightDefaultCartridge.cartridge) -
-                                HudState.RightAmmo;
-        HudState.RightTotalAmmo = HudState.RightAmmo + HudState.RightReserve;
+        this._hudState.RightAmmo = gun.GetAmmoCount();
+        this._hudState.RightReserve = AmmoInventory.Instance.GetCartridgeCount(this._hudState.RightDefaultCartridge.cartridge) -
+                                      this._hudState.RightAmmo;
+        this._hudState.RightTotalAmmo = this._hudState.RightAmmo + this._hudState.RightReserve;
     }
 
     private void OnReceiverDetachedRight(HandReciever handReciever)
     {
         this._logger.Debug("OnReceiverDetachedRight called");
 
-        HudState.RightGun = null;
-        HudState.RightDefaultCartridge = null;
-        HudState.RightAmmo = null;
-        HudState.RightReserve = null;
-        HudState.RightTotalAmmo = null;
+        this._hudState.RightGun = null;
+        this._hudState.RightDefaultCartridge = null;
+        this._hudState.RightAmmo = null;
+        this._hudState.RightReserve = null;
+        this._hudState.RightTotalAmmo = null;
     }
 }

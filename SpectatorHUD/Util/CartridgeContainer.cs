@@ -29,7 +29,7 @@ public class CartridgeContainer
 
     public CartridgeContainer(CartridgeData cartridgeData)
     {
-        this._ammoInventory = HudState.AmmoInventory;
+        this._ammoInventory = HudState.Instance.AmmoInventory;
         this.cartridge = cartridgeData;
         this.groupKey = this._ammoInventory.GetGroupByCartridge(cartridgeData);
 

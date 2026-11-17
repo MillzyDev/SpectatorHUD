@@ -25,6 +25,13 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(HealthSetterMachine.SET_HEALTH))]
 public static class HealthSetterMachine_SET_HEALTH
 {
+    private static readonly HudState HudState;
+
+    static HealthSetterMachine_SET_HEALTH()
+    {
+        HudState = HudState.Instance;
+    }
+    
     [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(HealthSetterMachine __instance)

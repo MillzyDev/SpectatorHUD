@@ -177,6 +177,6 @@ public class HudBootstrap : MonoBehaviour
             return;
         }
 
-        HudState.RigManager = this._rigManager;
+        HudState.Instance.RigManager = this._rigManager;
     }
 }

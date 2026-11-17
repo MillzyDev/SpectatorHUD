@@ -25,6 +25,13 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Player_Health._CoRegenHealth_d__78.MoveNext))]
 public static class PlayerHealth_CoRegenHealth
 {
+    private static readonly HudState HudState;
+
+    static PlayerHealth_CoRegenHealth()
+    {
+        HudState = HudState.Instance;
+    }
+    
     [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(Player_Health._CoRegenHealth_d__78 __instance)

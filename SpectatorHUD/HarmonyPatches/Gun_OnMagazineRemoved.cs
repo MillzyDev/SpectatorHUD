@@ -26,6 +26,13 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Gun.OnMagazineRemoved))]
 public static class Gun_OnMagazineRemoved
 {
+    private static readonly HudState HudState;
+
+    static Gun_OnMagazineRemoved()
+    {
+        HudState = HudState.Instance;
+    }
+    
     [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(Gun __instance)

@@ -31,6 +31,7 @@ namespace SpectatorHUD;
 public class HudController : MonoBehaviour
 {
     private readonly Logger _logger;
+    private readonly HudState _hudState;
     
     public TMP_Text leftHandReserveCounter;
     public TMP_Text leftHandAmmoCounter;
@@ -57,6 +58,7 @@ public class HudController : MonoBehaviour
     public HudController(IntPtr ptr) : base(ptr)
     {
         this._logger = LogService.Logger;
+        this._hudState = HudState.Instance;
     }
 
     private void Awake()
@@ -86,90 +88,90 @@ public class HudController : MonoBehaviour
 
     private void OnEnable()
     {
-        HudState.OnLeftGunChanged += this.OnLeftGunChanged;
-        HudState.OnRightGunChanged += this.OnRightGunChanged;
+        this._hudState.OnLeftGunChanged += this.OnLeftGunChanged;
+        this._hudState.OnRightGunChanged += this.OnRightGunChanged;
 
         if (this.leftHandAmmoCounter != null)
         {
-            HudState.OnLeftAmmoChanged += this.UpdateLeftAmmoCounter;
+            this._hudState.OnLeftAmmoChanged += this.UpdateLeftAmmoCounter;
         }
 
         if (this.rightHandAmmoCounter != null)
         {
-            HudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
+            this._hudState.OnRightAmmoChanged += this.UpdateRightAmmoCounter;
         }
 
         if (this.leftHandReserveCounter != null)
         {
-            HudState.OnLeftReserveChanged += this.UpdateLeftReserveCounter;
+            this._hudState.OnLeftReserveChanged += this.UpdateLeftReserveCounter;
         }
 
         if (this.rightHandReserveCounter != null)
         {
-            HudState.OnRightReserveChanged += this.UpdateRightReserveCounter;
+            this._hudState.OnRightReserveChanged += this.UpdateRightReserveCounter;
         }
 
         if (this.leftHandTotalAmmoCounter != null)
         {
-            HudState.OnLeftTotalAmmoChanged += this.UpdateLeftTotalAmmoCounter;
+            this._hudState.OnLeftTotalAmmoChanged += this.UpdateLeftTotalAmmoCounter;
         }
 
         if (this.rightHandTotalAmmoCounter != null)
         {
-            HudState.OnRightTotalAmmoChanged += this.UpdateRightTotalAmmoCounter;
+            this._hudState.OnRightTotalAmmoChanged += this.UpdateRightTotalAmmoCounter;
         }
 
         if (this.totalLightAmmoCounter != null)
         {
-            HudState.OnTotalLightAmmoChanged += this.UpdateTotalLightAmmoCounter;
+            this._hudState.OnTotalLightAmmoChanged += this.UpdateTotalLightAmmoCounter;
         }
 
         if (this.totalMediumAmmoCounter != null)
         {
-            HudState.OnTotalMediumAmmoChanged += this.UpdateTotalMediumAmmoCounter;
+            this._hudState.OnTotalMediumAmmoChanged += this.UpdateTotalMediumAmmoCounter;
         }
 
         if (this.totalHeavyAmmoCounter != null)
         {
-            HudState.OnTotalHeavyAmmoChanged += this.UpdateTotalHeavyAmmoCounter;
+            this._hudState.OnTotalHeavyAmmoChanged += this.UpdateTotalHeavyAmmoCounter;
         }
 
         if (this.healthCounter != null)
         {
-            HudState.OnHealthChanged += this.UpdateHealthCounter;
+            this._hudState.OnHealthChanged += this.UpdateHealthCounter;
         }
 
         if (this.percentageHealthCounter)
         {
-            HudState.OnHealthPercentageChanged += this.UpdateHealthPercentageCounter;
+            this._hudState.OnHealthPercentageChanged += this.UpdateHealthPercentageCounter;
         }
 
         if (this.maxHealthCounter)
         {
-            HudState.OnMaxHealthChanged += this.UpdateMaxHealthCounter;
+            this._hudState.OnMaxHealthChanged += this.UpdateMaxHealthCounter;
         }
 
-        HudState.ForceNotifierRepoll();
+        this._hudState.ForceNotifierRepoll();
     }
 
     private void OnDisable()
     {
-        HudState.OnLeftGunChanged -= this.OnLeftGunChanged;
-        HudState.OnRightGunChanged -= this.OnRightGunChanged;
+        this._hudState.OnLeftGunChanged -= this.OnLeftGunChanged;
+        this._hudState.OnRightGunChanged -= this.OnRightGunChanged;
 
         // Null checks not needed here; no errors if callbacks not present
-        HudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoCounter;
-        HudState.OnRightAmmoChanged -= this.UpdateRightAmmoCounter;
-        HudState.OnLeftReserveChanged -= this.UpdateLeftReserveCounter;
-        HudState.OnRightReserveChanged -= this.UpdateRightReserveCounter;
-        HudState.OnLeftTotalAmmoChanged -= this.UpdateLeftTotalAmmoCounter;
-        HudState.OnRightTotalAmmoChanged -= this.UpdateRightTotalAmmoCounter;
-        HudState.OnTotalLightAmmoChanged -= this.UpdateTotalLightAmmoCounter;
-        HudState.OnTotalMediumAmmoChanged -= this.UpdateTotalMediumAmmoCounter;
-        HudState.OnTotalHeavyAmmoChanged -= this.UpdateTotalHeavyAmmoCounter;
-        HudState.OnHealthChanged -= this.UpdateHealthCounter;
-        HudState.OnHealthPercentageChanged -= this.UpdateHealthPercentageCounter;
-        HudState.OnMaxHealthChanged -= this.UpdateMaxHealthCounter;
+        this._hudState.OnLeftAmmoChanged -= this.UpdateLeftAmmoCounter;
+        this._hudState.OnRightAmmoChanged -= this.UpdateRightAmmoCounter;
+        this._hudState.OnLeftReserveChanged -= this.UpdateLeftReserveCounter;
+        this._hudState.OnRightReserveChanged -= this.UpdateRightReserveCounter;
+        this._hudState.OnLeftTotalAmmoChanged -= this.UpdateLeftTotalAmmoCounter;
+        this._hudState.OnRightTotalAmmoChanged -= this.UpdateRightTotalAmmoCounter;
+        this._hudState.OnTotalLightAmmoChanged -= this.UpdateTotalLightAmmoCounter;
+        this._hudState.OnTotalMediumAmmoChanged -= this.UpdateTotalMediumAmmoCounter;
+        this._hudState.OnTotalHeavyAmmoChanged -= this.UpdateTotalHeavyAmmoCounter;
+        this._hudState.OnHealthChanged -= this.UpdateHealthCounter;
+        this._hudState.OnHealthPercentageChanged -= this.UpdateHealthPercentageCounter;
+        this._hudState.OnMaxHealthChanged -= this.UpdateMaxHealthCounter;
     }
 
     private void UpdateLeftAmmoCounter(int? ammo)

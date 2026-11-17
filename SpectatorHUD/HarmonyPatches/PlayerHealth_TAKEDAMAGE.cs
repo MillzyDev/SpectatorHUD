@@ -25,6 +25,13 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Player_Health.TAKEDAMAGE))]
 public static class PlayerHealth_TAKEDAMAGE
 {
+    private static readonly HudState HudState;
+
+    static PlayerHealth_TAKEDAMAGE()
+    {
+        HudState = HudState.Instance;
+    }
+    
     [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(Player_Health __instance)

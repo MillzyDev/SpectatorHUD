@@ -29,6 +29,13 @@ namespace SpectatorHUD.HarmonyPatches;
 [HarmonyPatch(nameof(Control_MonoMatNew.InsertMagazine))]
 public static class MonoMatNew_InsertMagazine
 {
+    private static readonly HudState HudState;
+
+    static MonoMatNew_InsertMagazine()
+    {
+        HudState = HudState.Instance;
+    }
+    
     [UsedImplicitly]
     [HarmonyPostfix]
     private static void Postfix(Magazine magazine)
