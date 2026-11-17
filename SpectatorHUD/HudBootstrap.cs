@@ -25,7 +25,7 @@ using Logger = SpectatorHUD.Logging.Logger;
 
 namespace SpectatorHUD;
 
-public class HudBootstrap : MonoBehaviour
+internal sealed class HudBootstrap : MonoBehaviour
 {
     private readonly Logger _logger;
     

@@ -23,7 +23,7 @@ namespace SpectatorHUD;
 
 public sealed class HudState
 {
-    private static readonly Lazy<HudState> LazyInitialiser = new();
+    private static readonly Lazy<HudState> LazyInitialiser = new(() => new HudState());
     public static HudState Instance => LazyInitialiser.Value;
     
     public CartridgeContainer? LeftDefaultCartridge { get; set; }

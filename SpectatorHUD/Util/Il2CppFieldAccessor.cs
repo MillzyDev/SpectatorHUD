@@ -24,7 +24,7 @@ using Il2CppInterop.Runtime.InteropTypes;
 
 namespace SpectatorHUD.Util;
 
-public class Il2CppFieldAccessor<T> where T : struct
+internal class Il2CppFieldAccessor<T> where T : struct
 {
     private readonly IntPtr _fieldInfo;
     private readonly uint _fieldOffset;

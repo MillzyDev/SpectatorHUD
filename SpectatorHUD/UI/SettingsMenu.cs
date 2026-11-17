@@ -30,7 +30,7 @@ using Logger = SpectatorHUD.Logging.Logger;
 
 namespace SpectatorHUD.UI;
 
-public static class SettingsMenu
+internal static class SettingsMenu
 {
     private static List<Page> hudSelection;
     private static Color MyColour => new(0.404f, 0.306f, 0.635f);

@@ -26,7 +26,7 @@ using Logger = SpectatorHUD.Logging.Logger;
 
 namespace SpectatorHUD;
 
-public class PlayerEvents : MonoBehaviour
+internal sealed class PlayerEvents : MonoBehaviour
 {
     private readonly Logger _logger;
     private readonly Il2CppSystem.Action<HandReciever>? _onReceiverAttachedLeft;

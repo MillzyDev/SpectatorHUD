@@ -22,7 +22,7 @@ using MelonLoader.Utils;
 
 namespace SpectatorHUD;
 
-public sealed class Config
+internal sealed class Config
 {
     private static readonly Lazy<Config> Lazy = new(() => new Config());
 

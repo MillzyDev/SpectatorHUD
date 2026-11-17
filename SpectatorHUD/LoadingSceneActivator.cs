@@ -21,7 +21,7 @@ using UnityEngine;
 
 namespace SpectatorHUD;
 
-public class LoadingSceneActivator(IntPtr ptr) : MonoBehaviour(ptr)
+internal sealed class LoadingSceneActivator(IntPtr ptr) : MonoBehaviour(ptr)
 {
     private void OnDestroy()
     {
