@@ -8,7 +8,7 @@
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 
-        <Version>1.1.0</Version>
+        <Version>2.0.0</Version>
         <Description>Create and load custom HUDs for the spectator camera.</Description>
     </PropertyGroup>
     
