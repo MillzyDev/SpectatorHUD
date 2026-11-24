@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using Il2CppInterop.Runtime.Attributes;
 using SpectatorHUD.Shading;
 using UnityEngine;
 
@@ -127,6 +128,7 @@ public class ShaderController(IntPtr ptr) : MonoBehaviour(ptr)
         this.SetShaderFloatsWithModifier(this.shaderMaxHealth, maxHealth ?? 0);
     }
 
+    [HideFromIl2Cpp]
     private void SetShaderInts(List<ShaderIntReference> properties, int value)
     {
         foreach (ShaderIntReference property in properties)
@@ -135,6 +137,7 @@ public class ShaderController(IntPtr ptr) : MonoBehaviour(ptr)
         }
     }
 
+    [HideFromIl2Cpp]
     private void SetShaderFloatsWithModifier(List<ShaderFloatReference> properties, float value)
     {
         foreach (ShaderFloatReference property in properties)
@@ -143,6 +146,7 @@ public class ShaderController(IntPtr ptr) : MonoBehaviour(ptr)
         }
     }
 
+    [HideFromIl2Cpp]
     private void ProcessShaderProperties(List<ShaderIntReference> properties)
     {
         for (var i = 0; i < properties.Count; i++)
@@ -153,6 +157,7 @@ public class ShaderController(IntPtr ptr) : MonoBehaviour(ptr)
         }
     }
 
+    [HideFromIl2Cpp]
     private void ProcessShaderProperties(List<ShaderFloatReference> properties)
     {
         for (var i = 0; i < properties.Count; i++)

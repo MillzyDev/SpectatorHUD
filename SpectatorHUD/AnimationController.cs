@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using Il2CppInterop.Runtime.Attributes;
 using Il2CppSLZ.Marrow;
 using SpectatorHUD.Animation;
 using UnityEngine;
@@ -262,6 +263,7 @@ public class AnimationController : MonoBehaviour
         this.SetAnimationBools(this.animationRightGunHeld, true);
     }
 
+    [HideFromIl2Cpp]
     private void FireAnimationTriggers(List<AnimationTriggerReference> triggers)
     {
         foreach (AnimationTriggerReference trigger in triggers)
@@ -271,6 +273,7 @@ public class AnimationController : MonoBehaviour
         }
     }
 
+    [HideFromIl2Cpp]
     private void SetAnimationBools(List<AnimationBoolReference> bools, bool value)
     {
         foreach (AnimationBoolReference @bool in bools)
@@ -279,6 +282,7 @@ public class AnimationController : MonoBehaviour
         }
     }
 
+    [HideFromIl2Cpp]
     private void SetAnimationFloats(List<AnimationFloatReference> floats, float value)
     {
         foreach (AnimationFloatReference @float in floats)
@@ -287,6 +291,7 @@ public class AnimationController : MonoBehaviour
         }
     }
 
+    [HideFromIl2Cpp]
     private void SetAnimationInts(List<AnimationIntReference> ints, int value)
     {
         foreach (AnimationIntReference @int in ints)
