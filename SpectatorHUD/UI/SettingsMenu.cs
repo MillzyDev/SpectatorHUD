@@ -52,7 +52,7 @@ internal static class SettingsMenu
         List<Tuple<IHudManifest, string?>> hudManifests = new();
 
         // Get metadata for the default hud.
-        IHudManifest? defaultHud = GetMetadataFromEmbeddedResource(HudBootstrap.DefaultHud);
+        IHudManifest? defaultHud = GetManifestFromEmbeddedResource(HudBootstrap.DefaultHud);
         if (defaultHud != null)
         {
             hudManifests.Add(new Tuple<IHudManifest, string?>(defaultHud, null));
@@ -62,14 +62,16 @@ internal static class SettingsMenu
         string path = Path.Join(MelonEnvironment.UserDataDirectory, "SpectatorHUD", "HUDs");
         string[] hudFiles = Directory.GetFiles(path, "*.hud", SearchOption.TopDirectoryOnly);
         IEnumerable<Tuple<IHudManifest, string?>> fileManifests = hudFiles
-            .Select(f => new Tuple<IHudManifest?, string?>(GetMetadataFromFile(f), f))
+            .Select(f => new Tuple<IHudManifest?, string?>(GetManifestFromFile(f), f))
             .Where(m => m.Item1 != null)!;
         hudManifests.AddRange(fileManifests);
+
+        var addonRegistry = AddonRegistry.Instance;
         
         foreach ((IHudManifest hud, string? hudPath) in hudManifests)
         {
             List<Addon> missingAddons = hud.GetRequiredAddons()
-                .Where(a => !AddonRegistry.Instance.HasAddonCompatibleWith(a.name, a.version))
+                .Where(a => !addonRegistry.HasAddonCompatibleWith(a.name, a.version))
                 .ToList();
             
             // Make selection text orange if any required addons are missing
@@ -103,7 +105,7 @@ internal static class SettingsMenu
         }
     }
 
-    private static IHudManifest? GetMetadataFromFile(string path)
+    private static IHudManifest? GetManifestFromFile(string path)
     {
         Logger logger = LogService.Logger;
         
@@ -114,12 +116,12 @@ internal static class SettingsMenu
             return null;
         }
 
-        IHudManifest? manifest = GetMetadataFromAssetBundle(assetBundle);
+        IHudManifest? manifest = GetManifestFromAssetBundle(assetBundle);
         assetBundle.Unload(false);
         return manifest;
     }
 
-    private static IHudManifest? GetMetadataFromEmbeddedResource(string resource)
+    private static IHudManifest? GetManifestFromEmbeddedResource(string resource)
     {
         Logger logger = LogService.Logger;
         
@@ -141,12 +143,12 @@ internal static class SettingsMenu
             return null;
         }
         
-        IHudManifest? hud = GetMetadataFromAssetBundle(assetBundle);
+        IHudManifest? hud = GetManifestFromAssetBundle(assetBundle);
         assetBundle.Unload(false);
         return hud;
     }
 
-    private static IHudManifest? GetMetadataFromAssetBundle(AssetBundle assetBundle)
+    private static IHudManifest? GetManifestFromAssetBundle(AssetBundle assetBundle)
     {
         Logger logger = LogService.Logger;
         
@@ -163,10 +165,10 @@ internal static class SettingsMenu
         {
             case 0:
             case 1:
-                hudInfo = GetMetadataV1FromAssetBundle(assetBundle);
+                hudInfo = GetManifestV1FromAssetBundle(assetBundle);
                 break;
             case 2:
-                hudInfo = GetMetadataV2FromAssetBundle(assetBundle);
+                hudInfo = GetManifestV2FromAssetBundle(assetBundle);
                 break;
             default:
                 logger.Error("Attempting to load a HUD of version {0} is unsupported.", versionAsset.version);
@@ -184,13 +186,13 @@ internal static class SettingsMenu
         return hudInfo;
     }
 
-    private static IHudManifest? GetMetadataV1FromAssetBundle(AssetBundle assetBundle)
+    private static IHudManifest? GetManifestV1FromAssetBundle(AssetBundle assetBundle)
     {
         var hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV1>();
         return hudInfo?.AsManifest();
     }
 
-    private static IHudManifest? GetMetadataV2FromAssetBundle(AssetBundle assetBundle)
+    private static IHudManifest? GetManifestV2FromAssetBundle(AssetBundle assetBundle)
     {
         var hudInfo = assetBundle.LoadAsset("Hud.asset").TryCast<HudV2>();
         return hudInfo?.AsManifest();
