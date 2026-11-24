@@ -23,7 +23,7 @@
         <ModUseMelonId>true</ModUseMelonId>
         
         <MelonGameName>BONELAB</MelonGameName>
-        <MelonGameDeveloper>StressLevelZero</MelonGameDeveloper>
+        <MelonGameDeveloper>Stress Level Zero</MelonGameDeveloper>
         <AndroidGamePackageName>com.StressLevelZero.BONELAB</AndroidGamePackageName>
     </PropertyGroup>
 
