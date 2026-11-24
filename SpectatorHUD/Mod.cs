@@ -23,6 +23,7 @@ using FieldInjector;
 using HarmonyLib;
 using MelonLoader;
 using MelonLoader.Utils;
+using SpectatorHUD.Addons;
 using SpectatorHUD.Animation;
 using SpectatorHUD.Expressions;
 using SpectatorHUD.HarmonyPatches;
@@ -67,10 +68,13 @@ public sealed class Mod : MelonMod
         this.InjectType<ShaderFloatReference>();
         this.InjectType<ShaderIntReference>();
         this.InjectType<ShaderController>();
+        // Addon
+        this.InjectType<Addon>();
         // Hud
         this.InjectType<DebugGUI>();
         this.InjectType<HudVersion>();
         this.InjectType<HudV1>();
+        this.InjectType<HudV2>();
         this.InjectType<LinearParameters>();
         this.InjectType<HudController>();
         this.InjectType<HudBootstrap>();
@@ -165,6 +169,6 @@ public sealed class Mod : MelonMod
         Logger logger = LogService.Logger;
         logger.Debug("Injecting type {0}", typeof(T).FullName ?? "");
         
-        SerialisationHandler.Inject<T>(logLevel);
+        SerialisationHandler.Inject<T>();
     }
 }
